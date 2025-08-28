@@ -7,8 +7,8 @@ import { defineConfig } from 'astro/config';
 // - outDir: use Astro default "dist" so the Actions workflow can upload ./dist
 // NOTE: If you change the repository name, update both `site` and `base`.
 export default defineConfig({
-  site: 'https://elwizard33.github.io/pretafitcr',
-  base: '/pretafitcr',
+  site: 'https://pretafitcr.com',
+  base: '/',
   output: 'static',
-  build: { format: 'directory', assets: 'astro' } // keep deterministic asset folder without leading underscore
+  build: { format: 'directory', assets: 'astro' }
 });

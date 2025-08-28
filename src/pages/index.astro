@@ -9,12 +9,23 @@ import Footer from '../components/Footer.astro';
   <section id="hero" class="hero" aria-labelledby="hero-title">
     <div class="container hero-inner">
       <div class="tag" style="margin-bottom:var(--space-3);">Jacó · Costa Rica</div>
-      <h1 id="hero-title" class="hero-title" data-animate>Preta Fit<br/><span class="accent-gradient-text">Fuerza · Técnica · Comunidad</span></h1>
-      <p class="hero-lead" data-animate>Programas de <strong>CrossFit</strong>, <strong>Brazilian Jiu-Jitsu</strong> y desarrollo integral. Construimos atletas resilientes y una cultura de progreso real.</p>
+      <h1 id="hero-title" class="hero-title" data-animate>
+        Preta Fit<br />
+        <span class="accent-gradient-text">Fuerza · Técnica · Comunidad</span>
+      </h1>
+      <p class="hero-lead" data-animate>
+        Box líder en Jacó con <strong>CrossFit</strong>, <strong>Brazilian Jiu-Jitsu</strong>, fuerza y coaching integral. Cultura de progreso real y eventos como <strong>WOD Warriors</strong> que conectan a la comunidad regional.
+      </p>
       <div class="hero-actions" data-animate>
-        <a href="#contacto" class="btn">Clase Intro</a>
-        <a href="#servicios" class="btn btn--outline">Ver Programas</a>
-        <a href="/pretafitcr/event" class="btn btn--outline">WOD Warriors</a>
+        <a href="#registro" class="btn">Clase Intro</a>
+        <a href="#servicios" class="btn btn--outline">Programas</a>
+        <a href="/event" class="btn btn--outline">WOD Warriors</a>
+      </div>
+      <div class="hero-stats" data-animate>
+        <div class="stat"><h3>3+</h3><span>Años</span></div>
+        <div class="stat"><h3>2</h3><span>Disciplinas</span></div>
+        <div class="stat"><h3>100+</h3><span>Miembros</span></div>
+        <div class="stat"><h3>1</h3><span>Comunidad</span></div>
       </div>
     </div>
   </section>
@@ -138,6 +149,64 @@ import Footer from '../components/Footer.astro';
       <div class="faq">
         <div class="faq-item" data-animate><div class="faq-q"><h3>¿Necesito experiencia previa?</h3><span>+</span></div><div class="faq-a"><p>No. Adaptamos movimientos y volumen.</p></div></div>
         <div class="faq-item" data-animate><div class="faq-q"><h3>¿Ofrecen prueba?</h3><span>+</span></div><div class="faq-a"><p>Clase intro evaluativa sin compromiso.</p></div></div>
+      </div>
+    </div>
+  </section>
+  <!-- SPONSORS (from event) -->
+  <section id="patrocinadores" aria-labelledby="sponsors-title">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <h2 id="sponsors-title">Patrocinadores & Aliados</h2>
+        <p>Marcas locales que respaldan eventos y crecimiento deportivo.</p>
+      </div>
+      <div class="sponsor-grid">
+        <div class="sponsor" data-animate><img src="/LogoHolaLola.jpeg" alt="Holaloha" /></div>
+        <div class="sponsor" data-animate><img src="/LogoPretaFit.jpeg" alt="Preta Fit" /></div>
+        <div class="sponsor" data-animate><img src="/LogoJacoLife.jpeg" alt="Jacó Life" /></div>
+        <div class="sponsor" data-animate><img src="/LogoFarmaciaPlayaHermosa.jpeg" alt="Farmacia Playa Hermosa" /></div>
+        <div class="sponsor" data-animate><img src="/LogoMarySol.jpeg" alt="Mar y Sol" /></div>
+      </div>
+    </div>
+  </section>
+  <!-- RULES PREVIEW (link to event) -->
+  <section id="reglas" aria-labelledby="rules-title">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <h2 id="rules-title">Estándares Competitivos</h2>
+        <p>Extracto visual de escalados y requerimientos. Ver detalles completos en página de evento.</p>
+      </div>
+      <div class="rules-grid">
+        <a class="rule-item" data-animate href="/event"><img src="/ReglasPrincipiante.jpeg" alt="Reglas Principiante" /><span>Principiante</span></a>
+        <a class="rule-item" data-animate href="/event"><img src="/ReglasIntermedio.jpeg" alt="Reglas Intermedio" /><span>Intermedio</span></a>
+        <a class="rule-item" data-animate href="/event"><img src="/ReglasAvanzado.jpeg" alt="Reglas Avanzado" /><span>Avanzado (Futuro)</span></a>
+      </div>
+    </div>
+  </section>
+  <!-- LEAD FORM -->
+  <section id="registro" aria-labelledby="registro-title">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <h2 id="registro-title">Clase Intro & Registro</h2>
+        <p>Déjanos tus datos y recibe seguimiento personalizado.</p>
+      </div>
+      <form id="lead-form" novalidate data-animate style="max-width:560px;margin:0 auto;display:grid;gap:var(--space-4);">
+        <label for="name">Nombre</label><input id="name" name="name" required />
+        <label for="email">Email</label><input id="email" name="email" type="email" required />
+        <label for="goal">Objetivo</label><textarea id="goal" name="goal" rows="4"></textarea>
+        <button class="btn" type="submit">Enviar</button>
+      </form>
+    </div>
+  </section>
+  <!-- FAQ (light) -->
+  <section id="faq" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <h2 id="faq-title">Preguntas Frecuentes</h2>
+        <p>Inicio rápido para nuevos miembros.</p>
+      </div>
+      <div class="faq">
+        <div class="faq-item" data-animate><div class="faq-q"><h3>¿Necesito experiencia?</h3><span>+</span></div><div class="faq-a"><p>No, adaptamos cargas y complejidad.</p></div></div>
+        <div class="faq-item" data-animate><div class="faq-q"><h3>¿Qué incluye la clase intro?</h3><span>+</span></div><div class="faq-a"><p>Evaluación básica de movimiento y explicación del método.</p></div></div>
       </div>
     </div>
   </section>
