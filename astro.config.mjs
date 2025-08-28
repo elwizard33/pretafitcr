@@ -1,10 +1,14 @@
 import { defineConfig } from 'astro/config';
 
-// Docs deployment strategy: build static site into /docs for GitHub Pages (main branch /docs folder)
+// GitHub Pages (project page) deployment via Actions workflow
+// - site: full canonical URL (owner/repo)
+// - base: repository name (sub-path served at https://<owner>.github.io/<repo>/)
+// - output: static (default for Astro when building static content)
+// - outDir: use Astro default "dist" so the Actions workflow can upload ./dist
+// NOTE: If you change the repository name, update both `site` and `base`.
 export default defineConfig({
-  site: 'https://jourlez.github.io/pretafitcr',
-  base: '/pretafitcr', // project page base path
+  site: 'https://elwizard33.github.io/pretafitcr',
+  base: '/pretafitcr',
   output: 'static',
-  outDir: './docs',
-  build: { format: 'directory', assets: 'astro' } // avoid leading underscore in assets folder
+  build: { format: 'directory', assets: 'astro' } // keep deterministic asset folder without leading underscore
 });
