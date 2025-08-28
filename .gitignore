@@ -1,0 +1,39 @@
+# Node.js
+node_modules/
+
+# Astro build output
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Environment files
+.env
+.env.*
+
+# Misc
+*.local
+
+# Optional: ignore lock files if you use only one package manager
+# package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore coverage reports
+coverage/
+
+# Ignore build artifacts
+build/
+
+# Ignore docs output if generated
+/docs/

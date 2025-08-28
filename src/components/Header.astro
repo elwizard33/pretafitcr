@@ -1,0 +1,31 @@
+---
+const links = [
+  { href: '/pretafitcr/#hero', label: 'Inicio' },
+  { href: '/pretafitcr/#servicios', label: 'Servicios' },
+  { href: '/pretafitcr/#coaches', label: 'Coaches' },
+  { href: '/pretafitcr/#comunidad', label: 'Comunidad' },
+  { href: '/pretafitcr/#evento', label: 'Evento' },
+  { href: '/pretafitcr/#contacto', label: 'Contacto' }
+];
+---
+<header id="site-header">
+  <div class="container nav">
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/jourlez/pretafitcr/main/LogoPretaFit.jpeg" alt="Logo Preta Fit" />
+      <span>Preta Fit</span>
+    </div>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <nav aria-label="Navegación principal">
+      <ul id="nav-list">
+        {links.map(l => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn--outline" href="/pretafitcr/event">WOD Warriors</a>
+      <a class="btn" href="#contacto">Únete</a>
+    </div>
+  </div>
+</header>
+<style>
+header{position:fixed;top:0;left:0;width:100%;z-index:999;backdrop-filter:blur(14px) saturate(150%);background:linear-gradient(90deg,rgba(15,17,22,0.88),rgba(15,17,22,0.55));border-bottom:1px solid rgba(255,255,255,0.06);transition:var(--transition-fast);}header.scrolled{background:rgba(15,17,22,0.95);box-shadow:0 2px 12px -2px rgba(0,0,0,0.55);} .nav{display:flex;align-items:center;justify-content:space-between;min-height:72px;gap:var(--space-5);} .logo{display:flex;align-items:center;gap:.7rem;font-weight:700;font-size:1rem;letter-spacing:1px;} .logo img{width:48px;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-sm);box-shadow:0 4px 16px -4px rgba(0,0,0,.6);} nav ul{list-style:none;margin:0;padding:0;display:flex;gap:var(--space-4);} nav a{font-size:var(--font-size-sm);padding:.6rem .9rem;border-radius:var(--radius-round);color:var(--color-text-soft);display:inline-flex;align-items:center;} nav a:hover{color:#fff;background:rgba(255,255,255,0.05);} .nav-cta{display:flex;align-items:center;gap:var(--space-3);} .nav-toggle{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer;}@media (max-width:1024px){nav ul{position:fixed;inset:72px 0 auto 0;flex-direction:column;background:linear-gradient(180deg,#121417,#0c0d10);padding:var(--space-6) var(--space-5) var(--space-8);gap:var(--space-3);transform:translateY(-120%);transition:var(--transition-slow);max-height:calc(100vh - 72px);overflow-y:auto;} nav ul.open{transform:translateY(0);} .nav-toggle{display:block;} .nav-cta{display:none;}}
+</style>
