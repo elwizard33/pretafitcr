@@ -63,17 +63,17 @@ import Footer from '../components/Footer.astro';
       <div class="small" style="margin-bottom:10px">Boxes que aportan atletas y energía al evento.</div>
       <div class="boxes-grid" style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
         <a class="card" style="padding:14px;display:grid;gap:6px;text-decoration:none" href="https://www.instagram.com/box_parrita/" target="_blank" rel="noopener">
-          <div style="font-weight:800">Box Parrita</div>
+          <div style="font-weight:800" class="ig">Box Parrita <span class="social-inline"><svg class="icon-ig" viewBox="0 0 24 24"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm11 1a1 1 0 100 2 1 1 0 000-2zM12 7a5 5 0 100 10 5 5 0 000-10z"/></svg></span></div>
           <div class="small">Atletas principiantes & intermedios</div>
           <div class="small" style="color:#ff6a2a">@box_parrita</div>
         </a>
         <a class="card" style="padding:14px;display:grid;gap:6px;text-decoration:none" href="https://www.instagram.com/dukurfit/" target="_blank" rel="noopener">
-          <div style="font-weight:800">DukurFit</div>
+          <div style="font-weight:800" class="ig">DukurFit <span class="social-inline"><svg class="icon-ig" viewBox="0 0 24 24"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm11 1a1 1 0 100 2 1 1 0 000-2zM12 7a5 5 0 100 10 5 5 0 000-10z"/></svg></span></div>
           <div class="small">Fuerza & acondicionamiento</div>
           <div class="small" style="color:#ff6a2a">@dukurfit</div>
         </a>
         <a class="card" style="padding:14px;display:grid;gap:6px;text-decoration:none" href="https://www.instagram.com/pretafitjaco/" target="_blank" rel="noopener">
-          <div style="font-weight:800">Preta Fit Jacó</div>
+          <div style="font-weight:800" class="ig">Preta Fit Jacó <span class="social-inline"><svg class="icon-ig" viewBox="0 0 24 24"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm11 1a1 1 0 100 2 1 1 0 000-2zM12 7a5 5 0 100 10 5 5 0 000-10z"/></svg></span></div>
           <div class="small">Host del evento</div>
           <div class="small" style="color:#ff6a2a">@pretafitjaco</div>
         </a>
@@ -140,42 +140,49 @@ import Footer from '../components/Footer.astro';
   <section id="competidores" class="section">
     <div class="container">
       <div class="overline">Competidores</div>
-      <h2 class="h2">Atletas Registrados</h2>
-      <div class="small" style="margin-bottom:10px">Atletas representando a Preta Fit, Box Parrita, DukurFit y otros independientes.</div>
-      <div style="display:grid;gap:12px">
-        <div class="card" style="padding:14px">
-          <h3 style="margin:0 0 6px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#ff6a2a">Principiante Femenino</h3>
-          <ul style="margin:0;padding-left:18px;font-size:12px;columns:2 160px;line-height:1.4">
-            <li>Shirley (Parrita)</li>
-            <li>Stella (Preta Fit)</li>
-            <li>Mariana (Preta Fit)</li>
+      <h2 class="h2" style="font-size:30px">Atletas Registrados</h2>
+      <div class="small" style="margin-bottom:16px;font-size:14px">Atletas representando a Preta Fit, Box Parrita, DukurFit y otros independientes.</div>
+      <div class="cards-nav" role="tablist" aria-label="Filtrar categorías de competidores">
+        <button class="active" data-comp="all" role="tab">Todos</button>
+        <button data-comp="pf" role="tab">Principiante F</button>
+        <button data-comp="pm" role="tab">Principiante M</button>
+        <button data-comp="if" role="tab">Intermedio F</button>
+        <button data-comp="im" role="tab">Intermedio M</button>
+      </div>
+      <div id="competitorCards" style="display:grid;gap:14px">
+        <div class="card comp-card" data-group="pf" style="padding:18px">
+          <h3 style="margin:0 0 10px;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#ff6a2a">Principiante Femenino</h3>
+          <ul style="margin:0;padding-left:20px;font-size:13px;columns:2 180px;line-height:1.5">
+            <li><strong>Shirley</strong> <span class="small">(Parrita)</span></li>
+            <li><strong>Stella</strong> <span class="small">(Preta Fit)</span></li>
+            <li><strong>Mariana</strong> <span class="small">(Preta Fit)</span></li>
           </ul>
         </div>
-        <div class="card" style="padding:14px">
-          <h3 style="margin:0 0 6px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#ff6a2a">Principiante Masculino</h3>
-          <ul style="margin:0;padding-left:18px;font-size:12px;columns:2 160px;line-height:1.4">
-            <li>Jostin (Parrita)</li>
-            <li>Gabriel (Preta Fit)</li>
-            <li>Will (Preta Fit)</li>
+        <div class="card comp-card" data-group="pm" style="padding:18px">
+          <h3 style="margin:0 0 10px;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#ff6a2a">Principiante Masculino</h3>
+          <ul style="margin:0;padding-left:20px;font-size:13px;columns:2 180px;line-height:1.5">
+            <li><strong>Jostin</strong> <span class="small">(Parrita)</span></li>
+            <li><strong>Gabriel</strong> <span class="small">(Preta Fit)</span></li>
+            <li><strong>Will</strong> <span class="small">(Preta Fit)</span></li>
           </ul>
         </div>
-        <div class="card" style="padding:14px">
-          <h3 style="margin:0 0 6px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#ff6a2a">Intermedio Femenino</h3>
-          <ul style="margin:0;padding-left:18px;font-size:12px;columns:2 160px;line-height:1.4">
-            <li>Sol</li>
-            <li>Sharet</li>
-            <li>Serena</li>
-            <li>Amanda (Preta Fit)</li>
-            <li>Alison (Box Parrita)</li>
-            <li>Mariam (Independiente)</li>
-            <li>Fabiola (DukurFit)</li>
+        <div class="card comp-card" data-group="if" style="padding:18px">
+          <h3 style="margin:0 0 10px;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#ff6a2a">Intermedio Femenino</h3>
+          <ul style="margin:0;padding-left:20px;font-size:13px;columns:2 180px;line-height:1.5">
+            <li><strong>Sol</strong></li>
+            <li><strong>Sharet</strong></li>
+            <li><strong>Serena</strong></li>
+            <li><strong>Amanda</strong> <span class="small">(Preta Fit)</span></li>
+            <li><strong>Alison</strong> <span class="small">(Box Parrita)</span></li>
+            <li><strong>Mariam</strong> <span class="small">(Independiente)</span></li>
+            <li><strong>Fabiola</strong> <span class="small">(DukurFit)</span></li>
           </ul>
         </div>
-        <div class="card" style="padding:14px">
-          <h3 style="margin:0 0 6px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#ff6a2a">Intermedio Masculino</h3>
-          <ul style="margin:0;padding-left:18px;font-size:12px;columns:2 160px;line-height:1.4">
-            <li>Josue (Preta Fit)</li>
-            <li>Anderson (Box Parrita)</li>
+        <div class="card comp-card" data-group="im" style="padding:18px">
+          <h3 style="margin:0 0 10px;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#ff6a2a">Intermedio Masculino</h3>
+          <ul style="margin:0;padding-left:20px;font-size:13px;columns:2 180px;line-height:1.5">
+            <li><strong>Josue</strong> <span class="small">(Preta Fit)</span></li>
+            <li><strong>Anderson</strong> <span class="small">(Box Parrita)</span></li>
           </ul>
         </div>
       </div>
@@ -468,7 +475,23 @@ amenBtns.forEach(b=>b.addEventListener('click',()=>{
   const key=b.dataset.amen; amenImgs.forEach(i=> i.classList.toggle('active', i.dataset.img===key));
 }));
 
-/* competitors rotation removed (static full lists provided) */
+/* competitors filter */
+const compNav=[...document.querySelectorAll('#competidores .cards-nav button')];
+const compCards=[...document.querySelectorAll('#competitorCards .comp-card')];
+compNav.forEach(btn=>btn.addEventListener('click',()=>{
+  compNav.forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const key=btn.dataset.comp;
+  compCards.forEach(c=>{
+    if(key==='all' || c.dataset.group===key){
+      c.style.display='block';
+      c.classList.add('highlight-pulse');
+      setTimeout(()=>c.classList.remove('highlight-pulse'),800);
+    } else {
+      c.style.display='none';
+    }
+  });
+});
 
 /* gallery & rules lightbox */
 const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
