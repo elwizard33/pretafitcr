@@ -10,11 +10,11 @@ import Footer from '../components/Footer.astro';
   <section class="hero">
     <div class="container hero-card">
       <div class="hero-media card">
-        <img alt="WOD Warriors Event" src="/images/logo-wodwarriors.jpeg">
+        <img alt="Logo WOD Warriors" src="/images/logo-wodwarriors.jpeg">
         <div class="hero-overlay">
           <div class="hero-bubble">
             <div class="h1">WOD WARRIORS<br>COMPETENCIA & COMUNIDAD</div>
-            <div class="subtle">Vive la intensidad de WOD Warriors, una competencia enfocada en atletas principiantes e intermedios, con exhibición exclusiva de Brazilian Jiu-Jitsu.</div>
+            <div class="subtle">Competencia de CrossFit (principiante & intermedio) con exhibición de BJJ por <b>Vanessa Vargas</b> (2ª cinta negra del país), música en vivo, food trucks y patrocinadores locales.</div>
             <div class="hero-actions">
               <a class="btn" href="#registro">Registrar Equipo</a>
               <a class="btn secondary" href="#registro">Soy Espectador</a>
@@ -51,6 +51,32 @@ import Footer from '../components/Footer.astro';
         <div class="box">Costa Rica</div>
         <div class="box">Preta Fit</div>
         <div class="box">Gratis</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOXES PARTICIPANTES ================= -->
+  <section id="boxes" class="section">
+    <div class="container">
+      <div class="overline">Boxes Participantes</div>
+      <h2 class="h2">Aliados y Comunidad</h2>
+      <div class="small" style="margin-bottom:10px">Boxes que aportan atletas y energía al evento.</div>
+      <div class="boxes-grid" style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+        <a class="card" style="padding:14px;display:grid;gap:6px;text-decoration:none" href="https://www.instagram.com/box_parrita/" target="_blank" rel="noopener">
+          <div style="font-weight:800">Box Parrita</div>
+          <div class="small">Atletas principiantes & intermedios</div>
+          <div class="small" style="color:#ff6a2a">@box_parrita</div>
+        </a>
+        <a class="card" style="padding:14px;display:grid;gap:6px;text-decoration:none" href="https://www.instagram.com/dukurfit/" target="_blank" rel="noopener">
+          <div style="font-weight:800">DukurFit</div>
+          <div class="small">Fuerza & acondicionamiento</div>
+          <div class="small" style="color:#ff6a2a">@dukurfit</div>
+        </a>
+        <a class="card" style="padding:14px;display:grid;gap:6px;text-decoration:none" href="https://www.instagram.com/pretafitjaco/" target="_blank" rel="noopener">
+          <div style="font-weight:800">Preta Fit Jacó</div>
+          <div class="small">Host del evento</div>
+          <div class="small" style="color:#ff6a2a">@pretafitjaco</div>
+        </a>
       </div>
     </div>
   </section>
@@ -248,24 +274,24 @@ import Footer from '../components/Footer.astro';
 
       <div class="team">
         <div class="card member">
-          <div class="thumb"><img src="/images/logo-holalola.jpeg" alt="Holaloha"></div>
-          <div class="info"><b>Holaloha</b><div class="small">Patrocinador Oficial</div></div>
+          <div class="thumb"><img src="/images/logo-holalola.jpeg" alt="Holaloha comida saludable"></div>
+          <div class="info"><b>Holaloha</b><div class="small">Comida saludable</div></div>
         </div>
         <div class="card member">
-          <div class="thumb"><img src="/images/logo-pretafit.jpeg" alt="Preta Fit"></div>
-          <div class="info"><b>Preta Fit</b><div class="small">Host</div></div>
+          <div class="thumb"><img src="/images/logo-pretafit.jpeg" alt="Preta Fit snacks"></div>
+          <div class="info"><b>Preta Fit</b><div class="small">Snacks • Host</div></div>
         </div>
         <div class="card member">
-          <div class="thumb"><img src="/images/logo-jacolife.jpeg" alt="Jacó Life"></div>
-          <div class="info"><b>Jacó Life</b><div class="small">Apoyo Local</div></div>
+          <div class="thumb"><img src="/images/logo-jacolife.jpeg" alt="Jacó Life suplementos"></div>
+          <div class="info"><b>Jacó Life</b><div class="small">Suplementos</div></div>
         </div>
         <div class="card member">
-          <div class="thumb"><img src="/images/logo-farmacia-playa-hermosa.jpeg" alt="Farmacia Playa Hermosa"></div>
-          <div class="info"><b>Farmacia PH</b><div class="small">Salud & Bienestar</div></div>
+          <div class="thumb"><img src="/images/logo-farmacia-playa-hermosa.jpeg" alt="Farmacia Playa Hermosa salud"></div>
+          <div class="info"><b>Farmacia PH</b><div class="small">Salud</div></div>
         </div>
         <div class="card member">
-          <div class="thumb"><img src="/images/logo-marysol.jpeg" alt="Mar y Sol"></div>
-          <div class="info"><b>Mar y Sol</b><div class="small">Hospitalidad</div></div>
+          <div class="thumb"><img src="/images/logo-marysol.jpeg" alt="Mar y Sol mantequillas"></div>
+          <div class="info"><b>Mar y Sol</b><div class="small">Mantequillas</div></div>
         </div>
       </div>
     </div>
@@ -278,12 +304,12 @@ import Footer from '../components/Footer.astro';
       <h2 class="h2">Guía Visual por Categoría</h2>
       <div class="small" style="margin-bottom:8px">Consulta requerimientos, escalados, estándares de movimiento y penalizaciones.</div>
       <div class="rules-grid">
-        <figure class="rule-item" data-full="/ReglasPrincipiante.jpeg">
-          <img src="/ReglasPrincipiante.jpeg" alt="Reglas Principiante" />
+        <figure class="rule-item" data-full="/images/reglas-principiante.jpeg">
+          <img src="/images/reglas-principiante.jpeg" alt="Reglas Principiante" />
           <figcaption class="small" style="text-align:center;margin-top:4px">Principiante</figcaption>
         </figure>
-        <figure class="rule-item" data-full="/ReglasIntermedio.jpeg">
-          <img src="/ReglasIntermedio.jpeg" alt="Reglas Intermedio" />
+        <figure class="rule-item" data-full="/images/reglas-intermedio.jpeg">
+          <img src="/images/reglas-intermedio.jpeg" alt="Reglas Intermedio" />
           <figcaption class="small" style="text-align:center;margin-top:4px">Intermedio</figcaption>
         </figure>
       </div>
