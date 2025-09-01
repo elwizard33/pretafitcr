@@ -478,20 +478,20 @@ amenBtns.forEach(b=>b.addEventListener('click',()=>{
 /* competitors filter */
 const compNav=[...document.querySelectorAll('#competidores .cards-nav button')];
 const compCards=[...document.querySelectorAll('#competitorCards .comp-card')];
-compNav.forEach(btn=>btn.addEventListener('click',()=>{
-  compNav.forEach(b=>b.classList.remove('active'));
+compNav.forEach(btn => btn.addEventListener('click', () => {
+  compNav.forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const key=btn.dataset.comp;
-  compCards.forEach(c=>{
-    if(key==='all' || c.dataset.group===key){
-      c.style.display='block';
+  const key = btn.dataset.comp;
+  compCards.forEach(c => {
+    if (key === 'all' || c.dataset.group === key) {
+      c.style.display = 'block';
       c.classList.add('highlight-pulse');
-      setTimeout(()=>c.classList.remove('highlight-pulse'),800);
+      setTimeout(() => c.classList.remove('highlight-pulse'), 800);
     } else {
-      c.style.display='none';
+      c.style.display = 'none';
     }
   });
-});
+}));
 
 /* gallery & rules lightbox */
 const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
