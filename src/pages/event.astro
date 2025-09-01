@@ -5,61 +5,102 @@ import Footer from '../components/Footer.astro';
 ---
 <BaseLayout title="WOD Warriors | Evento" description="WOD Warriors: Competencia de CrossFit (Principiante & Intermedio), exhibición BJJ, música y sponsors en Jacó.">
   <Fragment slot="header"><Header /></Fragment>
-  <!-- HERO -->
-  <section id="hero" class="hero" aria-labelledby="hero-title">
-    <div class="container hero-inner">
-  <div class="tag hero-eyebrow" style="margin-bottom:var(--space-3);">5 Sept 2025 · Jacó Costa Rica · 7:00 PM</div>
-  <h1 id="hero-title" class="hero-title" data-animate>WOD <span class="accent-gradient-text">Warriors</span><br/>Competencia & Comunidad</h1>
-  <p class="hero-lead" data-animate>Vive la intensidad de <strong>WOD Warriors</strong>, una competencia enfocada en atletas <em>principiantes</em> e <em>intermedios</em>, con exhibición exclusiva de Brazilian Jiu-Jitsu por la campeona internacional <strong>Vanessa Vargas</strong>. Música en vivo, food trucks y patrocinadores locales potenciando la experiencia. Un evento para retarte, conectar y evolucionar.</p>
-      <div class="hero-actions" data-animate>
-        <a href="#registro" class="btn">Registrar Equipo</a>
-        <a href="#registro" class="btn btn--outline">Soy Espectador</a>
-        <a href="#patrocinadores" class="btn btn--outline">Patrocinar</a>
+  
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="container hero-card">
+      <div class="hero-media card">
+        <img alt="WOD Warriors Event" src="/images/logo-wodwarriors.jpeg">
+        <div class="hero-overlay">
+          <div class="hero-bubble">
+            <div class="h1">WOD WARRIORS<br>COMPETENCIA & COMUNIDAD</div>
+            <div class="subtle">Vive la intensidad de WOD Warriors, una competencia enfocada en atletas principiantes e intermedios, con exhibición exclusiva de Brazilian Jiu-Jitsu.</div>
+            <div class="hero-actions">
+              <a class="btn" href="#registro">Registrar Equipo</a>
+              <a class="btn secondary" href="#registro">Soy Espectador</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="hero-stats" data-animate>
-        <div class="stat"><h3>2</h3><span>Categorías</span></div>
-        <div class="stat"><h3>10+</h3><span>Atletas</span></div>
-        <div class="stat"><h3>BJJ</h3><span>Exhibición</span></div>
-        <div class="stat"><h3>5+</h3><span>Patrocinadores</span></div>
+
+      <!-- mini features -->
+      <div class="feature-row">
+        <div class="feature">
+          <div class="badge-ico"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ff6a2a" d="M12 2 2 7l10 5 10-5-10-5Z"/></svg></div>
+          <div><b>2 Categorías</b></div>
+        </div>
+        <div class="feature">
+          <div class="badge-ico"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ff6a2a" d="M7 6h2v12H7V6zm4 3h2v9h-2V9zm4-5h2v14h-2V4z"/></svg></div>
+          <div><b>10+ Atletas</b></div>
+        </div>
+        <div class="feature">
+          <div class="badge-ico"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ff6a2a" d="M12 17.3 5.8 20.6 7 13.8 2 8.8 8.9 8l3.1-6.3L15.1 8 22 8.8l-5 5 1.2 6.8z"/></svg></div>
+          <div><b>Exhibición BJJ</b></div>
+        </div>
+        <div class="feature">
+          <div class="badge-ico"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ff6a2a" d="M12 3a6 6 0 0 0-6 6c0 6 6 12 6 12s6-6 6-12a6 6 0 0 0-6-6z"/></svg></div>
+          <div><b>5 Sept 2025</b></div>
+        </div>
+      </div>
+
+      <!-- event info -->
+      <div class="logo-strip">
+        <div class="box">5 Sept 2025</div>
+        <div class="box">7:00 PM</div>
+        <div class="box">Jacó</div>
+        <div class="box">Costa Rica</div>
+        <div class="box">Preta Fit</div>
+        <div class="box">Gratis</div>
       </div>
     </div>
   </section>
-  <!-- ABOUT PRETA FIT -->
-  <section id="about" class="section" aria-labelledby="about-title">
+
+  <!-- ================= ABOUT PRETA FIT (detailed cards to match static HTML content) ================= -->
+  <section id="about" class="section">
     <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="about-title">Sobre <span class="accent-gradient-text">Preta Fit Jacó</span></h2>
-  <p>Box líder en Jacó con trayectoria en CrossFit y Brazilian Jiu-Jitsu. 3 años construyendo una comunidad enfocada en bienestar integral, rendimiento y disciplina técnica.</p>
-      </div>
-      <div class="grid about-grid">
-        <article class="about-card" data-animate><h3>Misión</h3><p>Crear una comunidad de atletas que desarrollen fuerza física y mental. Entrenamiento funcional, enfoque técnico y cultura de apoyo mutuo.</p></article>
-        <article class="about-card" data-animate><h3>Vanessa Vargas</h3><p>Cinta negra, campeona internacional de BJJ, coach certificada CF-L2. 5 años como entrenadora transformando atletas con enfoque integral y precisión técnica.</p></article>
-        <article class="about-card" data-animate><h3>Comunidad</h3><p>Atletas de diferentes niveles creciendo juntos. Eventos, colaboraciones con boxes amigos y actividades para inspirar consistencia.</p></article>
-        <article class="about-card" data-animate><h3>Metodología</h3><p>Entrenamiento progresivo, fundamentos sólidos, movilidad, fuerza, acondicionamiento y mentalidad estratégica para competir y vivir mejor.</p></article>
+      <div class="overline">Sobre Preta Fit</div>
+      <h2 class="h2">Construyendo Fuerza, Técnica & Comunidad</h2>
+      <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:12px">
+        <article class="card" style="padding:14px">
+          <h3 style="margin:0 0 6px;font-size:18px">Misión</h3>
+          <p class="small" style="margin:0">Crear una comunidad de atletas que desarrollen fuerza física y mental. Entrenamiento funcional, enfoque técnico y cultura de apoyo mutuo.</p>
+        </article>
+        <article class="card" style="padding:14px">
+          <h3 style="margin:0 0 6px;font-size:18px">Vanessa Vargas</h3>
+          <p class="small" style="margin:0">Cinta negra, campeona internacional de BJJ, coach certificada CF-L2. 5 años como entrenadora transformando atletas con enfoque integral y precisión técnica.</p>
+        </article>
+        <article class="card" style="padding:14px">
+          <h3 style="margin:0 0 6px;font-size:18px">Comunidad</h3>
+          <p class="small" style="margin:0">Atletas de diferentes niveles creciendo juntos. Eventos, colaboraciones con boxes amigos y actividades para inspirar consistencia.</p>
+        </article>
+        <article class="card" style="padding:14px">
+          <h3 style="margin:0 0 6px;font-size:18px">Metodología</h3>
+          <p class="small" style="margin:0">Entrenamiento progresivo, fundamentos sólidos, movilidad, fuerza, acondicionamiento y mentalidad estratégica para competir y vivir mejor.</p>
+        </article>
       </div>
     </div>
   </section>
-  <!-- CATEGORIES -->
-  <section id="categories" class="section" aria-labelledby="cat-title">
+
+  <!-- ================= CATEGORIES (add descriptive copy & bullet lists) ================= -->
+  <section id="categories" class="section">
     <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="cat-title">Categorías de Competencia</h2>
-  <p>Dos niveles diseñados para desafiar tu estado actual y permitir un crecimiento seguro y exigente.</p>
-      </div>
-      <div class="category-cards grid">
-        <article class="category" data-animate>
-          <h3>Principiante</h3>
-          <p>Enfocado en atletas con fundamentos en desarrollo. Movimientos básicos, cargas moderadas, énfasis en técnica.</p>
-          <ul>
+      <div class="overline">Competencia</div>
+      <h2 class="h2">Categorías de Competencia</h2>
+      <div class="small" style="margin-bottom:10px">Dos niveles diseñados para desafiar tu estado actual y permitir un crecimiento seguro y exigente.</div>
+      <div style="display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+        <article class="card" style="padding:14px">
+          <h3 style="margin:0 0 6px;font-size:18px">Principiante</h3>
+          <p class="small" style="margin:0 0 6px">Enfocado en atletas con fundamentos en desarrollo. Movimientos básicos, cargas moderadas, énfasis en técnica.</p>
+          <ul style="margin:0;padding-left:18px;font-size:12px;color:#6b7280;line-height:1.4">
             <li>Movimientos funcionales escalados</li>
             <li>Enfoque en seguridad</li>
             <li>Ideal primeros eventos</li>
           </ul>
         </article>
-        <article class="category" data-animate>
-          <h3>Intermedio</h3>
-          <p>Atletas con consistencia técnica. Volumen y combinaciones más complejas para un reto competitivo real.</p>
-          <ul>
+        <article class="card" style="padding:14px">
+          <h3 style="margin:0 0 6px;font-size:18px">Intermedio</h3>
+          <p class="small" style="margin:0 0 6px">Atletas con consistencia técnica. Volumen y combinaciones más complejas para un reto competitivo real.</p>
+          <ul style="margin:0;padding-left:18px;font-size:12px;color:#6b7280;line-height:1.4">
             <li>Mayor densidad de repeticiones</li>
             <li>Algunas habilidades gimnásticas</li>
             <li>Manejo eficiente de cargas</li>
@@ -68,204 +109,363 @@ import Footer from '../components/Footer.astro';
       </div>
     </div>
   </section>
-  <!-- COMPETIDORS -->
-  <section id="competidores" class="section" aria-labelledby="comp-title">
+
+  <!-- ================= COMPETITORS (add full static lists) ================= -->
+  <section id="competidores" class="section">
     <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="comp-title">Competidores Registrados</h2>
-  <p>Atletas representando a Preta Fit, Box Parrita, DukurFit y otros independientes.</p>
-      </div>
-      <div class="competitors-wrapper">
-        <div class="competitor-group" data-animate><h3>Principiante Femenino</h3><ul>
-          <li>Shirley (<a href="https://www.instagram.com/box_parrita/" target="_blank" rel="noopener">Box Parrita</a>)</li>
-          <li>Stella (<a href="https://www.instagram.com/pretafitjaco/" target="_blank" rel="noopener">Preta Fit</a>)</li>
-          <li>Mariana (<a href="https://www.instagram.com/pretafitjaco/" target="_blank" rel="noopener">Preta Fit</a>)</li>
-        </ul></div>
-        <div class="competitor-group" data-animate><h3>Principiante Masculino</h3><ul>
-          <li>Jostin (<a href="https://www.instagram.com/box_parrita/" target="_blank" rel="noopener">Box Parrita</a>)</li>
-          <li>Gabriel (<a href="https://www.instagram.com/pretafitjaco/" target="_blank" rel="noopener">Preta Fit</a>)</li>
-          <li>Will (<a href="https://www.instagram.com/pretafitjaco/" target="_blank" rel="noopener">Preta Fit</a>)</li>
-        </ul></div>
-        <div class="competitor-group" data-animate><h3>Intermedio Femenino</h3><ul>
-          <li>Sol</li>
-          <li>Sharet</li>
-          <li>Serena</li>
-          <li>Amanda (<a href="https://www.instagram.com/pretafitjaco/" target="_blank" rel="noopener">Preta Fit</a>)</li>
-          <li>Alison (<a href="https://www.instagram.com/box_parrita/" target="_blank" rel="noopener">Box Parrita</a>)</li>
-          <li>Mariam (Independiente)</li>
-          <li>Fabiola (<a href="https://www.instagram.com/dukurfit/" target="_blank" rel="noopener">DukurFit</a>)</li>
-        </ul></div>
-        <div class="competitor-group" data-animate><h3>Intermedio Masculino</h3><ul>
-          <li>Josue (<a href="https://www.instagram.com/pretafitjaco/" target="_blank" rel="noopener">Preta Fit</a>)</li>
-          <li>Anderson (<a href="https://www.instagram.com/box_parrita/" target="_blank" rel="noopener">Box Parrita</a>)</li>
-        </ul></div>
-      </div>
-      <div class="competitor-links" data-animate aria-label="Boxes participantes">
-        <a href="https://www.instagram.com/pretafitjaco/" target="_blank" rel="noopener">Preta Fit</a>
-        <a href="https://www.instagram.com/box_parrita/" target="_blank" rel="noopener">Box Parrita</a>
-        <a href="https://www.instagram.com/dukurfit/" target="_blank" rel="noopener">DukurFit</a>
-      </div>
-    </div>
-  </section>
-  <!-- EXHIBICIÓN BJJ -->
-  <section id="exhibicion" class="section" aria-labelledby="ex-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="ex-title">Exhibición de Brazilian Jiu-Jitsu</h2>
-  <p>Presentación técnica y fluida por la cinta negra y campeona internacional <strong>Vanessa Vargas</strong>. Inspira, educa y conecta con las raíces del combate estratégico.</p>
-      </div>
-      <div class="exhibition">
-        <figure class="portrait-card pulse" data-animate style="max-width:300px;">
-          <img src="/images/vanessa-vargas.jpeg" alt="Exhibición BJJ Vanessa Vargas" loading="lazy" />
-          <figcaption class="portrait-info"><h3>Vanessa Vargas</h3><p>Cinta Negra · Coach CF-L2 · Campeona Internacional</p></figcaption>
-        </figure>
-        <div data-animate>
-          <h3>¿Qué esperar?</h3>
-          <p>Una demostración centrada en control, fluidez y transiciones. El objetivo: mostrar cómo la estrategia y la técnica pueden superar fuerza bruta, inspirando a atletas a explorar el Jiu-Jitsu como complemento.</p>
-          <ul style="margin:0; padding-left:1.2rem; font-size:var(--font-size-sm); color:var(--color-text-soft); line-height:1.5;">
-            <li>Movilidad aplicada</li>
-            <li>Timing y presión</li>
-            <li>Principios de defensa y control</li>
-            <li>Filosofía de longevidad atlética</li>
+      <div class="overline">Competidores</div>
+      <h2 class="h2">Atletas Registrados</h2>
+      <div class="small" style="margin-bottom:10px">Atletas representando a Preta Fit, Box Parrita, DukurFit y otros independientes.</div>
+      <div style="display:grid;gap:12px">
+        <div class="card" style="padding:14px">
+          <h3 style="margin:0 0 6px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#ff6a2a">Principiante Femenino</h3>
+          <ul style="margin:0;padding-left:18px;font-size:12px;columns:2 160px;line-height:1.4">
+            <li>Shirley (Parrita)</li>
+            <li>Stella (Preta Fit)</li>
+            <li>Mariana (Preta Fit)</li>
+          </ul>
+        </div>
+        <div class="card" style="padding:14px">
+          <h3 style="margin:0 0 6px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#ff6a2a">Principiante Masculino</h3>
+          <ul style="margin:0;padding-left:18px;font-size:12px;columns:2 160px;line-height:1.4">
+            <li>Jostin (Parrita)</li>
+            <li>Gabriel (Preta Fit)</li>
+            <li>Will (Preta Fit)</li>
+          </ul>
+        </div>
+        <div class="card" style="padding:14px">
+          <h3 style="margin:0 0 6px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#ff6a2a">Intermedio Femenino</h3>
+          <ul style="margin:0;padding-left:18px;font-size:12px;columns:2 160px;line-height:1.4">
+            <li>Sol</li>
+            <li>Sharet</li>
+            <li>Serena</li>
+            <li>Amanda (Preta Fit)</li>
+            <li>Alison (Box Parrita)</li>
+            <li>Mariam (Independiente)</li>
+            <li>Fabiola (DukurFit)</li>
+          </ul>
+        </div>
+        <div class="card" style="padding:14px">
+          <h3 style="margin:0 0 6px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#ff6a2a">Intermedio Masculino</h3>
+          <ul style="margin:0;padding-left:18px;font-size:12px;columns:2 160px;line-height:1.4">
+            <li>Josue (Preta Fit)</li>
+            <li>Anderson (Box Parrita)</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
-  <!-- SPONSORS -->
-  <section id="patrocinadores" class="section" aria-labelledby="sponsor-title">
+
+  <!-- ================= EXHIBITION ================= -->
+  <section id="exhibicion" class="section">
     <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="sponsor-title">Patrocinadores</h2>
-  <p>Aliados que impulsan la experiencia de la comunidad y el rendimiento de los atletas.</p>
-      </div>
-      <div class="sponsor-grid">
-        <div class="sponsor" data-animate><img src="/images/logo-holalola.jpeg" alt="Patrocinador Holaloha" /></div>
-        <div class="sponsor" data-animate><img src="/images/logo-pretafit.jpeg" alt="Patrocinador Preta Fit" /></div>
-        <div class="sponsor" data-animate><img src="/images/logo-jacolife.jpeg" alt="Patrocinador Jacó Life" /></div>
-        <div class="sponsor" data-animate><img src="/images/logo-farmacia-playa-hermosa.jpeg" alt="Patrocinador Farmacia Playa Hermosa" /></div>
-        <div class="sponsor" data-animate><img src="/images/logo-marysol.jpeg" alt="Patrocinador Mar y Sol" /></div>
-      </div>
-    </div>
-  </section>
-  <!-- RULES -->
-  <section id="reglas" class="section" aria-labelledby="rules-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="rules-title">Reglas & Estándares</h2>
-  <p>Consulta la guía visual de requerimientos por categoría. Asegúrate de comprender escalados, estándares de movimiento y penalizaciones.</p>
-      </div>
-      <div class="rules-grid">
-        <figure class="rule-item" data-animate data-full="/images/reglas-principiante.jpeg" aria-label="Ver reglas Principiante"><img src="/images/reglas-principiante.jpeg" alt="Reglas Principiante" /><span>Principiante</span></figure>
-        <figure class="rule-item" data-animate data-full="/images/reglas-intermedio.jpeg" aria-label="Ver reglas Intermedio"><img src="/images/reglas-intermedio.jpeg" alt="Reglas Intermedio" /><span>Intermedio</span></figure>
-      </div>
-      <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Reglas categoría"><div class="lightbox-content"><img id="lightbox-img" src="" alt="Detalle de reglas" /><button class="lightbox-close" aria-label="Cerrar">Cerrar ✕</button></div></div>
-    </div>
-  </section>
-  <!-- AGENDA -->
-  <section id="agenda" class="section" aria-labelledby="agenda-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="agenda-title">Agenda del Evento</h2>
-  <p>Horarios tentativos sujetos a ajustes menores para optimizar el flujo de heats y exhibición.</p>
-      </div>
-      <div class="timeline">
-        <div class="time-block" data-animate data-time="18:15"><h3>Registro & Check-In</h3><small>Llegada de atletas · confirmación de datos</small></div>
-        <div class="time-block" data-animate data-time="19:00"><h3>Apertura & Briefing</h3><small>Bienvenida, estándares y flujo</small></div>
-        <div class="time-block" data-animate data-time="19:15"><h3>WOD 1</h3><small>Principiante & Intermedio (heats)</small></div>
-        <div class="time-block" data-animate data-time="20:00" data-type="highlight"><h3>Exhibición BJJ</h3><small>Presentación Vanessa Vargas</small></div>
-        <div class="time-block" data-animate data-time="20:30"><h3>WOD 2</h3><small>Formato contrarreloj</small></div>
-        <div class="time-block" data-animate data-time="21:15" data-type="highlight"><h3>Premiación & Cierre</h3><small>Reconocimientos & networking</small></div>
-      </div>
-    </div>
-  </section>
-  <!-- REGISTRO -->
-  <section id="registro" class="section" aria-labelledby="reg-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="reg-title">Registro & Comunidad</h2>
-  <p>Participa como atleta, espectador o patrocinador. También puedes dejar tus datos para futuras competencias y membresías en Preta Fit.</p>
-      </div>
-      <div class="lead-wrapper">
-        <form id="lead-form" novalidate aria-labelledby="reg-title" data-animate>
-          <h3>Formulario de Registro</h3>
-          <div class="success-msg" id="form-success">¡Registro enviado! Te contactaremos pronto.</div>
-            <div class="error-msg" id="form-error">Revisa los campos marcados. Falta información.</div>
-          <div class="form-row"><label for="name">Nombre completo</label><input required type="text" id="name" name="name" placeholder="Tu nombre" /></div>
-          <div class="form-row"><label for="email">Email</label><input required type="email" id="email" name="email" placeholder="tu@email.com" /></div>
-          <div class="form-row"><label for="phone">Teléfono / WhatsApp</label><input type="tel" id="phone" name="phone" placeholder="+506 ..." /></div>
-          <div class="form-row"><label for="role">Interés</label><select id="role" name="role" required><option value="">Selecciona una opción</option><option value="atleta">Competir</option><option value="espectador">Asistir</option><option value="patrocinador">Patrocinar</option><option value="membresia">Membresía Preta Fit</option></select></div>
-          <div class="form-row"><label for="category">Categoría (si compites)</label><select id="category" name="category"><option value="">No aplica</option><option value="principiante">Principiante</option><option value="intermedio">Intermedio</option></select></div>
-          <div class="form-row"><label for="message">Mensaje / Nota</label><textarea id="message" name="message" rows="4" placeholder="Cuéntanos algo adicional..."></textarea></div>
-          <div class="form-row" style="align-items:center; flex-direction:row; gap:.7rem;"><input type="checkbox" id="privacy" required style="width:auto; min-height:auto;" /><label for="privacy" style="margin:0; text-transform:none; letter-spacing:0; font-size:var(--font-size-xs);">Acepto recibir información de eventos y promociones</label></div>
-          <button type="submit" class="btn">Enviar Registro</button>
-          <p class="privacy">Protegemos tus datos. No spam. Puedes darte de baja en cualquier momento.</p>
-        </form>
-        <div data-animate style="display:grid; gap: var(--space-5); align-content:start;">
-          <div><h3>¿Por qué participar?</h3><p>Progresión real, ambiente de apoyo, exhibición técnica y networking con atletas de la región. Además de beneficios especiales para miembros potenciales de Preta Fit.</p></div>
-          <div><h3>¿Eres patrocinador?</h3><p>Activa tu marca frente a una audiencia comprometida con salud, rendimiento y estilo de vida activo. Escríbenos para paquetes personalizados.</p></div>
-          <div><h3>Únete a la Comunidad</h3><p>Sigue nuestro contenido, entrenamientos y próximos eventos.</p><div class="hero-actions" style="margin:0;"><a href="#" class="btn btn--outline">Instagram</a><a href="#" class="btn btn--outline">WhatsApp</a><a href="#" class="btn btn--outline">YouTube</a></div></div>
+      <div class="overline">Exhibición</div>
+      <h2 class="h2">Brazilian Jiu-Jitsu</h2>
+
+      <div class="pricing">
+        <div class="card price">
+          <h3 class="h3" style="margin:0 0 6px;font-weight:800">Vanessa Vargas</h3>
+          <div class="amount">BJJ <span class="small">/ Cinta Negra</span></div>
+          <ul>
+            <li><span class="check"><svg viewBox="0 0 24 24"><path d="M20.3 5.7 9 17 3.7 11.7 5.1 10.3 9 14.2 18.9 4.3z"/></svg></span> Campeona Internacional</li>
+            <li><span class="check"><svg viewBox="0 0 24 24"><path d="M20.3 5.7 9 17 3.7 11.7 5.1 10.3 9 14.2 18.9 4.3z"/></svg></span> Coach CF-L2 Certificada</li>
+            <li><span class="check"><svg viewBox="0 0 24 24"><path d="M20.3 5.7 9 17 3.7 11.7 5.1 10.3 9 14.2 18.9 4.3z"/></svg></span> 5 años de experiencia</li>
+          </ul>
+          <a class="btn" href="#registro" style="width:100%">Ver Exhibición</a>
+        </div>
+
+        <div class="card price pop">
+          <div class="pill" style="position:absolute;right:12px;top:12px;background:#fff6ed;border-color:#ffd9c8">Destacado</div>
+          <h3 class="h3" style="margin:0 0 6px;font-weight:800">Demostración Técnica</h3>
+          <div class="amount">20:00 <span class="small">/ hrs</span></div>
+          <ul>
+            <li><span class="check"><svg viewBox="0 0 24 24"><path d="M20.3 5.7 9 17 3.7 11.7 5.1 10.3 9 14.2 18.9 4.3z"/></svg></span> Control y fluidez</li>
+            <li><span class="check"><svg viewBox="0 0 24 24"><path d="M20.3 5.7 9 17 3.7 11.7 5.1 10.3 9 14.2 18.9 4.3z"/></svg></span> Transiciones estratégicas</li>
+            <li><span class="check"><svg viewBox="0 0 24 24"><path d="M20.3 5.7 9 17 3.7 11.7 5.1 10.3 9 14.2 18.9 4.3z"/></svg></span> Filosofía de longevidad</li>
+          </ul>
+          <a class="btn" href="#registro" style="width:100%">Asistir</a>
+        </div>
+
+        <div class="card price">
+          <h3 class="h3" style="margin:0 0 6px;font-weight:800">Inspiración</h3>
+          <div class="amount">Gratis <span class="small">/ evento</span></div>
+          <ul>
+            <li><span class="check"><svg viewBox="0 0 24 24"><path d="M20.3 5.7 9 17 3.7 11.7 5.1 10.3 9 14.2 18.9 4.3z"/></svg></span> Técnica sobre fuerza</li>
+            <li><span class="check"><svg viewBox="0 0 24 24"><path d="M20.3 5.7 9 17 3.7 11.7 5.1 10.3 9 14.2 18.9 4.3z"/></svg></span> Principios de defensa</li>
+            <li><span class="check"><svg viewBox="0 0 24 24"><path d="M20.3 5.7 9 17 3.7 11.7 5.1 10.3 9 14.2 18.9 4.3z"/></svg></span> Movilidad aplicada</li>
+          </ul>
+          <a class="btn" href="#registro" style="width:100%">Participar</a>
         </div>
       </div>
     </div>
   </section>
-  <!-- GALLERY -->
-  <section id="galeria" class="section" aria-labelledby="gallery-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="gallery-title">Galería & Ambiente</h2>
-  <p>Un vistazo a la energía y espíritu que vivirás. Visualiza tu próximo reto.</p>
-      </div>
-      <div class="gallery-grid">
-        <div class="gallery-item" data-animate><img src="/images/bloque-fuerza.jpeg" alt="Entrenamiento fuerza" loading="lazy" /></div>
-        <div class="gallery-item" data-animate><img src="/images/pretafit-pared.jpeg" alt="Pared Preta Fit" loading="lazy" /></div>
-        <div class="gallery-item" data-animate><img src="/images/logo-wodwarriors.jpeg" alt="Logo WOD Warriors" loading="lazy" onerror="this.remove()" /></div>
-        <div class="gallery-item" data-animate><img src="/images/logo-pretafit.jpeg" alt="Logo Preta Fit detalle" loading="lazy" /></div>
-      </div>
-    </div>
-  </section>
-  <!-- FAQ -->
-  <section id="faq" class="section" aria-labelledby="faq-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="faq-title">Preguntas Frecuentes</h2>
-  <p>Información clave para tu participación. ¿Dudas adicionales? Escríbenos.</p>
-      </div>
-      <div class="faq">
-  <div class="faq-item" data-animate><div class="faq-q"><h3>¿Puedo inscribirme si es mi primera competencia?</h3><span>+</span></div><div class="faq-a"><p>Sí. La categoría Principiante está diseñada para introducirte de forma segura y motivante al formato competitivo.</p></div></div>
-  <div class="faq-item" data-animate><div class="faq-q"><h3>¿Habrá opción de escalar movimientos?</h3><span>+</span></div><div class="faq-a"><p>Los WOD están diseñados para cada categoría. Principiante ya incluye estándares accesibles; Intermedio mantiene ciertas demandas técnicas.</p></div></div>
-  <div class="faq-item" data-animate><div class="faq-q"><h3>¿Cómo recibo confirmación?</h3><span>+</span></div><div class="faq-a"><p>Tras enviar el formulario, un miembro del equipo te contactará por email o WhatsApp para completar detalles.</p></div></div>
-  <div class="faq-item" data-animate><div class="faq-q"><h3>¿Qué debo llevar?</h3><span>+</span></div><div class="faq-a"><p>Ropa deportiva, hidratación, cuerda personal (si prefieres), vendas y buena actitud. Los sponsors cubrirán snacks y opciones saludables.</p></div></div>
+
+  <!-- ================= FAQ ================= -->
+  <section id="faq" class="section">
+    <div class="container" style="text-align:center">
+      <div class="overline">FAQ</div>
+      <h2 class="h2" style="margin-bottom:6px">¿Tienes preguntas?<br>Tenemos respuestas</h2>
+      <div class="faq-wrap">
+        <details class="faq"><summary>¿Puedo inscribirme si es mi primera competencia? <span class="small">⟶</span></summary><p>Sí. La categoría Principiante está diseñada para introducirte de forma segura y motivante al formato competitivo.</p></details>
+        <details class="faq"><summary>¿Habrá opción de escalar movimientos? <span class="small">⟶</span></summary><p>Los WOD están diseñados para cada categoría. Principiante ya incluye estándares accesibles; Intermedio mantiene ciertas demandas técnicas.</p></details>
+        <details class="faq"><summary>¿Cómo recibo confirmación? <span class="small">⟶</span></summary><p>Tras enviar el formulario, un miembro del equipo te contactará por email o WhatsApp para completar detalles.</p></details>
+        <details class="faq"><summary>¿Qué debo llevar? <span class="small">⟶</span></summary><p>Ropa deportiva, hidratación, cuerda personal (si prefieres), vendas y buena actitud. Los sponsors cubrirán snacks y opciones saludables.</p></details>
       </div>
     </div>
   </section>
-  <!-- CONTACTO -->
-  <section id="contacto" class="section" aria-labelledby="contact-title">
+
+  <!-- ================= CTA BANNER ================= -->
+  <section id="registro" class="section">
     <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="contact-title">Contacto Directo</h2>
-  <p>¿Interesado en paquetes de patrocinio, membresías o dudas específicas? Escríbenos y te respondemos rápido.</p>
-      </div>
-      <div class="grid" style="grid-template-columns: repeat(auto-fit,minmax(320px,1fr)); gap: var(--space-6);">
-        <div class="about-card" data-animate><h3>WhatsApp</h3><p><a href="https://wa.me/50600000000" target="_blank" rel="noopener">+506 0000 0000</a></p><p style="font-size:var(--font-size-xs);color:var(--color-text-soft);">Atención rápida / 8AM - 8PM</p></div>
-        <div class="about-card" data-animate><h3>Email</h3><p><a href="mailto:info@pretafitcr.com">info@pretafitcr.com</a></p><p style="font-size:var(--font-size-xs);color:var(--color-text-soft);">Soporte general y patrocinio</p></div>
-        <div class="about-card" data-animate><h3>Ubicación</h3><p>Jacó, Costa Rica<br/>Preta Fit Box</p><p style="font-size:var(--font-size-xs);color:var(--color-text-soft);">Espacio optimizado para entrenamiento funcional & BJJ</p></div>
+      <div class="card cta">
+        <div class="left">
+          <div class="overline">Una oportunidad para crecer</div>
+          <h3 class="h2" style="margin:6px 0 6px">Regístrate para WOD Warriors o solicita información.</h3>
+          <div class="small">Déjanos tu información y nuestro equipo te contactará para completar tu registro.</div>
+          <form id="leadForm" class="mini-form" novalidate>
+            <label class="sr" for="name">Nombre</label>
+            <input id="name" name="name" placeholder="Nombre completo" required>
+            <label class="sr" for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="Correo electrónico" required>
+            <label class="sr" for="phone">Teléfono</label>
+            <input id="phone" name="phone" placeholder="Teléfono (opcional)">
+            <button class="btn" type="submit">Registrarme</button>
+          </form>
+        </div>
+        <div class="right">
+          <img alt="Vanessa Vargas BJJ" src="/images/vanessa-vargas.jpeg">
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- ================= SPONSORS ================= -->
+  <section id="patrocinadores" class="section">
+    <div class="container">
+      <div class="overline">Patrocinadores</div>
+      <h2 class="h2">Aliados que impulsan la experiencia</h2>
+      <div class="small" style="margin-bottom:8px">Marcas locales que respaldan el crecimiento deportivo y la comunidad.</div>
+
+      <div class="team">
+        <div class="card member">
+          <div class="thumb"><img src="/images/logo-holalola.jpeg" alt="Holaloha"></div>
+          <div class="info"><b>Holaloha</b><div class="small">Patrocinador Oficial</div></div>
+        </div>
+        <div class="card member">
+          <div class="thumb"><img src="/images/logo-pretafit.jpeg" alt="Preta Fit"></div>
+          <div class="info"><b>Preta Fit</b><div class="small">Host</div></div>
+        </div>
+        <div class="card member">
+          <div class="thumb"><img src="/images/logo-jacolife.jpeg" alt="Jacó Life"></div>
+          <div class="info"><b>Jacó Life</b><div class="small">Apoyo Local</div></div>
+        </div>
+        <div class="card member">
+          <div class="thumb"><img src="/images/logo-farmacia-playa-hermosa.jpeg" alt="Farmacia Playa Hermosa"></div>
+          <div class="info"><b>Farmacia PH</b><div class="small">Salud & Bienestar</div></div>
+        </div>
+        <div class="card member">
+          <div class="thumb"><img src="/images/logo-marysol.jpeg" alt="Mar y Sol"></div>
+          <div class="info"><b>Mar y Sol</b><div class="small">Hospitalidad</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RULES & STANDARDS (lightbox thumbnails) ================= -->
+  <section id="reglas" class="section">
+    <div class="container">
+      <div class="overline">Reglas & Estándares</div>
+      <h2 class="h2">Guía Visual por Categoría</h2>
+      <div class="small" style="margin-bottom:8px">Consulta requerimientos, escalados, estándares de movimiento y penalizaciones.</div>
+      <div class="rules-grid">
+        <figure class="rule-item" data-full="/ReglasPrincipiante.jpeg">
+          <img src="/ReglasPrincipiante.jpeg" alt="Reglas Principiante" />
+          <figcaption class="small" style="text-align:center;margin-top:4px">Principiante</figcaption>
+        </figure>
+        <figure class="rule-item" data-full="/ReglasIntermedio.jpeg">
+          <img src="/ReglasIntermedio.jpeg" alt="Reglas Intermedio" />
+          <figcaption class="small" style="text-align:center;margin-top:4px">Intermedio</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox overlay for rules -->
+  <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:60;place-items:center">
+    <button id="lbClose" class="btn secondary" style="position:absolute;top:18px;right:18px">Cerrar ✕</button>
+    <img id="lbImg" src="" alt="Detalle reglas" style="max-width:min(960px,92vw);max-height:80vh;border-radius:14px;border:1px solid #fff" />
+  </div>
+
+  <!-- ================= AGENDA / TIMELINE ================= -->
+  <section id="agenda" class="section">
+    <div class="container">
+      <div class="overline">Agenda</div>
+      <h2 class="h2">Agenda del Evento</h2>
+      <div class="small" style="margin-bottom:8px">Horarios tentativos sujetos a ajustes menores para optimizar el flujo de heats y exhibición.</div>
+      <div class="timeline">
+        <div class="time-block"><h3 style="margin:0;font-size:14px">18:15 - Registro & Check-In</h3><div class="small">Llegada de atletas / confirmación de datos</div></div>
+        <div class="time-block"><h3 style="margin:0;font-size:14px">19:00 - Apertura & Briefing</h3><div class="small">Bienvenida, estándares y flujo de heats</div></div>
+        <div class="time-block"><h3 style="margin:0;font-size:14px">19:15 - WOD 1</h3><div class="small">Principiante & Intermedio (heats)</div></div>
+        <div class="time-block"><h3 style="margin:0;font-size:14px">20:00 - Exhibición BJJ</h3><div class="small">Presentación Vanessa Vargas</div></div>
+        <div class="time-block"><h3 style="margin:0;font-size:14px">20:30 - WOD 2</h3><div class="small">Formato contrarreloj</div></div>
+        <div class="time-block"><h3 style="margin:0;font-size:14px">21:15 - Premiación & Cierre</h3><div class="small">Reconocimientos & networking</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REGISTRO & COMUNIDAD (expanded form) ================= -->
+  <section id="registro" class="section">
+    <div class="container">
+      <div class="overline">Registro</div>
+      <h2 class="h2">Registro & Comunidad</h2>
+      <div class="small" style="margin-bottom:10px">Participa como atleta, espectador o patrocinador. También puedes dejar tus datos para futuras competencias y membresías.</div>
+      <div style="display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr))">
+        <form id="lead-form" class="card" style="padding:16px;display:grid;gap:12px" novalidate>
+          <h3 style="margin:0 0 4px;font-size:18px">Formulario de Registro</h3>
+          <div id="form-success" class="small" style="display:none;background:#0f3d2b;color:#b4f6de;padding:8px 10px;border:1px solid #1d6e52;border-radius:10px">¡Registro enviado! Te contactaremos pronto.</div>
+          <div id="form-error" class="small" style="display:none;background:#3d0f0f;color:#ffb8b8;padding:8px 10px;border:1px solid #6e1d1d;border-radius:10px">Revisa los campos marcados. Falta información.</div>
+          <label class="small" for="name">Nombre completo</label>
+          <input id="name" name="name" required placeholder="Tu nombre" />
+          <label class="small" for="email">Email</label>
+            <input id="email" name="email" type="email" required placeholder="tu@email.com" />
+          <label class="small" for="phone">Teléfono / WhatsApp</label>
+          <input id="phone" name="phone" type="tel" placeholder="+506 ..." />
+          <label class="small" for="role">Interés</label>
+          <select id="role" name="role" required>
+            <option value="">Selecciona una opción</option>
+            <option value="atleta">Competir</option>
+            <option value="espectador">Asistir</option>
+            <option value="patrocinador">Patrocinar</option>
+            <option value="membresia">Membresía Preta Fit</option>
+          </select>
+          <label class="small" for="category">Categoría (si compites)</label>
+          <select id="category" name="category">
+            <option value="">No aplica</option>
+            <option value="principiante">Principiante</option>
+            <option value="intermedio">Intermedio</option>
+          </select>
+          <label class="small" for="message">Mensaje / Nota</label>
+          <textarea id="message" name="message" rows="4" placeholder="Cuéntanos algo adicional..."></textarea>
+          <label style="display:flex;gap:6px;align-items:flex-start;font-size:11px"><input type="checkbox" id="privacy" required style="margin-top:4px"> <span>Acepto recibir información de eventos y promociones</span></label>
+          <button class="btn" type="submit">Enviar Registro</button>
+          <p class="small" style="margin:0">Protegemos tus datos. No spam. Puedes darte de baja en cualquier momento.</p>
+        </form>
+        <div style="display:grid;gap:16px;align-content:start">
+          <div><h3 style="margin:0 0 4px;font-size:18px">¿Por qué participar?</h3><p class="small" style="margin:0">Progresión real, ambiente de apoyo, exhibición técnica y networking con atletas de la región. Beneficios especiales para miembros potenciales.</p></div>
+          <div><h3 style="margin:0 0 4px;font-size:18px">¿Eres patrocinador?</h3><p class="small" style="margin:0">Activa tu marca frente a una audiencia comprometida con salud, rendimiento y estilo de vida activo. Escríbenos para paquetes personalizados.</p></div>
+          <div><h3 style="margin:0 0 4px;font-size:18px">Únete a la Comunidad</h3><p class="small" style="margin:0 0 8px">Sigue nuestro contenido, entrenamientos y próximos eventos.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px"><a class="btn secondary" href="#">Instagram</a><a class="btn secondary" href="#">WhatsApp</a><a class="btn secondary" href="#">YouTube</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALLERY (id galeria for anchors) ================= -->
+  <section id="galeria" class="section">
+    <div class="container">
+      <div class="overline">Galería</div>
+      <h2 class="h2">Galería & Ambiente</h2>
+      <div class="small" style="margin-bottom:8px">Un vistazo a la energía y espíritu que vivirás. Visualiza tu próximo reto.</div>
+      <div class="gallery" id="gallery">
+        <img alt="Entrenamiento fuerza" src="/images/bloque-fuerza.jpeg">
+        <img alt="Pared Preta Fit" src="/images/pretafit-pared.jpeg">
+        <img alt="Logo WOD Warriors" src="/images/logo-wodwarriors.jpeg" onerror="this.remove()">
+        <img alt="Logo Preta Fit" src="/images/logo-pretafit.jpeg">
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contacto" class="section">
+    <div class="container">
+      <div class="overline">Contacto Directo</div>
+      <h2 class="h2">Conecta con el Equipo</h2>
+      <div class="small" style="margin-bottom:10px">¿Interesado en patrocinio, membresías o dudas específicas? Escríbenos y te respondemos rápido.</div>
+      <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+        <div class="card" style="padding:14px"><h3 style="margin:0 0 4px;font-size:16px">WhatsApp</h3><p class="small" style="margin:0 0 4px"><a href="https://wa.me/50600000000" target="_blank" rel="noopener">+506 0000 0000</a></p><p class="small" style="margin:0;color:#6b7280">Atención rápida / 8AM - 8PM</p></div>
+        <div class="card" style="padding:14px"><h3 style="margin:0 0 4px;font-size:16px">Email</h3><p class="small" style="margin:0 0 4px"><a href="mailto:info@pretafitcr.com">info@pretafitcr.com</a></p><p class="small" style="margin:0;color:#6b7280">Soporte general y patrocinio</p></div>
+        <div class="card" style="padding:14px"><h3 style="margin:0 0 4px;font-size:16px">Ubicación</h3><p class="small" style="margin:0 0 4px">Jacó, Costa Rica<br>Preta Fit Box</p><p class="small" style="margin:0;color:#6b7280">Espacio optimizado para entrenamiento funcional & BJJ</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALLERY ================= -->
+  <section class="section">
+    <div class="container">
+      <div class="overline">Galería</div>
+      <h2 class="h2">Ambiente y energía del evento</h2>
+      <div class="gallery" id="gallery">
+        <img alt="Entrenamiento fuerza" src="/images/bloque-fuerza.jpeg">
+        <img alt="Preta Fit instalaciones" src="/images/pretafit-pared.jpeg">
+        <img alt="Logo WOD Warriors" src="/images/logo-wodwarriors.jpeg">
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT TILES ================= -->
+  <section class="section">
+    <div class="container" style="text-align:center">
+      <div class="h2" style="margin-bottom:8px">¿Listo para el reto?<br>Estamos aquí para ti</div>
+      <div class="contact-strip">
+        <div class="contact-tile">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ff6a2a" d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7Zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5Z"/></svg></div>
+          <div><b>Ubicación</b><div class="small">Preta Fit Box, Jacó</div></div>
+        </div>
+        <div class="contact-tile">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ff6a2a" d="M6.6 10.8c1.7 3.2 4.4 5.9 7.6 7.6l2.5-2.5c.3-.3.7-.4 1.1-.3 1.2.4 2.6.6 4 .6.6 0 1 .4 1 1V22c0 .6-.4 1-1 1C10.4 23 1 13.6 1 2c0-.6.4-1 1-1h4.8c.6 0 1 .4 1 1 0 1.4.2 2.8.6 4 .1.4 0 .8-.3 1.1l-2.5 2.7Z"/></svg></div>
+          <div><b>WhatsApp</b><div class="small">+506 0000 0000</div></div>
+        </div>
+        <div class="contact-tile">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ff6a2a" d="M12 1a9 9 0 1 0 .001 18.001A9 9 0 0 0 12 1Zm1 5h-2v6h6v-2h-4V6Z"/></svg></div>
+          <div><b>Fecha</b><div class="small">5 Sept 2025 • 7:00 PM</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <Fragment slot="footer"><Footer /></Fragment>
-  <script>
-  // Lightbox rules
-  const lightbox=document.getElementById('lightbox');
-  const lightboxImg=document.getElementById('lightbox-img');
-  const closeBtn= lightbox? lightbox.querySelector('.lightbox-close'):null;
-  document.querySelectorAll('.rule-item').forEach(it=>it.addEventListener('click',()=>{const full=it.dataset.full; if(lightbox&&lightboxImg){lightboxImg.src=full; lightbox.classList.add('open'); document.body.style.overflow='hidden';}}));
-  function closeLb(){if(lightbox){lightbox.classList.remove('open'); if(lightboxImg) lightboxImg.src=''; document.body.style.overflow='';}}
-  closeBtn&&closeBtn.addEventListener('click',closeLb); lightbox&&lightbox.addEventListener('click',e=>{if(e.target===lightbox) closeLb();}); document.addEventListener('keydown',e=>{if(e.key==='Escape'&& lightbox&&lightbox.classList.contains('open')) closeLb();});
-  // Form validation (simple client-side simulation)
-  const form=document.getElementById('lead-form');
+</BaseLayout>
+
+<!-- ================= LIGHTBOX ================= -->
+<div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:30;place-items:center">
+  <button id="lbClose" class="btn secondary" style="position:absolute;top:16px;right:16px">Cerrar</button>
+  <img id="lbImg" src="" alt="" style="max-width:min(1080px,92vw);max-height:86vh;border-radius:12px;border:1px solid #fff">
+</div>
+
+<script>
+/* amenities tabs */
+const amenBtns=[...document.querySelectorAll('.amen-item')];
+const amenImgs=[...document.querySelectorAll('.amen-visual img')];
+amenBtns.forEach(b=>b.addEventListener('click',()=>{
+  amenBtns.forEach(x=>x.classList.remove('active')); b.classList.add('active');
+  const key=b.dataset.amen; amenImgs.forEach(i=> i.classList.toggle('active', i.dataset.img===key));
+}));
+
+/* competitors rotation removed (static full lists provided) */
+
+/* gallery & rules lightbox */
+const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
+if(lb && lbImg) {
+  document.getElementById('gallery')?.addEventListener('click',e=>{ if(e.target.tagName==='IMG'){ lbImg.src=e.target.src; lb.style.display='grid'; }});
+  document.querySelectorAll('.rule-item').forEach(item=> item.addEventListener('click',()=>{ const full=item.getAttribute('data-full'); if(full){ lbImg.src=full; lb.style.display='grid'; }}));
+  document.getElementById('lbClose')?.addEventListener('click',()=> lb.style.display='none');
+  lb.addEventListener('click',e=>{ if(e.target===lb) lb.style.display='none'; });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') lb.style.display='none'; });
+}
+
+/* expanded form validation */
+const regForm=document.getElementById('lead-form');
+if(regForm){
   const success=document.getElementById('form-success');
   const error=document.getElementById('form-error');
-  form&&form.addEventListener('submit',e=>{e.preventDefault(); if(success) success.style.display='none'; if(error) error.style.display='none'; let valid=true; form.querySelectorAll('[required]').forEach(f=>{f.classList.remove('invalid'); if((f.type==='checkbox'&&!f.checked) || !f.value) {valid=false; f.classList.add('invalid');}}); if(!valid){ if(error) error.style.display='block'; return; } const btn=form.querySelector('button[type="submit"]'); const original=btn.textContent; btn.textContent='Enviando...'; setTimeout(()=>{btn.textContent=original; if(success) success.style.display='block'; form.reset();}, 1000);});
-  </script>
-</BaseLayout>
+  regForm.addEventListener('submit',e=>{
+    e.preventDefault();
+    success.style.display='none'; error.style.display='none';
+    let valid=true;
+    regForm.querySelectorAll('[required]').forEach(f=>{ f.classList.remove('invalid'); if(!f.value || (f.type==='checkbox' && !f.checked)){ valid=false; f.classList.add('invalid'); }});
+    if(!valid){ error.style.display='block'; return; }
+    success.style.display='block'; regForm.reset();
+  });
+}
+</script>
