@@ -122,9 +122,10 @@ a{color:inherit;text-decoration:none}
 /* ================= TEAM ================= */
 .team{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .member{overflow:hidden}
-.member .thumb{height:210px;background:#f3f4f6;position:relative}
-.member .thumb:after{content:"";position:absolute;inset:0;background:#F97316}
-.member img{height:210px;width:100%;object-fit:cover;mix-blend-mode:multiply}
+.member .thumb{height:210px;background:#fff;position:relative;display:flex;align-items:center;justify-content:center;padding:12px}
+/* removed solid overlay to let logos show */
+.member .thumb:after{display:none}
+.member img{height:100%;width:auto;max-height:100%;max-width:100%;object-fit:contain;mix-blend-mode:normal}
 .member .info{padding:10px}
 
 /* ================= GALLERY ================= */
@@ -137,6 +138,32 @@ a{color:inherit;text-decoration:none}
 .rule-item img{height:200px;width:100%;object-fit:cover;border-radius:8px}
 .timeline{display:grid;gap:10px;margin-top:12px}
 .time-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+
+/* ================= EVENT ENHANCEMENTS ================= */
+#competidores .cards-nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+#competidores .cards-nav button{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;transition:.25s background,.25s color,.25s box-shadow}
+#competidores .cards-nav button.active{background:var(--brand);color:#fff;box-shadow:0 4px 14px rgba(255,106,42,.35)}
+#competidores .card h3{font-size:16px;letter-spacing:.18em}
+#competidores .card ul{font-size:13px}
+#competidores .card{position:relative}
+#competidores .card.highlight{outline:2px solid #ffcfb3;box-shadow:0 0 0 4px #fff,0 12px 28px -6px rgba(255,106,42,.35)}
+
+.boxes-grid a{position:relative;overflow:hidden}
+.boxes-grid a:hover{background:#fff7f3;border-color:#ffd9c8}
+.boxes-grid a svg{width:16px;height:16px;fill:#ff6a2a}
+.boxes-grid a .ig{display:inline-flex;align-items:center;gap:6px}
+
+.team .member{position:relative;transition:.3s transform,.3s box-shadow}
+.team .member:hover{transform:translateY(-4px);box-shadow:0 14px 32px -10px rgba(16,24,40,.25)}
+.team .member .thumb{display:flex;align-items:center;justify-content:center;position:relative;background:#fff}
+.team .member .thumb img{object-fit:contain;mix-blend-mode:normal}
+
+/* Instagram icon (utility) */
+.icon-ig{width:16px;height:16px;display:inline-block;vertical-align:middle}
+.social-inline{display:inline-flex;align-items:center;gap:6px}
+
+@keyframes competitorFlash{0%,100%{background:#fff}50%{background:#fff6f0}}
+#competidores .card.highlight{animation:competitorFlash 3s ease-in-out infinite}
 
 /* ================= CONTACT TILES ================= */
 .contact-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
