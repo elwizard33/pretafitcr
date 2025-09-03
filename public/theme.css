@@ -198,6 +198,25 @@ footer{background:#0f1116;margin-top:28px;color:#cfd6e6}
   .mini-form{grid-template-columns:1fr;gap:12px}
   .team{grid-template-columns:1fr}
 }
+/* ultra small phones */
+@media (max-width:480px){
+  .h1{font-size:30px}
+  .hero-bubble .h1{font-size:24px}
+  .feature-row{grid-template-columns:1fr}
+  .logo-strip{grid-template-columns:repeat(2,1fr)}
+  .gallery{grid-template-columns:1fr}
+  .contact-strip{grid-template-columns:1fr}
+  #competidorCards .card ul,#competitorCards .card ul{columns:1 auto}
+  .hero-media img{height:300px}
+  .logo-strip .box{font-size:10px}
+  .pricing{gap:18px}
+  .timeline .time-block{padding:10px}
+  .cta > .left{padding:16px}
+  #competidores .cards-nav button{flex:1 1 45%;text-align:center}
+  .boxes-grid{grid-template-columns:1fr}
+  .amen-item{padding:10px}
+  .amen-visual{min-height:240px}
+}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 /* ================= MAIN LAYOUT ADJUSTMENT ================= */
