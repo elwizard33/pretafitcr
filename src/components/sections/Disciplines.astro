@@ -1,0 +1,107 @@
+---
+// Disciplines component for CrossFit and Brazilian Jiu-Jitsu
+---
+
+<section id="disciplines" class="section">
+  <div class="container">
+    <div class="overline">Disciplinas</div>
+    <h2 class="h2">Entrena con los mejores</h2>
+    
+    <div class="disciplines-grid">
+      <article class="card discipline-card">
+        <div class="discipline-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24">
+            <path fill="#ff6a2a" d="M12 2 2 7l10 5 10-5-10-5Z"/>
+            <path fill="#ff6a2a" d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3 class="h3">CrossFit</h3>
+        <p>Entrenamiento funcional de alta intensidad que combina fuerza, acondicionamiento y movilidad. Metodología escalable para todos los niveles con coaching experto.</p>
+      </article>
+
+      <article class="card discipline-card">
+        <div class="discipline-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24">
+            <path fill="#ff6a2a" d="M12 1a9 9 0 1 0 .001 18.001A9 9 0 0 0 12 1Zm1 5h-2v6h6v-2h-4V6Z"/>
+            <path fill="#ff6a2a" d="M17 14h-2v2h2v-2zm-4 0h-2v2h2v-2zm-4 0H7v2h2v-2z"/>
+          </svg>
+        </div>
+        <h3 class="h3">Brazilian Jiu-Jitsu</h3>
+        <p>Arte marcial y sistema de defensa personal enfocado en técnica y estrategia. Dirigido por Vanessa Vargas, segunda cinta negra del país y campeona internacional.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .disciplines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .discipline-card {
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .discipline-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .discipline-icon {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .discipline-card h3 {
+    margin: 0 0 1rem 0;
+    color: #1f2937;
+  }
+
+  .discipline-card p {
+    margin-bottom: 1.5rem;
+    color: #6b7280;
+    line-height: 1.6;
+  }
+
+  .discipline-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+
+  .discipline-features li {
+    padding: 0.5rem 0;
+    color: #374151;
+    font-size: 0.9rem;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .discipline-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #ff6a2a;
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .disciplines-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .discipline-card {
+      padding: 1.5rem;
+    }
+  }
+</style>

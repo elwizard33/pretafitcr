@@ -10,8 +10,8 @@ const { title = 'Preta Fit | CrossFit · BJJ · Comunidad', description = 'Box l
     <title>{title}</title>
     <meta name="description" content={description} />
   <link rel="icon" type="image/jpeg" href="/images/logo-pretafit.jpeg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/theme.css" />
-  <style>main{padding-top:92px;} .hero{min-height:100dvh;display:flex;align-items:center;position:relative;padding:140px 0 var(--space-8);overflow:hidden;} .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,106,0,.24),rgba(123,47,247,.15) 60%),url('/images/pretafit-pared.jpeg') center/cover no-repeat;filter:brightness(.55) saturate(1.2);animation:heroPan 22s linear infinite alternate;} @keyframes heroPan{0%{background-position:40% 40%;}100%{background-position:60% 60%;}} .hero-inner{position:relative;z-index:2;max-width:780px;} .hero-title{font-size:var(--font-size-2xl);margin:0 0 var(--space-4);background:linear-gradient(90deg,#fff,#ccc);-webkit-background-clip:text;background-clip:text;color:transparent;} .hero-lead{font-size:var(--font-size-lg);color:var(--color-text-soft);max-width:54ch;} .hero-actions{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-5);} @media (max-width:760px){.hero{padding-top:120px;} .hero-title{font-size:clamp(2rem,9vw,2.6rem);} }</style>
   </head>
   <body>
     <slot name="header" />
@@ -20,20 +20,14 @@ const { title = 'Preta Fit | CrossFit · BJJ · Comunidad', description = 'Box l
     </main>
     <slot name="footer" />
     <script>
-      // Header scroll & mobile nav
-      const header=document.getElementById('site-header');
-      const navToggle=document.querySelector('.nav-toggle');
-      const navList=document.getElementById('nav-list');
-      function onScroll(){window.scrollY>24?header.classList.add('scrolled'):header.classList.remove('scrolled');}
-      window.addEventListener('scroll',onScroll);onScroll();
-      navToggle&&navToggle.addEventListener('click',()=>{const ex=navToggle.getAttribute('aria-expanded')==='true';navToggle.setAttribute('aria-expanded',String(!ex));navList.classList.toggle('open');navToggle.textContent=navList.classList.contains('open')?'✕':'☰';});
-      navList&&navList.addEventListener('click',e=>{if(e.target.tagName==='A'&&navList.classList.contains('open'))navToggle.click();});
       // Scroll reveal
       const animated=document.querySelectorAll('[data-animate]');
-      const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in-view');io.unobserve(en.target);}}),{threshold:.15});
-      animated.forEach(el=>io.observe(el));
+      if(animated.length > 0) {
+        const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in-view');io.unobserve(en.target);}}),{threshold:.15});
+        animated.forEach(el=>io.observe(el));
+      }
       // FAQ
-      document.querySelectorAll('.faq-q').forEach(btn=>btn.addEventListener('click',()=>btn.parentElement.classList.toggle('open')));
+      document.querySelectorAll('.faq summary').forEach(btn=>btn.addEventListener('click',()=>btn.parentElement?.classList.toggle('open')));
     </script>
   </body>
 </html>

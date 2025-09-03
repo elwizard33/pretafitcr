@@ -1,0 +1,150 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  targetDay?: 'friday' | 'saturday' | 'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday';
+  targetHour?: number;
+  timezone?: string;
+  eventMessage?: string;
+}
+
+const { 
+  title = "Tiempo restante para el evento",
+  subtitle = "⚡ NO TE LO PIERDAS ⚡",
+  targetDay = 'friday',
+  targetHour = 19, // 7 PM
+  timezone = 'America/Costa_Rica',
+  eventMessage = "¡El evento ya comenzó! 🎉"
+} = Astro.props;
+
+const dayMap = {
+  'sunday': 0,
+  'monday': 1,
+  'tuesday': 2,
+  'wednesday': 3,
+  'thursday': 4,
+  'friday': 5,
+  'saturday': 6
+};
+---
+
+<div class="countdown-container">
+  <div class="countdown-card">
+    <div class="countdown-title">{title}</div>
+    <div id="countdown" class="countdown-display">
+      <div class="time-unit">
+        <span id="days">--</span>
+        <label>Días</label>
+      </div>
+      <div class="time-unit">
+        <span id="hours">--</span>
+        <label>Horas</label>
+      </div>
+      <div class="time-unit">
+        <span id="minutes">--</span>
+        <label>Minutos</label>
+      </div>
+      <div class="time-unit">
+        <span id="seconds">--</span>
+        <label>Segundos</label>
+      </div>
+    </div>
+    <div id="event-message" class="event-message" style="display:none">
+      {eventMessage}
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ targetDay, targetHour, timezone, eventMessage }}>
+  function initCountdown() {
+    const dayMap = {
+      'sunday': 0,
+      'monday': 1,
+      'tuesday': 2,
+      'wednesday': 3,
+      'thursday': 4,
+      'friday': 5,
+      'saturday': 6
+    };
+
+    function getNextTargetDateTime() {
+      const now = new Date();
+      
+      // Get current time in target timezone
+      const nowInTimezone = new Date(now.toLocaleString("en-US", {timeZone: timezone}));
+      
+      // Find next occurrence of target day at target hour
+      const nextTarget = new Date(nowInTimezone);
+      const targetDayNumber = dayMap[targetDay];
+      const daysUntilTarget = (targetDayNumber - nowInTimezone.getDay() + 7) % 7;
+      
+      if (daysUntilTarget === 0) {
+        // It's the target day, check if it's before target hour
+        if (nowInTimezone.getHours() < targetHour) {
+          // Before target hour today
+          nextTarget.setHours(targetHour, 0, 0, 0);
+        } else {
+          // After target hour, get next week
+          nextTarget.setDate(nextTarget.getDate() + 7);
+          nextTarget.setHours(targetHour, 0, 0, 0);
+        }
+      } else {
+        // Not target day, get next occurrence
+        nextTarget.setDate(nextTarget.getDate() + daysUntilTarget);
+        nextTarget.setHours(targetHour, 0, 0, 0);
+      }
+      
+      // Convert back to local time for countdown calculation
+      const timezoneOffset = nowInTimezone.getTimezoneOffset() - now.getTimezoneOffset();
+      return new Date(nextTarget.getTime() - (timezoneOffset * 60 * 1000));
+    }
+
+    function updateCountdown() {
+      const targetDate = getNextTargetDateTime();
+      const now = new Date();
+      const timeDiff = targetDate.getTime() - now.getTime();
+
+      const countdownEl = document.getElementById('countdown');
+      const eventMessageEl = document.getElementById('event-message');
+
+      if (timeDiff <= 0) {
+        // Event has started or passed
+        if (countdownEl) countdownEl.style.display = 'none';
+        if (eventMessageEl) eventMessageEl.style.display = 'block';
+        return;
+      }
+
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minutesEl = document.getElementById('minutes');
+      const secondsEl = document.getElementById('seconds');
+
+      if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+      if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+      if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+    }
+
+    // Update countdown immediately and then every second
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+
+    // Cleanup function for when component is removed
+    return () => clearInterval(interval);
+  }
+
+  // Initialize countdown when component loads
+  document.addEventListener('DOMContentLoaded', initCountdown);
+  
+  // Also initialize immediately if DOM is already loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCountdown);
+  } else {
+    initCountdown();
+  }
+</script>

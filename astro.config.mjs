@@ -10,5 +10,27 @@ export default defineConfig({
   site: 'https://pretafitcr.com',
   base: '/',
   output: 'static',
-  build: { format: 'directory', assets: 'astro' }
+  build: { 
+    format: 'directory', 
+    assets: 'astro'
+  },
+  image: {
+    domains: ['pretafitcr.com'],
+    formats: ['webp', 'avif', 'jpeg'],
+    quality: {
+      low: 25,
+      mid: 50,
+      high: 80,
+      max: 100
+    }
+  },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: undefined
+        }
+      }
+    }
+  }
 });

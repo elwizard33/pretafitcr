@@ -1,0 +1,289 @@
+---
+// CrossFit Schedule component for Preta Fit Jacó
+import { schedules } from '../../data/schedules';
+---
+
+<section id="schedule" class="section">
+  <div class="container">
+    <div class="overline">Horarios</div>
+    <h2 class="h2">Horarios de CrossFit</h2>
+    <p class="schedule-description">
+      Nuestras clases de CrossFit están diseñadas para todos los niveles. Elige el horario que mejor se adapte a tu rutina.
+    </p>
+    
+    <div class="schedule-wrapper">
+      <div class="schedule-grid">
+        {schedules.crossfit.map((day) => (
+          <div class="day-column">
+            <div class="day-header">
+              <span class="day-letter">{day.dayLetter}</span>
+              <span class="day-name">{day.dayName}</span>
+            </div>
+            
+            <div class="time-slots">
+              <div class="time-period morning">
+                {day.morningTimes.map((time) => (
+                  <div class="time-slot">{time}</div>
+                ))}
+              </div>
+              
+              {day.afternoonTimes.length > 0 && (
+                <div class="time-period afternoon">
+                  {day.afternoonTimes.map((time) => (
+                    <div class="time-slot">{time}</div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="weekend-schedule">
+        <div class="weekend-day">
+          <div class="day-header">
+            <span class="day-letter">S</span>
+            <span class="day-name">Sábado</span>
+          </div>
+          <div class="weekend-times">
+            <span class="time">7:00 AM</span>
+            <span class="time">8:00 AM</span>
+          </div>
+        </div>
+        <div class="weekend-day">
+          <div class="day-header">
+            <span class="day-letter">D</span>
+            <span class="day-name">Domingo</span>
+          </div>
+          <div class="weekend-status">Cerrado</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="schedule-footer">
+      <div class="schedule-note">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="var(--brand)"/>
+        </svg>
+        <span>Reserva tu clase con anticipación para garantizar tu cupo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .schedule-description {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+  }
+
+  .schedule-wrapper {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .day-column {
+    border-right: 1px solid var(--line);
+  }
+
+  .day-column:last-child {
+    border-right: none;
+  }
+
+  .day-header {
+    background: var(--brand);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .day-letter {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .day-name {
+    font-size: 0.875rem;
+    opacity: 0.9;
+  }
+
+  .time-slots {
+    min-height: 200px;
+  }
+
+  .time-period {
+    padding: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .time-period:last-child {
+    border-bottom: none;
+  }
+
+  .time-period.morning {
+    background: #f8fafc;
+    color: var(--ink);
+  }
+
+  .time-period.afternoon {
+    background: white;
+    color: var(--ink);
+  }
+
+  .time-slot {
+    padding: 0.5rem 0;
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+  }
+
+  .time-slot:last-child {
+    border-bottom: none;
+  }
+
+  .weekend-schedule {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--line);
+  }
+
+  .weekend-day {
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .weekend-day:last-child {
+    border-right: none;
+  }
+
+  .weekend-times {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    flex-grow: 1;
+  }
+
+  .weekend-times .time {
+    padding: 0.5rem 0;
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 1px solid #e2e8f0;
+    text-align: center;
+  }
+
+  .weekend-times .time:last-child {
+    border-bottom: none;
+  }
+
+  .weekend-status {
+    padding: 0.5rem 0;
+    font-weight: 500;
+    color: var(--ink);
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+    font-style: italic;
+  }
+
+  .schedule-footer {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .schedule-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    color: #0369a1;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .schedule-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+    }
+
+    .day-column:nth-child(n+3) {
+      display: none;
+    }
+
+    .day-header {
+      padding: 0.75rem;
+    }
+
+    .day-letter {
+      font-size: 1.25rem;
+    }
+
+    .time-period {
+      padding: 0.75rem;
+    }
+
+    .weekend-schedule {
+      grid-template-columns: 1fr;
+    }
+
+    .weekend-day {
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .weekend-day:last-child {
+      border-bottom: none;
+    }
+
+    .schedule-note {
+      padding: 0.75rem 1rem;
+      flex-direction: column;
+      text-align: center;
+      gap: 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .schedule-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .day-column {
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .day-column:last-child {
+      border-bottom: none;
+    }
+
+    .time-slots {
+      min-height: auto;
+    }
+
+    .schedule-description {
+      font-size: 1rem;
+    }
+  }
+</style>

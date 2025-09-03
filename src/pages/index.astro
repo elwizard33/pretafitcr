@@ -2,213 +2,81 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CountdownTimer from '../components/CountdownTimer.astro';
+import Disciplines from '../components/sections/Disciplines.astro';
+import Instructor from '../components/sections/Instructor.astro';
+import PlansTable from '../components/sections/PlansTable.astro';
+import Hero from '../components/sections/Hero.astro';
+import Reviews from '../components/sections/Reviews.astro';
+import FAQ from 'src/components/sections/FAQ.astro';
+import Contact from 'src/components/sections/Contact.astro';
+import Location from '../components/sections/Location.astro';
 ---
 <BaseLayout title="Preta Fit Jacó | CrossFit · BJJ · Wellness" description="Entrenamientos de CrossFit, Brazilian Jiu-Jitsu, fuerza y bienestar en Jacó. Comunidad y metodología progresiva.">
   <Fragment slot="header"><Header /></Fragment>
-  <!-- HERO -->
-  <section id="hero" class="hero" aria-labelledby="hero-title">
-    <div class="container hero-inner">
-      <div class="tag" style="margin-bottom:var(--space-3);">Jacó · Costa Rica</div>
-      <h1 id="hero-title" class="hero-title" data-animate>
-        Preta Fit<br />
-        <span class="accent-gradient-text">Fuerza · Técnica · Comunidad</span>
-      </h1>
-      <p class="hero-lead" data-animate>
-        Box líder en Jacó con <strong>CrossFit</strong>, <strong>Brazilian Jiu-Jitsu</strong>, fuerza y coaching integral. Cultura de progreso real y eventos como <strong>WOD Warriors</strong> que conectan a la comunidad regional.
-      </p>
-      <div class="hero-actions" data-animate>
-        <a href="#registro" class="btn">Clase Intro</a>
-        <a href="#servicios" class="btn btn--outline">Programas</a>
-        <a href="/event" class="btn btn--outline">WOD Warriors</a>
-      </div>
-      <div class="hero-stats" data-animate>
-        <div class="stat"><h3>3+</h3><span>Años</span></div>
-        <div class="stat"><h3>2</h3><span>Disciplinas</span></div>
-        <div class="stat"><h3>100+</h3><span>Miembros</span></div>
-        <div class="stat"><h3>1</h3><span>Comunidad</span></div>
-      </div>
-    </div>
-  </section>
-  <!-- SERVICIOS -->
-  <section id="servicios" aria-labelledby="servicios-title">
+
+  <!-- Use Hero component -->
+  <Hero />
+
+  <!-- ================= WOD WARRIORS PROMO FUNNEL ================= -->
+  <section class="section" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 40px 0;">
     <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="servicios-title">Servicios & Programas</h2>
-        <p>Entrenamiento funcional, arte suave y bienestar estratégico para diferentes niveles y objetivos.</p>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div class="overline" style="color: var(--brand);">EVENTO ESPECIAL</div>
+        <h2 class="h2" style="margin-bottom: 8px; font-size: 28px;">WOD WARRIORS 2025</h2>
+        <p class="small" style="margin-bottom: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
+          <strong>Competencia de CrossFit</strong> • Exhibición de BJJ • Música en vivo<br>
+          <span style="color: var(--brand); font-weight: 700;">5 de Septiembre, 7:00 PM • Preta Fit Jacó</span>
+        </p>
       </div>
-      <div class="services-grid">
-        <div class="card" data-animate><h3>CrossFit</h3><p>Metodología variada, fuerza y acondicionamiento estructurado para rendimiento cotidiano y competitivo.</p></div>
-        <div class="card" data-animate><h3>Brazilian Jiu-Jitsu</h3><p>Clases técnicas enfocadas en control, eficiencia y longevidad. Desarrollo mental y físico.</p></div>
-        <div class="card" data-animate><h3>Strength Club</h3><p>Ciclos de fuerza progresiva, levantamientos básicos y accesorios correctivos.</p></div>
-        <div class="card" data-animate><h3>Wellness Coaching</h3><p>Hábitos, recuperación, movilidad y nutrición básica para sostener el progreso.</p></div>
-      </div>
-    </div>
-  </section>
-  <!-- METODOLOGÍA -->
-  <section id="metodologia" aria-labelledby="metodo-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="metodo-title">Metodología</h2>
-        <p>Progresiones claras, fundamentos sólidos, control técnico y adaptación para diferentes contextos de vida.</p>
-      </div>
-      <div class="services-grid">
-        <div class="card" data-animate><h3>Fundamentos</h3><p>Movimientos seguros antes de añadir intensidad. Educación estructurada.</p></div>
-        <div class="card" data-animate><h3>Periodización</h3><p>Bloques de fuerza, potencia y acondicionamiento equilibrado.</p></div>
-        <div class="card" data-animate><h3>Evaluación</h3><p>Seguimiento de indicadores: técnica, consistencia, recuperación.</p></div>
-        <div class="card" data-animate><h3>Adaptación</h3><p>Escalados inteligentes que mantienen intención del estímulo.</p></div>
-      </div>
-    </div>
-  </section>
-  <!-- COACHES -->
-  <section id="coaches" aria-labelledby="coach-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="coach-title">Coaches</h2>
-        <p>Experiencia técnica y vocación pedagógica al servicio del atleta.</p>
-      </div>
-      <div class="coach-grid">
-        <div class="coach" data-animate>
-          <img src="/images/vanessa-vargas.jpeg" alt="Coach Vanessa" />
-          <div class="coach-info"><h3>Vanessa Vargas</h3><p style="font-size:var(--font-size-xs);color:var(--color-text-soft);">BJJ Black Belt · CF-L2 · Campeona Internacional</p></div>
-        </div>
-        <div class="coach" data-animate>
-          <img src="/images/pretafit-pared.jpeg" alt="Instalaciones" />
-          <div class="coach-info"><h3>Equipo Técnico</h3><p style="font-size:var(--font-size-xs);color:var(--color-text-soft);">Entrenadores certificados y en formación continua.</p></div>
-        </div>
+      
+      <!-- Countdown Timer -->
+      <CountdownTimer 
+        title="¡No te quedes fuera!"
+        subtitle="⚡ NO TE LO PIERDAS ⚡"
+        targetDay="friday"
+        targetHour={19}
+        timezone="America/Costa_Rica"
+        eventMessage="¡El evento ya comenzó! 🎉"
+      />
+      
+      <!-- CTA Button -->
+      <div style="text-align: center; margin-top: 24px;">
+        <a href="/wodwarriors" class="btn" style="font-size: 16px; padding: 14px 28px; background: linear-gradient(90deg, var(--brand), var(--brand-600)); box-shadow: 0 8px 25px rgba(255, 106, 42, 0.4); animation: pulse-cta 2s ease-in-out infinite;">
+          ✨ Ver Detalles del Evento ✨
+        </a>
+        <p class="small" style="margin-top: 12px; color: var(--muted);">
+          Categorías Principiante e Intermedio
+        </p>
       </div>
     </div>
   </section>
-  <!-- COMUNIDAD -->
-  <section id="comunidad" aria-labelledby="comunidad-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="comunidad-title">Comunidad</h2>
-        <p>Eventos internos, colaboraciones con boxes amigos y ambiente de crecimiento sostenible.</p>
-      </div>
-      <div class="gallery-grid">
-  <div class="gallery-item" data-animate><img src="/images/bloque-fuerza.jpeg" alt="Bloque fuerza"/></div>
-  <div class="gallery-item" data-animate><img src="/images/pretafit-pared.jpeg" alt="Pared"/></div>
-  <div class="gallery-item" data-animate><img src="/images/logo-pretafit.jpeg" alt="Logo"/></div>
-      </div>
-    </div>
-  </section>
-  <!-- EVENT PROMO -->
-  <section id="evento" aria-labelledby="evento-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="evento-title">Evento Destacado: WOD Warriors</h2>
-        <p>Competencia enfocada en atletas principiantes e intermedios con exhibición de BJJ, música y sponsors.</p>
-      </div>
-      <div class="event-promo">
-        <div class="card" data-animate>
-          <h3>5 Sept 2025 · 7:00 PM</h3>
-          <p>Únete o asiste. Vive la experiencia y conecta con la comunidad regional.</p>
-          <a href="/event" class="btn">Ver Detalles</a>
-        </div>
-        <div class="gallery-item" data-animate style="aspect-ratio:4/5;">
-          <img src="/images/vanessa-vargas.jpeg" alt="Exhibición BJJ" />
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- CONTACTO -->
-  <section id="contacto" aria-labelledby="contacto-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="contacto-title">Contacto & Clase Intro</h2>
-        <p>Agenda tu primera sesión o solicita información de membresías.</p>
-      </div>
-      <div class="contact-grid">
-        <form id="lead-form" novalidate data-animate>
-          <label for="name">Nombre</label>
-          <input id="name" name="name" required />
-          <label for="email">Email</label>
-            <input id="email" name="email" type="email" required />
-          <label for="msg">Objetivo / Nota</label>
-          <textarea id="msg" name="msg" rows="4"></textarea>
-          <button class="btn" type="submit">Enviar</button>
-        </form>
-        <div class="card" data-animate>
-          <h3>WhatsApp</h3>
-          <p><a href="https://wa.me/50600000000" target="_blank" rel="noopener">+506 0000 0000</a></p>
-          <h3>Ubicación</h3>
-          <p>Jacó, Costa Rica</p>
-          <h3>Redes</h3>
-          <p><a href="#">Instagram</a> · <a href="#">YouTube</a></p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- FAQ -->
-  <section id="faq" aria-labelledby="faq-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="faq-title">FAQ</h2>
-        <p>Preguntas recurrentes sobre programas y proceso inicial.</p>
-      </div>
-      <div class="faq">
-        <div class="faq-item" data-animate><div class="faq-q"><h3>¿Necesito experiencia previa?</h3><span>+</span></div><div class="faq-a"><p>No. Adaptamos movimientos y volumen.</p></div></div>
-        <div class="faq-item" data-animate><div class="faq-q"><h3>¿Ofrecen prueba?</h3><span>+</span></div><div class="faq-a"><p>Clase intro evaluativa sin compromiso.</p></div></div>
-      </div>
-    </div>
-  </section>
-  <!-- SPONSORS (from event) -->
-  <section id="patrocinadores" aria-labelledby="sponsors-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="sponsors-title">Patrocinadores & Aliados</h2>
-        <p>Marcas locales que respaldan eventos y crecimiento deportivo.</p>
-      </div>
-      <div class="sponsor-grid">
-  <div class="sponsor" data-animate><img src="/images/logo-holalola.jpeg" alt="Holaloha" /></div>
-  <div class="sponsor" data-animate><img src="/images/logo-pretafit.jpeg" alt="Preta Fit" /></div>
-  <div class="sponsor" data-animate><img src="/images/logo-jacolife.jpeg" alt="Jacó Life" /></div>
-  <div class="sponsor" data-animate><img src="/images/logo-farmacia-playa-hermosa.jpeg" alt="Farmacia Playa Hermosa" /></div>
-  <div class="sponsor" data-animate><img src="/images/logo-marysol.jpeg" alt="Mar y Sol" /></div>
-      </div>
-    </div>
-  </section>
-  <!-- RULES PREVIEW (link to event) -->
-  <section id="reglas" aria-labelledby="rules-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="rules-title">Estándares Competitivos</h2>
-        <p>Extracto visual de escalados y requerimientos. Ver detalles completos en página de evento.</p>
-      </div>
-      <div class="rules-grid">
-  <a class="rule-item" data-animate href="/event"><img src="/images/reglas-principiante.jpeg" alt="Reglas Principiante" /><span>Principiante</span></a>
-  <a class="rule-item" data-animate href="/event"><img src="/images/reglas-intermedio.jpeg" alt="Reglas Intermedio" /><span>Intermedio</span></a>
-  <a class="rule-item" data-animate href="/event"><img src="/images/reglas-avanzado.jpeg" alt="Reglas Avanzado" /><span>Avanzado (Futuro)</span></a>
-      </div>
-    </div>
-  </section>
-  <!-- LEAD FORM -->
-  <section id="registro" aria-labelledby="registro-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="registro-title">Clase Intro & Registro</h2>
-        <p>Déjanos tus datos y recibe seguimiento personalizado.</p>
-      </div>
-  <form id="lead-form" novalidate data-animate style="max-width:560px;margin:0 auto;">
-        <label for="name">Nombre</label><input id="name" name="name" required />
-        <label for="email">Email</label><input id="email" name="email" type="email" required />
-        <label for="goal">Objetivo</label><textarea id="goal" name="goal" rows="4"></textarea>
-        <button class="btn" type="submit">Enviar</button>
-      </form>
-    </div>
-  </section>
-  <!-- FAQ (light) -->
-  <section id="faq-basico" aria-labelledby="faq-basico-title">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 id="faq-basico-title">Preguntas Frecuentes (Inicio)</h2>
-        <p>Inicio rápido para nuevos miembros.</p>
-      </div>
-      <div class="faq">
-        <div class="faq-item" data-animate><div class="faq-q"><h3>¿Necesito experiencia?</h3><span>+</span></div><div class="faq-a"><p>No, adaptamos cargas y complejidad.</p></div></div>
-        <div class="faq-item" data-animate><div class="faq-q"><h3>¿Qué incluye la clase intro?</h3><span>+</span></div><div class="faq-a"><p>Evaluación básica de movimiento y explicación del método.</p></div></div>
-      </div>
-    </div>
-  </section>
+
+  <!-- Use Disciplines component -->
+  <Disciplines />
+
+  <!-- Use Instructor component -->
+  <Instructor />
+
+  <!-- Use Reviews component -->
+  <Reviews />
+
+  <!-- Use Location component -->
+  <Location />
+
+  <!-- ================= FAQ ================= -->
+  <FAQ />
+
   <Fragment slot="footer"><Footer /></Fragment>
 </BaseLayout>
+
+<!-- ================= LIGHTBOX ================= -->
+<div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:30;place-items:center">
+  <button id="lbClose" class="btn secondary" style="position:absolute;top:16px;right:16px">Cerrar</button>
+  <img id="lbImg" src="" alt="" style="max-width:min(1080px,92vw);max-height:86vh;border-radius:12px;border:1px solid #fff">
+</div>
+
+<script>
+
+
+</script>

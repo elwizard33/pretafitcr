@@ -1,0 +1,721 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import CountdownTimer from "../components/CountdownTimer.astro";
+---
+
+<BaseLayout
+  title="WOD Warriors | Evento"
+  description="WOD Warriors: Competencia de CrossFit (Principiante & Intermedio), exhibición BJJ, música y sponsors en Jacó."
+>
+  <Fragment slot="header"><Header /></Fragment>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero hero-event">
+    <div class="container hero-card">
+      <div class="hero-media card">
+        <img alt="Logo WOD Warriors" src="/images/logo-wodwarriors.jpeg" />
+        <div class="hero-overlay">
+          <div class="hero-bubble">
+            <div class="h1">WOD WARRIORS<br />COMPETENCIA & COMUNIDAD</div>
+            <div class="subtle">
+              Competencia de CrossFit (principiante & intermedio) con exhibición
+              de BJJ por <b>Vanessa Vargas</b> (2ª cinta negra del país), música
+              en vivo, comida y venta de productos locales.
+            </div>
+            <div class="hero-actions"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- countdown timer - MOVED TO TOP -->
+      <div style="margin-top:20px">
+        <CountdownTimer 
+          title="Tiempo restante para el evento"
+          subtitle="⚡ NO TE LO PIERDAS ⚡"
+          targetDay="friday"
+          targetHour={19}
+          timezone="America/Costa_Rica"
+          eventMessage="¡El evento ya comenzó! 🎉"
+        />
+      </div>
+
+      <!-- mini features -->
+      <div class="feature-row">
+        <div class="feature">
+          <div class="badge-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24"
+              ><path
+                fill="#ff6a2a"
+                d="M12 3a6 6 0 0 0-6 6c0 6 6 12 6 12s6-6 6-12a6 6 0 0 0-6-6z"
+              ></path></svg>
+          </div>
+          <div><b>5 Sept 2025</b></div>
+        </div>
+        <div class="feature">
+          <div class="badge-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24"
+              ><path fill="#ff6a2a" d="M12 6v6l4 2-1.5 2.6L9 14V6h3z"
+              ></path></svg>
+          </div>
+          <div><b>7:00 PM</b></div>
+        </div>
+        <div class="feature">
+          <div class="badge-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24"
+              ><path
+                fill="#ff6a2a"
+                d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7Zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5Z"
+              ></path></svg>
+          </div>
+          <div><b>Preta Fit Jacó, CR</b></div>
+        </div>
+      </div>
+
+      <!-- event info -->
+      <div class="logo-strip">
+        <div class="box">2 Categorías</div>
+        <div class="box">16 Atletas</div>
+        <div class="box">4 Boxes</div>
+        <div class="box">Exhibición BJJ</div>
+        <div class="box">Puestos Venta</div>
+        <div class="box">Comidas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOXES PARTICIPANTES ================= -->
+  <section id="boxes" class="section">
+    <div class="container">
+      <div class="overline">Comunidad</div>
+      <h2 class="h2">Boxes Participantes</h2>
+      <div class="small" style="margin-bottom:10px">
+        Boxes que aportan atletas y energía al evento.
+      </div>
+      <div
+        class="boxes-grid"
+        style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))"
+      >
+        <a
+          class="card member"
+          style="text-decoration:none"
+          href="https://www.instagram.com/pretafitjaco/"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="thumb">
+            <img src="/images/logo-pretafit.jpeg" alt="Preta Fit Jacó" />
+          </div>
+          <div class="info">
+            <b>Preta Fit Jacó</b><div class="small">@pretafitjaco</div>
+          </div>
+        </a>
+        <a
+          class="card member"
+          style="text-decoration:none"
+          href="https://www.instagram.com/box_parrita/"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="thumb">
+            <img src="/images/logo-box-parrita.png" alt="Box Parrita" />
+          </div>
+          <div class="info">
+            <b>Box Parrita</b><div class="small">@box_parrita</div>
+          </div>
+        </a>
+        <a
+          class="card member"
+          style="text-decoration:none"
+          href="https://www.instagram.com/dukurfit/"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="thumb">
+            <img src="/images/logo-dukurfit.png" alt="DukurFit" />
+          </div>
+          <div class="info">
+            <b>DukurFit</b><div class="small">@dukurfit</div>
+          </div>
+        </a>
+        <a
+          class="card member"
+          style="text-decoration:none"
+          href="https://www.instagram.com/the_kings_box_gym/"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="thumb">
+            <img src="/images/logo-the-kings-box.png" alt="The Kings Box Gym" />
+          </div>
+          <div class="info">
+            <b>The Kings Box Gym</b><div class="small">@the_kings_box_gym</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMPETITION FORMAT ================= -->
+  <section id="categories" class="section">
+    <div class="container">
+      <div class="overline">Competencia</div>
+      <h2 class="h2">Formato de la Competencia</h2>
+            <div class="small" style="margin-bottom:32px;text-align:center">
+        Dos categorías enfrentando tres pruebas progresivas que pondrán a prueba diferentes aspectos de tu fitness.
+      </div>
+      
+      <!-- HIT 1 - Side by Side Categories -->
+      <div style="margin-bottom:40px">
+        <div style="text-align:center;margin-bottom:24px">
+          <div style="background:#ff6a2a;color:white;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:bold;font-size:24px">1</div>
+          <h3 style="margin:0 0 8px;font-size:24px">Primer Hit - Acondicionamiento</h3>
+          <p class="small" style="margin:0;color:#6b7280;max-width:600px;margin:0 auto">
+            Prueba de resistencia cardiovascular y muscular con movimientos funcionales adaptados a cada categoría.
+          </p>
+        </div>
+        
+        <div style="display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+          <!-- Principiante HIT 1 -->
+          <div class="card" style="padding:20px">
+            <div style="text-align:center;margin-bottom:16px">
+              <h4 style="margin:0 0 8px;font-size:18px;color:#ff6a2a">Principiante</h4>
+            </div>
+            
+            <figure
+              class="rule-item"
+              data-full="/images/reglas-principiante.jpeg"
+              style="margin:0;cursor:pointer"
+            >
+              <img
+                src="/images/reglas-principiante.jpeg"
+                alt="HIT 1 Principiante"
+                style="width:100%;height:auto;border-radius:8px;object-fit:contain"
+              />
+              <figcaption class="small" style="text-align:center;margin-top:8px;font-weight:600;color:#ff6a2a">
+                Hit 1: Principiante
+              </figcaption>
+            </figure>
+          </div>
+
+          <!-- Intermedio HIT 1 -->
+          <div class="card" style="padding:20px">
+            <div style="text-align:center;margin-bottom:16px">
+              <h4 style="margin:0 0 8px;font-size:18px;color:#ff6a2a">Intermedio</h4>
+            </div>
+            
+            <figure
+              class="rule-item"
+              data-full="/images/reglas-intermedio.jpeg"
+              style="margin:0;cursor:pointer"
+            >
+              <img
+                src="/images/reglas-intermedio.jpeg"
+                alt="HIT 1 Intermedio"
+                style="width:100%;height:auto;border-radius:8px;object-fit:contain"
+              />
+              <figcaption class="small" style="text-align:center;margin-top:8px;font-weight:600;color:#ff6a2a">
+                Hit 1: Intermedio
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <!-- HIT 2 - Shared Big Section -->
+      <div style="margin-bottom:40px">
+        <div style="text-align:center;margin-bottom:24px">
+          <div style="background:#ff6a2a;color:white;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:bold;font-size:24px">2</div>
+          <h3 style="margin:0 0 8px;font-size:24px">Segundo Hit - Bloque de Fuerza</h3>
+          <p class="small" style="margin:0;color:#6b7280;max-width:600px;margin:0 auto">
+            Levantamientos pesados para ambas categorías. Mismos movimientos, cargas adaptadas a cada nivel de experiencia.
+          </p>
+        </div>
+        
+        <div style="background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);padding:32px;border-radius:16px;border:1px solid #e2e8f0">
+          <figure
+            class="rule-item"
+            data-full="/images/bloque-fuerza.jpeg"
+            style="margin:0;cursor:pointer;max-width:500px;margin:0 auto"
+          >
+            <img
+              src="/images/bloque-fuerza.jpeg"
+              alt="Bloque de Fuerza - Ambas Categorías"
+              style="width:100%;height:auto;border-radius:12px;object-fit:contain;box-shadow:0 10px 25px rgba(0,0,0,0.1)"
+            />
+            <figcaption class="small" style="text-align:center;margin-top:12px;font-weight:600;color:#ff6a2a;font-size:14px">
+              Bloque de Fuerza: Ambas Categorías
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- HIT 3 - Shared Mystery Section -->
+      <div style="margin-bottom:60px">
+        <div style="text-align:center;margin-bottom:24px">
+          <div style="background:#ff6a2a;color:white;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:bold;font-size:24px">3</div>
+          <h3 style="margin:0 0 8px;font-size:24px">Tercer Hit - Sorpresa Final</h3>
+          <p class="small" style="margin:0;color:#6b7280;max-width:600px;margin:0 auto 16px">
+            La prueba definitiva que coronará a los campeones. Una sorpresa especial diseñada para poner a prueba todo lo que has entrenado.
+          </p>
+        </div>
+        
+        <div style="background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);padding:32px;border-radius:16px;border:1px solid #e2e8f0;text-align:center">
+          <div style="position:relative;z-index:1">
+            <h4 style="margin:0 0 12px;font-size:20px;color:#ff6a2a">REVELACIÓN EL DÍA DE LA COMPETENCIA</h4>
+            <p style="margin:0 0 16px;color:#6b7280;max-width:500px;margin:0 auto 16px">
+              Una prueba especial que desafiará a ambas categorías por igual. Mantente preparado para cualquier cosa: podrías necesitar todo tu arsenal de habilidades.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+  <!-- ================= COMPETITORS (add full static lists) ================= -->
+  <section id="competidores" class="section">
+    <div class="container">
+      <div class="overline">Competidores</div>
+      <h2 class="h2" style="font-size:30px">Atletas Registrados</h2>
+      <div class="small" style="margin-bottom:16px;font-size:14px">
+        Atletas representando a Preta Fit, Box Parrita, DukurFit, The Kings Box
+        Gym y otros independientes.
+      </div>
+      <div
+        class="cards-nav"
+        role="tablist"
+        aria-label="Filtrar categorías de competidores"
+      >
+        <button class="active" data-comp="all" role="tab">Todos</button>
+        <button data-comp="pf" role="tab">Principiante F</button>
+        <button data-comp="pm" role="tab">Principiante M</button>
+        <button data-comp="if" role="tab">Intermedio F</button>
+        <button data-comp="im" role="tab">Intermedio M</button>
+      </div>
+      <div id="competitorCards" style="display:grid;gap:14px">
+        <div class="card comp-card" data-group="pf" style="padding:18px">
+          <h3
+            style="margin:0 0 10px;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#ff6a2a"
+          >
+            Principiante Femenino
+          </h3>
+          <ul
+            style="margin:0;padding-left:20px;font-size:13px;columns:2 180px;line-height:1.5"
+          >
+            <li>
+              <strong>Shirley</strong>
+              <span class="small">(Parrita)</span>
+            </li>
+            <li>
+              <strong>Stella</strong>
+              <span class="small">(Preta Fit)</span>
+            </li>
+            <li>
+              <strong>Mariana</strong>
+              <span class="small">(Preta Fit)</span>
+            </li>
+          </ul>
+        </div>
+        <div class="card comp-card" data-group="pm" style="padding:18px">
+          <h3
+            style="margin:0 0 10px;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#ff6a2a"
+          >
+            Principiante Masculino
+          </h3>
+          <ul
+            style="margin:0;padding-left:20px;font-size:13px;columns:2 180px;line-height:1.5"
+          >
+            <li>
+              <strong>Jostin</strong>
+              <span class="small">(Parrita)</span>
+            </li>
+            <li>
+              <strong>Gabriel</strong>
+              <span class="small">(Preta Fit)</span>
+            </li>
+            <li>
+              <strong>Will</strong>
+              <span class="small">(Preta Fit)</span>
+            </li>
+            <li>
+              <strong>Christian González</strong>
+              <span class="small">(The Kings Box Gym)</span>
+            </li>
+          </ul>
+        </div>
+        <div class="card comp-card" data-group="if" style="padding:18px">
+          <h3
+            style="margin:0 0 10px;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#ff6a2a"
+          >
+            Intermedio Femenino
+          </h3>
+          <ul
+            style="margin:0;padding-left:20px;font-size:13px;columns:2 180px;line-height:1.5"
+          >
+            <li><strong>Sol</strong> <span class="small">(Preta Fit)</span></li>
+            <li>
+              <strong>Sharet</strong>
+              <span class="small">(Preta Fit)</span>
+            </li>
+            <li>
+              <strong>Serena</strong>
+              <span class="small">(Preta Fit)</span>
+            </li>
+            <li>
+              <strong>Amanda</strong>
+              <span class="small">(Preta Fit)</span>
+            </li>
+            <li>
+              <strong>Alison</strong>
+              <span class="small">(Box Parrita)</span>
+            </li>
+            <li>
+              <strong>Mariam</strong>
+              <span class="small">(Independiente)</span>
+            </li>
+            <li>
+              <strong>Fabiola</strong>
+              <span class="small">(DukurFit)</span>
+            </li>
+          </ul>
+        </div>
+        <div class="card comp-card" data-group="im" style="padding:18px">
+          <h3
+            style="margin:0 0 10px;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#ff6a2a"
+          >
+            Intermedio Masculino
+          </h3>
+          <ul
+            style="margin:0;padding-left:20px;font-size:13px;columns:2 180px;line-height:1.5"
+          >
+            <li>
+              <strong>Josue</strong>
+              <span class="small">(Preta Fit)</span>
+            </li>
+            <li>
+              <strong>Anderson</strong>
+              <span class="small">(Box Parrita)</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXHIBITION ================= -->
+</BaseLayout>
+
+<!-- ================= FAQ ================= -->
+
+
+
+<!-- ================= SPONSORS ================= -->
+<section id="patrocinadores" class="section">
+  <div class="container">
+    <div class="overline">Patrocinadores</div>
+    <h2 class="h2">Aliados que impulsan la experiencia</h2>
+    <div class="small" style="margin-bottom:8px">
+      Marcas locales que respaldan el crecimiento deportivo y la comunidad.
+    </div>
+
+    <div class="team">
+      <div class="card member">
+        <div class="thumb">
+          <img src="/images/logo-pretafit.jpeg" alt="Preta Fit snacks" />
+        </div>
+        <div class="info">
+          <b>Preta Fit</b><div class="small">Anfitrión</div>
+        </div>
+      </div>
+      <div class="card member">
+        <div class="thumb">
+          <img src="/images/logo-marysol.jpeg" alt="Mar y Sol mantequillas" />
+        </div>
+        <div class="info">
+          <b>Mar y Sol</b><div class="small">Mantequillas</div>
+        </div>
+      </div>
+      <div class="card member">
+        <div class="thumb">
+          <img
+            src="/images/logo-holalola.jpeg"
+            alt="Holaloha comida saludable"
+          />
+        </div>
+        <div class="info">
+          <b>Holaloha</b><div class="small">Comida saludable</div>
+        </div>
+      </div>
+      <div class="card member">
+        <div class="thumb">
+          <img src="/images/logo-jacolife.png" alt="Jacó Life suplementos" />
+        </div>
+        <div class="info">
+          <b>Jacó Life</b><div class="small">Suplementos</div>
+        </div>
+      </div>
+      <div class="card member">
+        <div class="thumb">
+          <img
+            src="/images/logo-farmacia-playa-hermosa.png"
+            alt="Farmacia Playa Hermosa salud"
+          />
+        </div>
+        <div class="info">
+          <b>Farmacia Playa Hermosa</b><div class="small">Salud</div>
+        </div>
+      </div>
+      <div class="card member">
+        <div class="thumb">
+          <img
+            src="/images/logo-surf-inn-hermosa.jpg"
+            alt="Surf Inn Hermosa hospedaje"
+          />
+        </div>
+        <div class="info">
+          <b>Surf Inn Hermosa</b><div class="small">Hospedaje</div>
+        </div>
+      </div>
+      <div class="card member">
+        <div class="thumb">
+          <img
+            src="/images/logo-villa-tanya.png"
+            alt="Villa Tanya alojamiento"
+          />
+        </div>
+        <div class="info">
+          <b>Villa Tanya</b><div class="small">Alojamiento</div>
+        </div>
+      </div>
+      <div class="card member">
+        <div class="thumb">
+          <img
+            src="/images/logo-vista-los-suenos.png"
+            alt="Vista Los Sueños Adventure Park entretenimiento"
+          />
+        </div>
+        <div class="info">
+          <b>Vista Los Sueños</b><div class="small">Adventure Park</div>
+        </div>
+      </div>
+      <div class="card member">
+        <div class="thumb">
+          <img
+            src="/images/logo-tropical-ice-baths.jpg"
+            alt="Tropical Ice Baths recuperación"
+          />
+        </div>
+        <div class="info">
+          <b>Tropical Ice Baths</b><div class="small">Recuperación</div>
+        </div>
+      </div>
+      <div class="card member">
+        <div class="thumb">
+          <img
+            src="/images/logo-nutricionista-fiorella.jpeg"
+            alt="Nutricionista Fiorella Bogantes"
+          />
+        </div>
+        <div class="info">
+          <b>Nutricionista Fiorella Bogantes</b><div class="small">Nutrición</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AGENDA / TIMELINE ================= -->
+<section id="agenda" class="section">
+  <div class="container">
+    <div class="overline">Agenda</div>
+    <h2 class="h2">Cronograma del Evento</h2>
+    <div class="small" style="margin-bottom:8px">
+      Horarios confirmados para optimizar el flujo de competencia y
+      experiencias.
+    </div>
+    <div class="timeline">
+      <div class="time-block">
+        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
+          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">7:00 PM</span>
+          Música en Vivo
+        </h3>
+        <div class="small" style="margin-left:82px">
+          Ambiente musical para calentar el evento
+        </div>
+      </div>
+      <div class="time-block">
+        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
+          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">7:30 PM</span>
+          HIT Principiantes
+        </h3>
+        <div class="small" style="margin-left:82px">
+          Primera prueba para categoría principiante
+        </div>
+      </div>
+      <div class="time-block">
+        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
+          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">8:00 PM</span>
+          HIT 1 Intermedios
+        </h3>
+        <div class="small" style="margin-left:82px">
+          Primera prueba para categoría intermedio
+        </div>
+      </div>
+      <div class="time-block">
+        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
+          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">8:30 PM</span>
+          HIT 2 Levantamientos
+        </h3>
+        <div class="small" style="margin-left:82px">Pruebas de fuerza y técnica</div>
+      </div>
+      <div class="time-block">
+        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
+          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">9:00 PM</span>
+          Demostración de BJJ
+        </h3>
+        <div class="small" style="margin-left:82px">Exhibición técnica realizada por cintas negras</div>
+      </div>
+      <div class="time-block">
+        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
+          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">9:20 PM</span>
+          HIT 3 Principiantes
+        </h3>
+        <div class="small" style="margin-left:82px">Prueba final categoría principiante</div>
+      </div>
+      <div class="time-block">
+        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
+          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">9:45 PM</span>
+          HIT 3 de Intermedios
+        </h3>
+        <div class="small" style="margin-left:82px">Prueba final categoría intermedio</div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ================= FAQ ================= -->
+<section id="faq" class="section">
+  <div class="container" style="text-align:center">
+    <div class="overline">FAQ</div>
+    <h2 class="h2" style="margin-bottom:6px">
+      ¿Tienes preguntas?<br />Tenemos respuestas
+    </h2>
+    <div class="faq-wrap">
+      <details class="faq">
+        <summary
+          >¿Puedo inscribirme si es mi primera competencia? <span class="small"
+            >⟶</span
+          ></summary
+        ><p>
+          Sí. La categoría Principiante está diseñada para introducirte de forma
+          segura y motivante al formato competitivo.
+        </p>
+      </details>
+      <details class="faq">
+        <summary
+          >¿Habrá opción de escalar movimientos? <span class="small">⟶</span
+          ></summary
+        ><p>
+          Los WOD están diseñados para cada categoría. Principiante ya incluye
+          estándares accesibles; Intermedio mantiene ciertas demandas técnicas.
+        </p>
+      </details>
+      <details class="faq">
+        <summary
+          >¿Cómo recibo confirmación? <span class="small">⟶</span></summary
+        ><p>
+          Tras enviar el formulario, un miembro del equipo te contactará por
+          email o WhatsApp para completar detalles.
+        </p>
+      </details>
+      <details class="faq">
+        <summary>¿Qué debo llevar? <span class="small">⟶</span></summary><p>
+          Ropa deportiva, hidratación, cuerda personal (si prefieres), vendas y
+          buena actitud.
+        </p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<Fragment slot="footer"><Footer /></Fragment>
+
+<!-- ================= CUSTOM STYLES ================= -->
+<style>
+  .small {
+    font-size: 15px !important;
+  }
+</style>
+
+<!-- ================= LIGHTBOX ================= -->
+<div
+  id="lightbox"
+  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:30;place-items:center"
+>
+  <button
+    id="lbClose"
+    class="btn secondary"
+    style="position:absolute;top:16px;right:16px">Cerrar</button
+  >
+  <img
+    id="lbImg"
+    src=""
+    alt=""
+    style="max-width:min(1080px,92vw);max-height:86vh;border-radius:12px;border:1px solid #fff"
+  />
+</div>
+
+<script>
+  /* competitors filter */
+  const compNav = Array.from(
+    document.querySelectorAll("#competidores .cards-nav button"),
+  ) as HTMLButtonElement[];
+  const compCards = Array.from(
+    document.querySelectorAll("#competitorCards .comp-card"),
+  ) as HTMLElement[];
+  compNav.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      compNav.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const key = btn.dataset?.comp;
+      compCards.forEach((c) => {
+        if (key === "all" || c.dataset?.group === key) {
+          c.style.display = "block";
+          c.classList.add("highlight-pulse");
+          setTimeout(() => c.classList.remove("highlight-pulse"), 800);
+        } else {
+          c.style.display = "none";
+        }
+      });
+    });
+  });
+
+  /* gallery & rules lightbox */
+  const lb = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lbImg") as HTMLImageElement | null;
+  if (lb && lbImg) {
+    document.getElementById("gallery")?.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement | null;
+      if (target && target.tagName === "IMG") {
+        lbImg.src = (target as HTMLImageElement).src;
+        lb.style.display = "grid";
+      }
+    });
+    document.querySelectorAll(".rule-item").forEach((item) =>
+      item.addEventListener("click", () => {
+        const full = item.getAttribute("data-full");
+        if (full && lbImg) {
+          lbImg.src = full;
+          lb.style.display = "grid";
+        }
+      }),
+    );
+    document
+      .getElementById("lbClose")
+      ?.addEventListener("click", () => (lb.style.display = "none"));
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb) lb.style.display = "none";
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") lb.style.display = "none";
+    });
+  }
+</script>

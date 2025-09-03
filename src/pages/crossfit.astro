@@ -1,0 +1,220 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PlansCrossFit from '../components/sections/PlansCrossFit.astro';
+import Schedule from '../components/sections/Schedule.astro';
+
+// Import images
+import levantamientoCrossfit from '../../public/images/levantamiento-crossfit.jpg';
+---
+
+<BaseLayout title="CrossFit | Preta Fit Jacó" description="Clases de CrossFit en Jacó, Costa Rica. Horarios, planes y precios. Box líder con entrenadores certificados.">
+  <Header slot="header" />
+  
+  <!-- Hero Section -->
+  <section class="hero crossfit-hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="overline">CrossFit</div>
+        <h1 class="h1">Entrena CrossFit en Jacó</h1>
+        <p class="hero-description">
+          Descubre el poder del CrossFit en nuestro box líder en Jacó. Clases para todos los niveles con entrenadores certificados y una comunidad apasionada por el fitness.
+        </p>
+        <div class="hero-cta">
+          <a href="#plans" class="btn primary">Ver Planes</a>
+          <a href="#schedule" class="btn secondary">Horarios</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is CrossFit Section -->
+  <section class="section crossfit-about">
+    <div class="container">
+      <div class="content-grid">
+        <div class="content-text">
+          <div class="overline">Metodología</div>
+          <h2 class="h2">¿Qué es CrossFit?</h2>
+          <p>
+            CrossFit es un programa de acondicionamiento físico que combina movimientos funcionales constantemente variados realizados a alta intensidad. En Preta Fit, nos especializamos en hacer que cada entrenamiento sea único, desafiante y adaptable a tu nivel.
+          </p>
+          <div class="benefits-list">
+            <div class="benefit-item">
+              <strong>Fuerza Funcional:</strong> Movimientos que usas en la vida diaria
+            </div>
+            <div class="benefit-item">
+              <strong>Comunidad:</strong> Entrena junto a personas que comparten tus objetivos
+            </div>
+            <div class="benefit-item">
+              <strong>Resultados Rápidos:</strong> Ve cambios en tu cuerpo y resistencia
+            </div>
+            <div class="benefit-item">
+              <strong>Escalable:</strong> Adaptamos cada ejercicio a tu nivel actual
+            </div>
+          </div>
+        </div>
+        <div class="content-image">
+          <Image 
+            src={levantamientoCrossfit} 
+            alt="Entrenamiento de fuerza" 
+            width={600}
+            height={400}
+            loading="lazy"
+            format="webp"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Schedule Section -->
+  <Schedule />
+
+  <!-- Plans Section -->
+  <PlansCrossFit />
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .crossfit-hero {
+    padding: 80px 0 60px;
+    background: var(--page);
+    color: var(--ink);
+    margin-top: 60px;
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-description {
+    font-size: 1.2rem;
+    margin: 1.5rem 0 2rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .hero-image {
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .crossfit-about {
+    background: var(--bg-subtle);
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .benefits-list {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .benefit-item {
+    padding: 1rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    border-left: 4px solid var(--primary);
+  }
+
+  .content-image {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .content-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+
+
+  .cta-section {
+    background: var(--card);
+    color: var(--ink);
+    text-align: center;
+    border: 1px solid var(--line);
+  }
+
+  .cta-content h2 {
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .cta-content p {
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .crossfit-hero {
+      padding: 60px 0 40px;
+      margin-top: 50px;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .content-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .hero-cta .btn,
+    .cta-buttons .btn {
+      width: 100%;
+      max-width: 280px;
+    }
+  }
+</style>

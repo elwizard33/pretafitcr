@@ -4,6 +4,7 @@
 **Evento:** WOD Warriors - Competencia de Crossfit
 **Organizador:** Preta Fit Jacó, Costa Rica
 **Fecha:** 5 de septiembre, 2025 - 7:00 PM
+**Telefono:** 7009-2140
 
 **Elementos únicos del evento:**
 - Competencia crossfit (categorías principiante e intermedio)
