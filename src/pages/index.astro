@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import CountdownTimer from '../components/CountdownTimer.astro';
 import Disciplines from '../components/sections/Disciplines.astro';
 import Instructor from '../components/sections/Instructor.astro';
-import PlansTable from '../components/sections/PlansTable.astro';
+import PlansCrossFit from '../components/sections/PlansCrossFit.astro';
 import Hero from '../components/sections/Hero.astro';
 import Reviews from '../components/sections/Reviews.astro';
 import FAQ from 'src/components/sections/FAQ.astro';
@@ -19,14 +19,14 @@ import Location from '../components/sections/Location.astro';
   <Hero />
 
   <!-- ================= WOD WARRIORS PROMO FUNNEL ================= -->
-  <section class="section" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 40px 0;">
+  <section class="section event-promo-section">
     <div class="container">
-      <div style="text-align: center; margin-bottom: 20px;">
-        <div class="overline" style="color: var(--brand);">EVENTO ESPECIAL</div>
-        <h2 class="h2" style="margin-bottom: 8px; font-size: 28px;">WOD WARRIORS 2025</h2>
-        <p class="small" style="margin-bottom: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
+      <div class="event-header">
+        <div class="overline event-overline">EVENTO ESPECIAL</div>
+        <h2 class="h2 event-title">WOD WARRIORS 2025</h2>
+        <p class="small event-description">
           <strong>Competencia de CrossFit</strong> • Exhibición de BJJ • Música en vivo<br>
-          <span style="color: var(--brand); font-weight: 700;">5 de Septiembre, 7:00 PM • Preta Fit Jacó</span>
+          <span class="event-date">5 de Septiembre, 7:00 PM • Preta Fit Jacó</span>
         </p>
       </div>
       
@@ -41,11 +41,11 @@ import Location from '../components/sections/Location.astro';
       />
       
       <!-- CTA Button -->
-      <div style="text-align: center; margin-top: 24px;">
-        <a href="/wodwarriors" class="btn" style="font-size: 16px; padding: 14px 28px; background: linear-gradient(90deg, var(--brand), var(--brand-600)); box-shadow: 0 8px 25px rgba(255, 106, 42, 0.4); animation: pulse-cta 2s ease-in-out infinite;">
+      <div class="event-cta-wrapper">
+        <a href="/wodwarriors" class="btn event-cta-btn">
           ✨ Ver Detalles del Evento ✨
         </a>
-        <p class="small" style="margin-top: 12px; color: var(--muted);">
+        <p class="small event-cta-note">
           Categorías Principiante e Intermedio
         </p>
       </div>
@@ -57,6 +57,9 @@ import Location from '../components/sections/Location.astro';
 
   <!-- Use Instructor component -->
   <Instructor />
+
+  <!-- Use PlansCrossFit component -->
+  <PlansCrossFit />
 
   <!-- Use Reviews component -->
   <Reviews />
@@ -71,9 +74,10 @@ import Location from '../components/sections/Location.astro';
 </BaseLayout>
 
 <!-- ================= LIGHTBOX ================= -->
-<div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:30;place-items:center">
-  <button id="lbClose" class="btn secondary" style="position:absolute;top:16px;right:16px">Cerrar</button>
-  <img id="lbImg" src="" alt="" style="max-width:min(1080px,92vw);max-height:86vh;border-radius:12px;border:1px solid #fff">
+<div id="lightbox" class="lightbox">
+  <button id="lbClose" class="btn secondary lightbox-close">Cerrar</button>
+  <!-- Lightbox image - kept as img tag since src is dynamically set by JavaScript -->
+  <img id="lbImg" src="" alt="" class="lightbox-image">
 </div>
 
 <script>

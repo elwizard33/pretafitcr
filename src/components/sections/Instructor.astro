@@ -1,5 +1,8 @@
 ---
-// Instructor component highlighting Vanessa Vargas
+import { Image } from 'astro:assets';
+
+// Import instructor image for optimization
+import vanessaVargas from '../../../public/images/vanessa-vargas.jpeg';
 ---
 
 <section id="instructor" class="section">
@@ -9,7 +12,15 @@
     
     <div class="instructor-spotlight">
       <figure class="instructor-figure">
-        <img src="/images/vanessa-vargas.jpeg" alt="Vanessa Vargas, segunda cinta negra de BJJ del país y instructora certificada de CrossFit nivel 1 y 2" />
+        <Image 
+          src={vanessaVargas}
+          alt="Vanessa Vargas, segunda cinta negra de BJJ del país y instructora certificada de CrossFit nivel 1 y 2"
+          width={400}
+          height={500}
+          quality={85}
+          format="webp"
+          loading="lazy"
+        />
       </figure>
       
       <div class="instructor-content">

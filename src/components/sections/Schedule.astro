@@ -1,6 +1,26 @@
 ---
 // CrossFit Schedule component for Preta Fit Jacó
 import { schedules } from '../../data/schedules';
+
+// Validate schedules data with fallback
+let validatedSchedules;
+try {
+  validatedSchedules = schedules?.crossfit;
+  if (!validatedSchedules || !Array.isArray(validatedSchedules) || validatedSchedules.length === 0) {
+    throw new Error('Invalid or empty schedules data');
+  }
+} catch (error) {
+  console.error('Error loading schedules:', error);
+  // Provide fallback schedule data
+  validatedSchedules = [
+    {
+      dayLetter: 'L-V',
+      dayName: 'Lunes a Viernes',
+      morningTimes: ['6:00 AM', '7:00 AM'],
+      afternoonTimes: ['6:00 PM', '7:00 PM']
+    }
+  ];
+}
 ---
 
 <section id="schedule" class="section">
@@ -11,54 +31,69 @@ import { schedules } from '../../data/schedules';
       Nuestras clases de CrossFit están diseñadas para todos los niveles. Elige el horario que mejor se adapte a tu rutina.
     </p>
     
-    <div class="schedule-wrapper">
-      <div class="schedule-grid">
-        {schedules.crossfit.map((day) => (
-          <div class="day-column">
-            <div class="day-header">
-              <span class="day-letter">{day.dayLetter}</span>
-              <span class="day-name">{day.dayName}</span>
-            </div>
-            
-            <div class="time-slots">
-              <div class="time-period morning">
-                {day.morningTimes.map((time) => (
-                  <div class="time-slot">{time}</div>
-                ))}
+    {validatedSchedules && validatedSchedules.length > 0 ? (
+      <div class="schedule-wrapper">
+        <div class="schedule-grid">
+          {validatedSchedules.map((day) => (
+            <div class="day-column">
+              <div class="day-header">
+                <span class="day-letter">{day.dayLetter || 'N/A'}</span>
+                <span class="day-name">{day.dayName || 'Día no disponible'}</span>
               </div>
               
-              {day.afternoonTimes.length > 0 && (
-                <div class="time-period afternoon">
-                  {day.afternoonTimes.map((time) => (
-                    <div class="time-slot">{time}</div>
-                  ))}
-                </div>
-              )}
+              <div class="time-slots">
+                {day.morningTimes && day.morningTimes.length > 0 && (
+                  <div class="time-period morning">
+                    {day.morningTimes.map((time) => (
+                      <div class="time-slot">{time || 'Hora N/A'}</div>
+                    ))}
+                  </div>
+                )}
+                
+                {day.afternoonTimes && day.afternoonTimes.length > 0 && (
+                  <div class="time-period afternoon">
+                    {day.afternoonTimes.map((time) => (
+                      <div class="time-slot">{time || 'Hora N/A'}</div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="weekend-schedule">
+          <div class="weekend-day">
+            <div class="day-header">
+              <span class="day-letter">S</span>
+              <span class="day-name">Sábado</span>
+            </div>
+            <div class="weekend-times">
+              <span class="time">7:00 AM</span>
+              <span class="time">8:00 AM</span>
             </div>
           </div>
-        ))}
-      </div>
-
-      <div class="weekend-schedule">
-        <div class="weekend-day">
-          <div class="day-header">
-            <span class="day-letter">S</span>
-            <span class="day-name">Sábado</span>
-          </div>
-          <div class="weekend-times">
-            <span class="time">7:00 AM</span>
-            <span class="time">8:00 AM</span>
+          <div class="weekend-day">
+            <div class="day-header">
+              <span class="day-letter">D</span>
+              <span class="day-name">Domingo</span>
+            </div>
+            <div class="weekend-status">Cerrado</div>
           </div>
         </div>
-        <div class="weekend-day">
-          <div class="day-header">
-            <span class="day-letter">D</span>
-            <span class="day-name">Domingo</span>
-          </div>
-          <div class="weekend-status">Cerrado</div>
-        </div>
       </div>
-    </div>
+    ) : (
+      <div class="schedule-error-state">
+        <div class="error-state-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="#e5e7eb"/>
+          </svg>
+        </div>
+        <h3>Horarios no disponibles</h3>
+        <p>Por favor contactanos directamente para conocer nuestros horarios actualizados.</p>
+        <a href="tel:+50670092140" class="contact-fallback-btn">Llamar +506 7009-2140</a>
+      </div>
+    )}
 
     <div class="schedule-footer">
       <div class="schedule-note">
@@ -77,6 +112,50 @@ import { schedules } from '../../data/schedules';
     color: var(--muted);
     margin-bottom: 2rem;
     font-size: 1.1rem;
+  }
+
+  .schedule-error-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+  }
+
+  .error-state-icon {
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  .schedule-error-state h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text);
+    font-size: 1.25rem;
+  }
+
+  .schedule-error-state p {
+    margin: 0 0 1.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .contact-fallback-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--brand);
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .contact-fallback-btn:hover {
+    background: var(--brand-600);
+    transform: translateY(-1px);
   }
 
   .schedule-wrapper {

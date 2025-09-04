@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // GitHub Pages (project page) deployment via Actions workflow
 // - site: full canonical URL (owner/repo)
@@ -10,6 +11,7 @@ export default defineConfig({
   site: 'https://pretafitcr.com',
   base: '/',
   output: 'static',
+  integrations: [sitemap()],
   build: { 
     format: 'directory', 
     assets: 'astro'
