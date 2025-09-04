@@ -33,21 +33,24 @@ const dayMap = {
     <div class="countdown-title">{title}</div>
     <div id="countdown" class="countdown-display">
       <div class="time-unit">
-        <span id="days">--</span>
+        <span id="days" aria-label="días restantes">--</span>
         <label>Días</label>
       </div>
       <div class="time-unit">
-        <span id="hours">--</span>
+        <span id="hours" aria-label="horas restantes">--</span>
         <label>Horas</label>
       </div>
       <div class="time-unit">
-        <span id="minutes">--</span>
+        <span id="minutes" aria-label="minutos restantes">--</span>
         <label>Minutos</label>
       </div>
       <div class="time-unit">
-        <span id="seconds">--</span>
+        <span id="seconds" aria-label="segundos restantes">--</span>
         <label>Segundos</label>
       </div>
+    </div>
+    <div id="error-message" class="error-message" style="display:none">
+      No se pudo cargar el tiempo restante. El evento se realizará según lo programado.
     </div>
     <div id="event-message" class="event-message" style="display:none">
       {eventMessage}
@@ -68,83 +71,136 @@ const dayMap = {
     };
 
     function getNextTargetDateTime() {
-      const now = new Date();
-      
-      // Get current time in target timezone
-      const nowInTimezone = new Date(now.toLocaleString("en-US", {timeZone: timezone}));
-      
-      // Find next occurrence of target day at target hour
-      const nextTarget = new Date(nowInTimezone);
-      const targetDayNumber = dayMap[targetDay];
-      const daysUntilTarget = (targetDayNumber - nowInTimezone.getDay() + 7) % 7;
-      
-      if (daysUntilTarget === 0) {
-        // It's the target day, check if it's before target hour
-        if (nowInTimezone.getHours() < targetHour) {
-          // Before target hour today
-          nextTarget.setHours(targetHour, 0, 0, 0);
+      try {
+        const now = new Date();
+        
+        // Validate inputs
+        if (!timezone || !dayMap.hasOwnProperty(targetDay) || typeof targetHour !== 'number') {
+          throw new Error('Invalid configuration parameters');
+        }
+        
+        // Get current time in target timezone with error handling
+        let nowInTimezone;
+        try {
+          nowInTimezone = new Date(now.toLocaleString("en-US", {timeZone: timezone}));
+        } catch (timezoneError) {
+          console.warn(`Invalid timezone: ${timezone}, falling back to local time`, timezoneError);
+          nowInTimezone = new Date(now);
+        }
+        
+        // Find next occurrence of target day at target hour
+        const nextTarget = new Date(nowInTimezone);
+        const targetDayNumber = dayMap[targetDay];
+        const daysUntilTarget = (targetDayNumber - nowInTimezone.getDay() + 7) % 7;
+        
+        if (daysUntilTarget === 0) {
+          // It's the target day, check if it's before target hour
+          if (nowInTimezone.getHours() < targetHour) {
+            // Before target hour today
+            nextTarget.setHours(targetHour, 0, 0, 0);
+          } else {
+            // After target hour, get next week
+            nextTarget.setDate(nextTarget.getDate() + 7);
+            nextTarget.setHours(targetHour, 0, 0, 0);
+          }
         } else {
-          // After target hour, get next week
-          nextTarget.setDate(nextTarget.getDate() + 7);
+          // Not target day, get next occurrence
+          nextTarget.setDate(nextTarget.getDate() + daysUntilTarget);
           nextTarget.setHours(targetHour, 0, 0, 0);
         }
-      } else {
-        // Not target day, get next occurrence
-        nextTarget.setDate(nextTarget.getDate() + daysUntilTarget);
-        nextTarget.setHours(targetHour, 0, 0, 0);
+        
+        // Convert back to local time for countdown calculation
+        const timezoneOffset = nowInTimezone.getTimezoneOffset() - now.getTimezoneOffset();
+        return new Date(nextTarget.getTime() - (timezoneOffset * 60 * 1000));
+      } catch (error) {
+        console.error('Error calculating target date:', error);
+        // Fallback: return date one week from now at target hour
+        const fallbackDate = new Date();
+        fallbackDate.setDate(fallbackDate.getDate() + 7);
+        fallbackDate.setHours(targetHour || 19, 0, 0, 0);
+        return fallbackDate;
       }
+    }
+
+    function showError() {
+      const countdownEl = document.getElementById('countdown');
+      const errorMessageEl = document.getElementById('error-message');
       
-      // Convert back to local time for countdown calculation
-      const timezoneOffset = nowInTimezone.getTimezoneOffset() - now.getTimezoneOffset();
-      return new Date(nextTarget.getTime() - (timezoneOffset * 60 * 1000));
+      if (countdownEl) countdownEl.style.display = 'none';
+      if (errorMessageEl) errorMessageEl.style.display = 'block';
     }
 
     function updateCountdown() {
-      const targetDate = getNextTargetDateTime();
-      const now = new Date();
-      const timeDiff = targetDate.getTime() - now.getTime();
+      try {
+        const targetDate = getNextTargetDateTime();
+        const now = new Date();
+        const timeDiff = targetDate.getTime() - now.getTime();
 
-      const countdownEl = document.getElementById('countdown');
-      const eventMessageEl = document.getElementById('event-message');
+        const countdownEl = document.getElementById('countdown');
+        const eventMessageEl = document.getElementById('event-message');
 
-      if (timeDiff <= 0) {
-        // Event has started or passed
-        if (countdownEl) countdownEl.style.display = 'none';
-        if (eventMessageEl) eventMessageEl.style.display = 'block';
-        return;
+        if (timeDiff <= 0) {
+          // Event has started or passed
+          if (countdownEl) countdownEl.style.display = 'none';
+          if (eventMessageEl) eventMessageEl.style.display = 'block';
+          return;
+        }
+
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        // Validate calculated values
+        if (isNaN(days) || isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+          throw new Error('Invalid time calculation result');
+        }
+
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+
+        if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+        if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+        if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+      } catch (error) {
+        console.error('Error updating countdown:', error);
+        showError();
       }
-
-      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-      const daysEl = document.getElementById('days');
-      const hoursEl = document.getElementById('hours');
-      const minutesEl = document.getElementById('minutes');
-      const secondsEl = document.getElementById('seconds');
-
-      if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
-      if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
-      if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
-      if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
     }
 
-    // Update countdown immediately and then every second
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
+    try {
+      // Update countdown immediately and then every second
+      updateCountdown();
+      const interval = setInterval(updateCountdown, 1000);
 
-    // Cleanup function for when component is removed
-    return () => clearInterval(interval);
+      // Cleanup function for when component is removed
+      return () => clearInterval(interval);
+    } catch (error) {
+      console.error('Error initializing countdown:', error);
+      showError();
+    }
   }
 
-  // Initialize countdown when component loads
-  document.addEventListener('DOMContentLoaded', initCountdown);
+  // Initialize countdown when component loads with error handling
+  function safeInitCountdown() {
+    try {
+      initCountdown();
+    } catch (error) {
+      console.error('Failed to initialize countdown:', error);
+      const errorMessageEl = document.getElementById('error-message');
+      if (errorMessageEl) errorMessageEl.style.display = 'block';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', safeInitCountdown);
   
   // Also initialize immediately if DOM is already loaded
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCountdown);
+    document.addEventListener('DOMContentLoaded', safeInitCountdown);
   } else {
-    initCountdown();
+    safeInitCountdown();
   }
 </script>

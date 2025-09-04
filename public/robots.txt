@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pretafitcr.com/sitemap.xml

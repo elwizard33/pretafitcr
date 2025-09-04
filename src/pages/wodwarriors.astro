@@ -1,8 +1,30 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import CountdownTimer from "../components/CountdownTimer.astro";
+
+// Import large images for optimization
+import logoVillaTanya from '../../public/images/logo-villa-tanya.png';
+import logoJacolife from '../../public/images/logo-jacolife.png';
+import logoDukurfit from '../../public/images/logo-dukurfit.png';
+import logoTheKingsBox from '../../public/images/logo-the-kings-box.png';
+
+// Import additional images for optimization
+import logoWodWarriors from '../../public/images/logo-wodwarriors.jpeg';
+import logoPretafit from '../../public/images/logo-pretafit.jpeg';
+import logoBoxParrita from '../../public/images/logo-box-parrita.png';
+import reglamentoPrincipiante from '../../public/images/reglas-principiante.jpeg';
+import reglamentoIntermedio from '../../public/images/reglas-intermedio.jpeg';
+import bloqueFuerza from '../../public/images/bloque-fuerza.jpeg';
+import logoMarySol from '../../public/images/logo-marysol.jpeg';
+import logoHolalola from '../../public/images/logo-holalola.jpeg';
+import logoFarmaciaPlayaHermosa from '../../public/images/logo-farmacia-playa-hermosa.png';
+import logoSurfInnHermosa from '../../public/images/logo-surf-inn-hermosa.jpg';
+import logoVistaLosSuenos from '../../public/images/logo-vista-los-suenos.png';
+import logoTropicalIceBaths from '../../public/images/logo-tropical-ice-baths.jpg';
+import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fiorella.jpeg';
 ---
 
 <BaseLayout
@@ -15,7 +37,15 @@ import CountdownTimer from "../components/CountdownTimer.astro";
   <section class="hero hero-event">
     <div class="container hero-card">
       <div class="hero-media card">
-        <img alt="Logo WOD Warriors" src="/images/logo-wodwarriors.jpeg" />
+        <Image 
+          src={logoWodWarriors}
+          alt="Logo WOD Warriors" 
+          width={400}
+          height={300}
+          quality={80}
+          format="webp"
+          loading="eager"
+        />
         <div class="hero-overlay">
           <div class="hero-bubble">
             <div class="h1">WOD WARRIORS<br />COMPETENCIA & COMUNIDAD</div>
@@ -30,7 +60,7 @@ import CountdownTimer from "../components/CountdownTimer.astro";
       </div>
 
       <!-- countdown timer - MOVED TO TOP -->
-      <div style="margin-top:20px">
+      <div class="mt-5">
         <CountdownTimer 
           title="Tiempo restante para el evento"
           subtitle="⚡ NO TE LO PIERDAS ⚡"
@@ -90,64 +120,89 @@ import CountdownTimer from "../components/CountdownTimer.astro";
     <div class="container">
       <div class="overline">Comunidad</div>
       <h2 class="h2">Boxes Participantes</h2>
-      <div class="small" style="margin-bottom:10px">
+      <div class="small mb-3">
         Boxes que aportan atletas y energía al evento.
       </div>
-      <div
-        class="boxes-grid"
-        style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))"
-      >
+      <div class="boxes-grid grid-auto-fit-sm">
         <a
-          class="card member"
-          style="text-decoration:none"
+          class="card member no-decoration"
           href="https://www.instagram.com/pretafitjaco/"
           target="_blank"
           rel="noopener"
         >
           <div class="thumb">
-            <img src="/images/logo-pretafit.jpeg" alt="Preta Fit Jacó" />
+            <Image 
+              src={logoPretafit}
+              alt="Preta Fit Jacó" 
+              width={200}
+              height={150}
+              quality={75}
+              format="webp"
+              loading="lazy"
+            />
           </div>
           <div class="info">
             <b>Preta Fit Jacó</b><div class="small">@pretafitjaco</div>
           </div>
         </a>
         <a
-          class="card member"
-          style="text-decoration:none"
+          class="card member no-decoration"
           href="https://www.instagram.com/box_parrita/"
           target="_blank"
           rel="noopener"
         >
           <div class="thumb">
-            <img src="/images/logo-box-parrita.png" alt="Box Parrita" />
+            <Image 
+              src={logoBoxParrita}
+              alt="Box Parrita" 
+              width={200}
+              height={150}
+              quality={75}
+              format="webp"
+              loading="lazy"
+            />
           </div>
           <div class="info">
             <b>Box Parrita</b><div class="small">@box_parrita</div>
           </div>
         </a>
         <a
-          class="card member"
-          style="text-decoration:none"
+          class="card member no-decoration"
           href="https://www.instagram.com/dukurfit/"
           target="_blank"
           rel="noopener"
         >
           <div class="thumb">
-            <img src="/images/logo-dukurfit.png" alt="DukurFit" />
+            <Image 
+              src={logoDukurfit}
+              alt="DukurFit - Centro de entrenamiento funcional"
+              width={200}
+              height={150}
+              quality={75}
+              format="webp"
+              loading="lazy"
+            />
           </div>
           <div class="info">
             <b>DukurFit</b><div class="small">@dukurfit</div>
           </div>
         </a>
         <a
-          class="card member"
-          style="text-decoration:none"
+          class="card member no-decoration"
           href="https://www.instagram.com/the_kings_box_gym/"
           target="_blank"
           rel="noopener"
         >
           <div class="thumb">
-            <img src="/images/logo-the-kings-box.png" alt="The Kings Box Gym" />
+            <Image 
+              src={logoTheKingsBox}
+              alt="The Kings Box Gym - Gimnasio especializado en CrossFit"
+              width={200}
+              height={150}
+              quality={75}
+              format="webp"
+              loading="lazy"
+            />
           </div>
           <div class="info">
             <b>The Kings Box Gym</b><div class="small">@the_kings_box_gym</div>
@@ -162,60 +217,68 @@ import CountdownTimer from "../components/CountdownTimer.astro";
     <div class="container">
       <div class="overline">Competencia</div>
       <h2 class="h2">Formato de la Competencia</h2>
-            <div class="small" style="margin-bottom:32px;text-align:center">
+      <div class="small competition-intro">
         Dos categorías enfrentando tres pruebas progresivas que pondrán a prueba diferentes aspectos de tu fitness.
       </div>
       
       <!-- HIT 1 - Side by Side Categories -->
-      <div style="margin-bottom:40px">
-        <div style="text-align:center;margin-bottom:24px">
-          <div style="background:#ff6a2a;color:white;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:bold;font-size:24px">1</div>
-          <h3 style="margin:0 0 8px;font-size:24px">Primer Hit - Acondicionamiento</h3>
-          <p class="small" style="margin:0;color:#6b7280;max-width:600px;margin:0 auto">
+      <div class="competition-section-spacing">
+        <div class="competition-header">
+          <div class="hit-number">1</div>
+          <h3 class="hit-title">Primer Hit - Acondicionamiento</h3>
+          <p class="small competition-description">
             Prueba de resistencia cardiovascular y muscular con movimientos funcionales adaptados a cada categoría.
           </p>
         </div>
         
-        <div style="display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+        <div class="category-grid">
           <!-- Principiante HIT 1 -->
-          <div class="card" style="padding:20px">
-            <div style="text-align:center;margin-bottom:16px">
-              <h4 style="margin:0 0 8px;font-size:18px;color:#ff6a2a">Principiante</h4>
+          <div class="card category-card">
+            <div class="category-header">
+              <h4 class="category-title">Principiante</h4>
             </div>
             
             <figure
-              class="rule-item"
+              class="rule-figure"
               data-full="/images/reglas-principiante.jpeg"
-              style="margin:0;cursor:pointer"
             >
-              <img
-                src="/images/reglas-principiante.jpeg"
-                alt="HIT 1 Principiante"
-                style="width:100%;height:auto;border-radius:8px;object-fit:contain"
+              <Image
+                src={reglamentoPrincipiante}
+                alt="HIT 1 Principiante - Reglas de competencia CrossFit para nivel principiante"
+                class="rule-image"
+                width={600}
+                height={800}
+                quality={80}
+                format="webp"
+                loading="lazy"
               />
-              <figcaption class="small" style="text-align:center;margin-top:8px;font-weight:600;color:#ff6a2a">
+              <figcaption class="small rule-caption">
                 Hit 1: Principiante
               </figcaption>
             </figure>
           </div>
 
           <!-- Intermedio HIT 1 -->
-          <div class="card" style="padding:20px">
-            <div style="text-align:center;margin-bottom:16px">
-              <h4 style="margin:0 0 8px;font-size:18px;color:#ff6a2a">Intermedio</h4>
+          <div class="card category-card">
+            <div class="category-header">
+              <h4 class="category-title">Intermedio</h4>
             </div>
             
             <figure
-              class="rule-item"
+              class="rule-figure"
               data-full="/images/reglas-intermedio.jpeg"
-              style="margin:0;cursor:pointer"
             >
-              <img
-                src="/images/reglas-intermedio.jpeg"
-                alt="HIT 1 Intermedio"
-                style="width:100%;height:auto;border-radius:8px;object-fit:contain"
+              <Image
+                src={reglamentoIntermedio}
+                alt="HIT 1 Intermedio - Reglas de competencia CrossFit para nivel intermedio"
+                class="rule-image"
+                width={600}
+                height={800}
+                quality={80}
+                format="webp"
+                loading="lazy"
               />
-              <figcaption class="small" style="text-align:center;margin-top:8px;font-weight:600;color:#ff6a2a">
+              <figcaption class="small rule-caption">
                 Hit 1: Intermedio
               </figcaption>
             </figure>
@@ -224,27 +287,31 @@ import CountdownTimer from "../components/CountdownTimer.astro";
       </div>
 
       <!-- HIT 2 - Shared Big Section -->
-      <div style="margin-bottom:40px">
-        <div style="text-align:center;margin-bottom:24px">
-          <div style="background:#ff6a2a;color:white;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:bold;font-size:24px">2</div>
-          <h3 style="margin:0 0 8px;font-size:24px">Segundo Hit - Bloque de Fuerza</h3>
-          <p class="small" style="margin:0;color:#6b7280;max-width:600px;margin:0 auto">
+      <div class="competition-section-spacing">
+        <div class="competition-header">
+          <div class="hit-number">2</div>
+          <h3 class="hit-title">Segundo Hit - Bloque de Fuerza</h3>
+          <p class="small competition-description">
             Levantamientos pesados para ambas categorías. Mismos movimientos, cargas adaptadas a cada nivel de experiencia.
           </p>
         </div>
         
-        <div style="background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);padding:32px;border-radius:16px;border:1px solid #e2e8f0">
+        <div class="shared-block">
           <figure
-            class="rule-item"
+            class="shared-figure"
             data-full="/images/bloque-fuerza.jpeg"
-            style="margin:0;cursor:pointer;max-width:500px;margin:0 auto"
           >
-            <img
-              src="/images/bloque-fuerza.jpeg"
-              alt="Bloque de Fuerza - Ambas Categorías"
-              style="width:100%;height:auto;border-radius:12px;object-fit:contain;box-shadow:0 10px 25px rgba(0,0,0,0.1)"
+            <Image
+              src={bloqueFuerza}
+              alt="Bloque de Fuerza - Ambas Categorías - Levantamientos pesados CrossFit"
+              class="shared-image"
+              width={600}
+              height={800}
+              quality={80}
+              format="webp"
+              loading="lazy"
             />
-            <figcaption class="small" style="text-align:center;margin-top:12px;font-weight:600;color:#ff6a2a;font-size:14px">
+            <figcaption class="small shared-caption">
               Bloque de Fuerza: Ambas Categorías
             </figcaption>
           </figure>
@@ -252,19 +319,19 @@ import CountdownTimer from "../components/CountdownTimer.astro";
       </div>
 
       <!-- HIT 3 - Shared Mystery Section -->
-      <div style="margin-bottom:60px">
-        <div style="text-align:center;margin-bottom:24px">
-          <div style="background:#ff6a2a;color:white;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:bold;font-size:24px">3</div>
-          <h3 style="margin:0 0 8px;font-size:24px">Tercer Hit - Sorpresa Final</h3>
-          <p class="small" style="margin:0;color:#6b7280;max-width:600px;margin:0 auto 16px">
+      <div class="competition-section-spacing mb-60">
+        <div class="competition-header">
+          <div class="hit-number">3</div>
+          <h3 class="hit-title">Tercer Hit - Sorpresa Final</h3>
+          <p class="small competition-description mb-4">
             La prueba definitiva que coronará a los campeones. Una sorpresa especial diseñada para poner a prueba todo lo que has entrenado.
           </p>
         </div>
         
-        <div style="background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);padding:32px;border-radius:16px;border:1px solid #e2e8f0;text-align:center">
-          <div style="position:relative;z-index:1">
-            <h4 style="margin:0 0 12px;font-size:20px;color:#ff6a2a">REVELACIÓN EL DÍA DE LA COMPETENCIA</h4>
-            <p style="margin:0 0 16px;color:#6b7280;max-width:500px;margin:0 auto 16px">
+        <div class="gradient-card padding-32 border-radius-16 border-light text-center">
+          <div class="relative z-1">
+            <h4 class="my-0 mb-12 text-xl text-brand">REVELACIÓN EL DÍA DE LA COMPETENCIA</h4>
+            <p class="text-gray-500 max-w-500 m-auto-mb-16">
               Una prueba especial que desafiará a ambas categorías por igual. Mantente preparado para cualquier cosa: podrías necesitar todo tu arsenal de habilidades.
             </p>
           </div>
@@ -275,8 +342,8 @@ import CountdownTimer from "../components/CountdownTimer.astro";
   <section id="competidores" class="section">
     <div class="container">
       <div class="overline">Competidores</div>
-      <h2 class="h2" style="font-size:30px">Atletas Registrados</h2>
-      <div class="small" style="margin-bottom:16px;font-size:14px">
+      <h2 class="h2 text-3xl">Atletas Registrados</h2>
+      <div class="small mb-4 text-2xs">
         Atletas representando a Preta Fit, Box Parrita, DukurFit, The Kings Box
         Gym y otros independientes.
       </div>
@@ -291,15 +358,12 @@ import CountdownTimer from "../components/CountdownTimer.astro";
         <button data-comp="if" role="tab">Intermedio F</button>
         <button data-comp="im" role="tab">Intermedio M</button>
       </div>
-      <div id="competitorCards" style="display:grid;gap:14px">
-        <div class="card comp-card" data-group="pf" style="padding:18px">
-          <h3
-            style="margin:0 0 10px;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#ff6a2a"
-          >
+      <div id="competitorCards" class="grid-gap-14">
+        <div class="card comp-card padding-18" data-group="pf">
+          <h3 class="comp-header">
             Principiante Femenino
           </h3>
-          <ul
-            style="margin:0;padding-left:20px;font-size:13px;columns:2 180px;line-height:1.5"
+          <ul class="comp-list">
           >
             <li>
               <strong>Shirley</strong>
@@ -315,14 +379,11 @@ import CountdownTimer from "../components/CountdownTimer.astro";
             </li>
           </ul>
         </div>
-        <div class="card comp-card" data-group="pm" style="padding:18px">
-          <h3
-            style="margin:0 0 10px;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#ff6a2a"
-          >
+        <div class="card comp-card padding-18" data-group="pm">
+          <h3 class="comp-header">
             Principiante Masculino
           </h3>
-          <ul
-            style="margin:0;padding-left:20px;font-size:13px;columns:2 180px;line-height:1.5"
+          <ul class="comp-list">
           >
             <li>
               <strong>Jostin</strong>
@@ -342,14 +403,11 @@ import CountdownTimer from "../components/CountdownTimer.astro";
             </li>
           </ul>
         </div>
-        <div class="card comp-card" data-group="if" style="padding:18px">
-          <h3
-            style="margin:0 0 10px;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#ff6a2a"
-          >
+        <div class="card comp-card padding-18" data-group="if">
+          <h3 class="comp-header">
             Intermedio Femenino
           </h3>
-          <ul
-            style="margin:0;padding-left:20px;font-size:13px;columns:2 180px;line-height:1.5"
+          <ul class="comp-list">
           >
             <li><strong>Sol</strong> <span class="small">(Preta Fit)</span></li>
             <li>
@@ -378,14 +436,11 @@ import CountdownTimer from "../components/CountdownTimer.astro";
             </li>
           </ul>
         </div>
-        <div class="card comp-card" data-group="im" style="padding:18px">
-          <h3
-            style="margin:0 0 10px;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#ff6a2a"
-          >
+        <div class="card comp-card padding-18" data-group="im">
+          <h3 class="comp-header">
             Intermedio Masculino
           </h3>
-          <ul
-            style="margin:0;padding-left:20px;font-size:13px;columns:2 180px;line-height:1.5"
+          <ul class="comp-list">
           >
             <li>
               <strong>Josue</strong>
@@ -413,14 +468,22 @@ import CountdownTimer from "../components/CountdownTimer.astro";
   <div class="container">
     <div class="overline">Patrocinadores</div>
     <h2 class="h2">Aliados que impulsan la experiencia</h2>
-    <div class="small" style="margin-bottom:8px">
+    <div class="small mb-2">
       Marcas locales que respaldan el crecimiento deportivo y la comunidad.
     </div>
 
     <div class="team">
       <div class="card member">
         <div class="thumb">
-          <img src="/images/logo-pretafit.jpeg" alt="Preta Fit snacks" />
+          <Image 
+            src={logoPretafit}
+            alt="Preta Fit snacks" 
+            width={200}
+            height={150}
+            quality={75}
+            format="webp"
+            loading="lazy"
+          />
         </div>
         <div class="info">
           <b>Preta Fit</b><div class="small">Anfitrión</div>
@@ -428,7 +491,15 @@ import CountdownTimer from "../components/CountdownTimer.astro";
       </div>
       <div class="card member">
         <div class="thumb">
-          <img src="/images/logo-marysol.jpeg" alt="Mar y Sol mantequillas" />
+          <Image 
+            src={logoMarySol}
+            alt="Mar y Sol mantequillas" 
+            width={200}
+            height={150}
+            quality={75}
+            format="webp"
+            loading="lazy"
+          />
         </div>
         <div class="info">
           <b>Mar y Sol</b><div class="small">Mantequillas</div>
@@ -436,9 +507,14 @@ import CountdownTimer from "../components/CountdownTimer.astro";
       </div>
       <div class="card member">
         <div class="thumb">
-          <img
-            src="/images/logo-holalola.jpeg"
+          <Image
+            src={logoHolalola}
             alt="Holaloha comida saludable"
+            width={200}
+            height={150}
+            quality={75}
+            format="webp"
+            loading="lazy"
           />
         </div>
         <div class="info">
@@ -447,7 +523,15 @@ import CountdownTimer from "../components/CountdownTimer.astro";
       </div>
       <div class="card member">
         <div class="thumb">
-          <img src="/images/logo-jacolife.png" alt="Jacó Life suplementos" />
+          <Image 
+            src={logoJacolife}
+            alt="Jacó Life suplementos deportivos y nutrición"
+            width={200}
+            height={150}
+            quality={75}
+            format="webp"
+            loading="lazy"
+          />
         </div>
         <div class="info">
           <b>Jacó Life</b><div class="small">Suplementos</div>
@@ -455,9 +539,14 @@ import CountdownTimer from "../components/CountdownTimer.astro";
       </div>
       <div class="card member">
         <div class="thumb">
-          <img
-            src="/images/logo-farmacia-playa-hermosa.png"
+          <Image
+            src={logoFarmaciaPlayaHermosa}
             alt="Farmacia Playa Hermosa salud"
+            width={200}
+            height={150}
+            quality={75}
+            format="webp"
+            loading="lazy"
           />
         </div>
         <div class="info">
@@ -466,9 +555,14 @@ import CountdownTimer from "../components/CountdownTimer.astro";
       </div>
       <div class="card member">
         <div class="thumb">
-          <img
-            src="/images/logo-surf-inn-hermosa.jpg"
+          <Image
+            src={logoSurfInnHermosa}
             alt="Surf Inn Hermosa hospedaje"
+            width={200}
+            height={150}
+            quality={75}
+            format="webp"
+            loading="lazy"
           />
         </div>
         <div class="info">
@@ -477,9 +571,14 @@ import CountdownTimer from "../components/CountdownTimer.astro";
       </div>
       <div class="card member">
         <div class="thumb">
-          <img
-            src="/images/logo-villa-tanya.png"
-            alt="Villa Tanya alojamiento"
+          <Image
+            src={logoVillaTanya}
+            alt="Villa Tanya alojamiento en Jacó - Hospedaje cerca de Preta Fit"
+            width={200}
+            height={150}
+            quality={75}
+            format="webp"
+            loading="lazy"
           />
         </div>
         <div class="info">
@@ -488,9 +587,14 @@ import CountdownTimer from "../components/CountdownTimer.astro";
       </div>
       <div class="card member">
         <div class="thumb">
-          <img
-            src="/images/logo-vista-los-suenos.png"
+          <Image
+            src={logoVistaLosSuenos}
             alt="Vista Los Sueños Adventure Park entretenimiento"
+            width={200}
+            height={150}
+            quality={75}
+            format="webp"
+            loading="lazy"
           />
         </div>
         <div class="info">
@@ -499,9 +603,14 @@ import CountdownTimer from "../components/CountdownTimer.astro";
       </div>
       <div class="card member">
         <div class="thumb">
-          <img
-            src="/images/logo-tropical-ice-baths.jpg"
+          <Image
+            src={logoTropicalIceBaths}
             alt="Tropical Ice Baths recuperación"
+            width={200}
+            height={150}
+            quality={75}
+            format="webp"
+            loading="lazy"
           />
         </div>
         <div class="info">
@@ -510,9 +619,14 @@ import CountdownTimer from "../components/CountdownTimer.astro";
       </div>
       <div class="card member">
         <div class="thumb">
-          <img
-            src="/images/logo-nutricionista-fiorella.jpeg"
+          <Image
+            src={logoNutricionistaFiorella}
             alt="Nutricionista Fiorella Bogantes"
+            width={200}
+            height={150}
+            quality={75}
+            format="webp"
+            loading="lazy"
           />
         </div>
         <div class="info">
@@ -528,74 +642,74 @@ import CountdownTimer from "../components/CountdownTimer.astro";
   <div class="container">
     <div class="overline">Agenda</div>
     <h2 class="h2">Cronograma del Evento</h2>
-    <div class="small" style="margin-bottom:8px">
+    <div class="small mb-2">
       Horarios confirmados para optimizar el flujo de competencia y
       experiencias.
     </div>
     <div class="timeline">
       <div class="time-block">
-        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
-          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">7:00 PM</span>
+        <h3 class="schedule-header">
+          <span class="schedule-time">7:00 PM</span>
           Música en Vivo
         </h3>
-        <div class="small" style="margin-left:82px">
+        <div class="small schedule-description">
           Ambiente musical para calentar el evento
         </div>
       </div>
       <div class="time-block">
-        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
-          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">7:30 PM</span>
+        <h3 class="schedule-header">
+          <span class="schedule-time">7:30 PM</span>
           HIT Principiantes
         </h3>
-        <div class="small" style="margin-left:82px">
+        <div class="small schedule-description">
           Primera prueba para categoría principiante
         </div>
       </div>
       <div class="time-block">
-        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
-          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">8:00 PM</span>
+        <h3 class="schedule-header">
+          <span class="schedule-time">8:00 PM</span>
           HIT 1 Intermedios
         </h3>
-        <div class="small" style="margin-left:82px">
+        <div class="small schedule-description">
           Primera prueba para categoría intermedio
         </div>
       </div>
       <div class="time-block">
-        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
-          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">8:30 PM</span>
+        <h3 class="schedule-header">
+          <span class="schedule-time">8:30 PM</span>
           HIT 2 Levantamientos
         </h3>
-        <div class="small" style="margin-left:82px">Pruebas de fuerza y técnica</div>
+        <div class="small schedule-description">Pruebas de fuerza y técnica</div>
       </div>
       <div class="time-block">
-        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
-          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">9:00 PM</span>
+        <h3 class="schedule-header">
+          <span class="schedule-time">9:00 PM</span>
           Demostración de BJJ
         </h3>
-        <div class="small" style="margin-left:82px">Exhibición técnica realizada por cintas negras</div>
+        <div class="small schedule-description">Exhibición técnica realizada por cintas negras</div>
       </div>
       <div class="time-block">
-        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
-          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">9:20 PM</span>
+        <h3 class="schedule-header">
+          <span class="schedule-time">9:20 PM</span>
           HIT 3 Principiantes
         </h3>
-        <div class="small" style="margin-left:82px">Prueba final categoría principiante</div>
+        <div class="small schedule-description">Prueba final categoría principiante</div>
       </div>
       <div class="time-block">
-        <h3 style="margin:0;font-size:18px;font-weight:700;display:flex;align-items:center;gap:12px">
-          <span style="background:var(--brand);color:white;padding:4px 8px;border-radius:6px;font-size:14px;min-width:70px;text-align:center">9:45 PM</span>
+        <h3 class="schedule-header">
+          <span class="schedule-time">9:45 PM</span>
           HIT 3 de Intermedios
         </h3>
-        <div class="small" style="margin-left:82px">Prueba final categoría intermedio</div>
+        <div class="small schedule-description">Prueba final categoría intermedio</div>
       </div>
     </div>
   </div>
 </section>
 <!-- ================= FAQ ================= -->
 <section id="faq" class="section">
-  <div class="container" style="text-align:center">
+  <div class="container text-center">
     <div class="overline">FAQ</div>
-    <h2 class="h2" style="margin-bottom:6px">
+    <h2 class="h2 mb-1">
       ¿Tienes preguntas?<br />Tenemos respuestas
     </h2>
     <div class="faq-wrap">
@@ -655,6 +769,7 @@ import CountdownTimer from "../components/CountdownTimer.astro";
     class="btn secondary"
     style="position:absolute;top:16px;right:16px">Cerrar</button
   >
+  <!-- Lightbox image - kept as img tag since src is dynamically set by JavaScript -->
   <img
     id="lbImg"
     src=""

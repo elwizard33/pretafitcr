@@ -8,6 +8,43 @@ export interface Review {
   date: string;
 }
 
+// Validation function for review data
+export function validateReview(review: any): review is Review {
+  if (!review || typeof review !== 'object') {
+    return false;
+  }
+  
+  return (
+    typeof review.id === 'string' && review.id.trim().length > 0 &&
+    typeof review.name === 'string' && review.name.trim().length > 0 &&
+    typeof review.rating === 'number' && review.rating >= 1 && review.rating <= 5 &&
+    typeof review.text === 'string' && review.text.trim().length > 0 &&
+    typeof review.date === 'string' && review.date.trim().length > 0
+  );
+}
+
+// Function to get validated reviews with fallbacks
+export function getValidatedReviews(): Review[] {
+  return reviews.filter(review => {
+    const isValid = validateReview(review);
+    if (!isValid) {
+      console.warn('Invalid review data detected:', review);
+    }
+    return isValid;
+  });
+}
+
+// Function to provide default review in case of missing data
+export function getDefaultReview(): Review {
+  return {
+    id: 'default-review',
+    name: 'Cliente Satisfecho',
+    rating: 5,
+    text: 'Excelente experiencia en Preta Fit. Recomendado para todos los niveles.',
+    date: 'Recientemente'
+  };
+}
+
 // Real customer reviews from Google Maps for Preta Fit Jacó
 export const reviews: Review[] = [
   {

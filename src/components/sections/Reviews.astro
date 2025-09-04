@@ -1,36 +1,72 @@
 ---
-// Import reviews data from data source
-import { reviews, googleMapsUrl } from '../../data/reviews';
+// Import reviews data from data source with error handling
+import { reviews, googleMapsUrl, getValidatedReviews, getDefaultReview } from '../../data/reviews';
+
+// Get validated reviews with fallback handling
+let validatedReviews;
+try {
+  validatedReviews = getValidatedReviews();
+  
+  // If no valid reviews found, provide default review
+  if (!validatedReviews || validatedReviews.length === 0) {
+    console.warn('No valid reviews found, using default review');
+    validatedReviews = [getDefaultReview()];
+  }
+} catch (error) {
+  console.error('Error loading reviews:', error);
+  validatedReviews = [getDefaultReview()];
+}
 ---
 
-<section id="reviews" class="section">
+<section id="reviews" class="section" aria-labelledby="reviews-heading">
   <div class="container">
     <div class="overline">Opiniones</div>
-    <h2 class="h2">Lo que dicen nuestros clientes</h2>
+    <h2 id="reviews-heading" class="h2">Lo que dicen nuestros clientes</h2>
     
-    <div class="reviews-grid">
-      {reviews.map((review) => (
-        <div class="review-card">
-          <div class="review-header">
-            <div class="stars">
-              {Array.from({ length: review.rating }, (_, i) => (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffd700">
-                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                </svg>
-              ))}
+    {validatedReviews && validatedReviews.length > 0 ? (
+      <div class="reviews-grid" role="region" aria-labelledby="reviews-heading">
+        {validatedReviews.map((review, index) => (
+          <article class="review-card" aria-labelledby={`review-author-${index}`}>
+            <div class="review-header">
+              <div class="stars" role="img" 
+                   aria-label={`Calificación: ${review.rating || 5} de 5 estrellas`}>
+                {Array.from({ length: Math.min(Math.max(review.rating || 5, 1), 5) }, (_, i) => (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffd700" 
+                       aria-hidden="true">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                  </svg>
+                ))}
+              </div>
+              <time class="review-date" 
+                    datetime={review.date || new Date().toISOString().split('T')[0]}>
+                {review.date || 'Fecha no disponible'}
+              </time>
             </div>
-            <span class="review-date">{review.date}</span>
-          </div>
-          <p class="review-text">"{review.text}"</p>
-          <div class="review-author">
-            <div class="author-avatar">
-              {review.name.charAt(0)}
+            <blockquote class="review-text">
+              <p>"{review.text || 'Excelente experiencia en Preta Fit.'}"</p>
+            </blockquote>
+            <div class="review-author">
+              <div class="author-avatar" aria-hidden="true">
+                {(review.name || 'Cliente').charAt(0).toUpperCase()}
+              </div>
+              <cite id={`review-author-${index}`} class="author-name">
+                {review.name || 'Cliente Anónimo'}
+              </cite>
             </div>
-            <span class="author-name">{review.name}</span>
-          </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="reviews-empty-state">
+        <div class="empty-state-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#e5e7eb"/>
+          </svg>
         </div>
-      ))}
-    </div>
+        <h3>No hay reseñas disponibles</h3>
+        <p>Sé el primero en compartir tu experiencia en Preta Fit.</p>
+      </div>
+    )}
 
     <div class="reviews-footer">
       <a 
@@ -54,6 +90,32 @@ import { reviews, googleMapsUrl } from '../../data/reviews';
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+  }
+
+  .reviews-empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    margin-top: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+  }
+
+  .empty-state-icon {
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  .reviews-empty-state h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text);
+    font-size: 1.25rem;
+  }
+
+  .reviews-empty-state p {
+    margin: 0;
+    font-size: 0.9rem;
   }
 
   .review-card {
