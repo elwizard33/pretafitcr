@@ -3,6 +3,7 @@ node_modules/
 
 # Astro build output
 dist/
+.astro/
 
 # Logs
 npm-debug.log*
@@ -16,6 +17,7 @@ Thumbs.db
 # IDE files
 .vscode/
 .idea/
+.shrimp-data/
 
 # Environment files
 .env

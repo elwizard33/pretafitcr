@@ -30,58 +30,81 @@ try {
     <h2 id="plans-heading" class="h2">Planes y Precios</h2>
     
     {validatedPlans && validatedPlans.length > 0 ? (
-      <div class="plans-table-wrapper">
-        <table class="plans-table" role="table" aria-labelledby="plans-heading" 
+      <div class="bg-card border border-line rounded-[14px] overflow-hidden mt-8 shadow-custom">
+        <table class="w-full border-collapse" role="table" aria-labelledby="plans-heading" 
                aria-describedby="plans-description">
           <caption class="sr-only" id="plans-description">
             Tabla de planes de membresía de CrossFit con precios, número de reservaciones por semana y validez
           </caption>
-          <thead>
+          <thead class="bg-slate-50 border-b border-line">
             <tr>
-              <th scope="col">Plan</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Reservaciones</th>
-              <th scope="col">Validez</th>
+              <th scope="col" class="p-4 text-left font-bold text-ink text-sm uppercase tracking-wider">Plan</th>
+              <th scope="col" class="p-4 text-left font-bold text-ink text-sm uppercase tracking-wider">Precio</th>
+              <th scope="col" class="p-4 text-left font-bold text-ink text-sm uppercase tracking-wider">Reservaciones</th>
+              <th scope="col" class="p-4 text-left font-bold text-ink text-sm uppercase tracking-wider">Validez</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="max-md:flex max-md:flex-col max-md:gap-4 max-md:p-4">
             {validatedPlans.map((plan, index) => (
-              <tr class="plan-row" data-popular={plan.popular} 
+              <tr class={`plan-row border-b border-slate-100 last:border-b-0 
+                         max-md:block max-md:bg-card max-md:border max-md:border-line max-md:rounded-[10px] max-md:p-4 max-md:shadow-sm
+                         ${plan.popular ? 'bg-orange-50 border-l-2 border-l-brand max-md:border-l-0 max-md:border max-md:border-brand max-md:shadow-[0_2px_8px_rgba(255,106,42,0.15)]' : ''}`} 
+                  data-popular={plan.popular} 
                   aria-describedby={plan.popular ? `popular-${index}` : undefined}>
-                <td data-label="Plan">
-                  <div class="plan-name">
+                <td data-label="Plan" class="p-4 border-b border-slate-100 text-muted align-top last:border-b-0
+                                           max-md:border-none max-md:p-2 max-md:flex max-md:justify-between max-md:items-center
+                                           max-md:before:content-[attr(data-label)':'] max-md:before:font-semibold max-md:before:text-ink max-md:before:flex-shrink-0 max-md:before:min-w-[120px]">
+                  <div class="flex items-center gap-2 font-semibold text-ink max-md:flex-col max-md:items-start max-md:gap-1">
                     {plan.name || 'Plan no disponible'}
                     {plan.popular && (
-                      <span class="popular-badge" id={`popular-${index}`} 
+                      <span class="bg-brand text-white text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wider max-sm:text-[10px] max-sm:px-1.5 max-sm:py-0.5" 
+                            id={`popular-${index}`} 
                             aria-label="Plan más popular">Popular</span>
                     )}
                   </div>
                 </td>
-                <td data-label="Precio">
-                  <span class="price">${plan.price || 'Consultar'}</span>
+                <td data-label="Precio" class="p-4 border-b border-slate-100 text-muted align-top last:border-b-0
+                                              max-md:border-none max-md:p-2 max-md:flex max-md:justify-between max-md:items-center
+                                              max-md:before:content-[attr(data-label)':'] max-md:before:font-semibold max-md:before:text-ink max-md:before:flex-shrink-0 max-md:before:min-w-[120px]">
+                  <span class="font-bold text-lg text-ink">${plan.price || 'Consultar'}</span>
                 </td>
-                <td data-label="Reservaciones">
+                <td data-label="Reservaciones" class="p-4 border-b border-slate-100 text-muted align-top last:border-b-0
+                                                     max-md:border-none max-md:p-2 max-md:flex max-md:justify-between max-md:items-center
+                                                     max-md:before:content-[attr(data-label)':'] max-md:before:font-semibold max-md:before:text-ink max-md:before:flex-shrink-0 max-md:before:min-w-[120px]">
                   {plan.sessionsPerWeek || 'Flexible'} por semana
                 </td>
-                <td data-label="Validez">
+                <td data-label="Validez" class="p-4 border-b border-slate-100 text-muted align-top last:border-b-0
+                                               max-md:border-none max-md:p-2 max-md:flex max-md:justify-between max-md:items-center
+                                               max-md:before:content-[attr(data-label)':'] max-md:before:font-semibold max-md:before:text-ink max-md:before:flex-shrink-0 max-md:before:min-w-[120px]">
                   {plan.validity || 'A convenir'}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        
+        <!-- Mobile-specific hidden thead for accessibility -->
+        <thead class="hidden max-md:absolute max-md:-top-[9999px] max-md:-left-[9999px]">
+          <tr>
+            <th scope="col">Plan</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Reservaciones</th>
+            <th scope="col">Validez</th>
+          </tr>
+        </thead>
       </div>
     ) : (
-      <div class="plans-error-state" role="alert" aria-live="polite">
-        <div class="error-state-icon" aria-hidden="true">
+      <div class="text-center py-12 px-8 bg-card border border-line rounded-[14px] text-muted" role="alert" aria-live="polite">
+        <div class="mb-4 opacity-60" aria-hidden="true">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" role="img" 
                aria-label="Icono de información">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="#e5e7eb"/>
           </svg>
         </div>
-        <h3>Planes no disponibles</h3>
-        <p>Por favor contactanos para conocer nuestros planes y precios actualizados.</p>
-        <a href="tel:+50670092140" class="contact-fallback-btn" 
+        <h3 class="mb-2 text-ink text-xl font-medium">Planes no disponibles</h3>
+        <p class="mb-6 text-sm leading-relaxed">Por favor contactanos para conocer nuestros planes y precios actualizados.</p>
+        <a href="tel:+50670092140" 
+           class="inline-flex items-center gap-2 bg-brand text-white no-underline py-3 px-6 rounded-full font-semibold transition-all duration-200 hover:bg-brand-600 hover:-translate-y-0.5" 
            aria-label="Llamar al teléfono +506 7009-2140 para consultar planes">
           Llamar +506 7009-2140
         </a>
@@ -89,191 +112,3 @@ try {
     )}
   </div>
 </section>
-
-<style>
-  .plans-error-state {
-    text-align: center;
-    padding: 3rem 2rem;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    color: var(--text-muted);
-  }
-
-  .error-state-icon {
-    margin-bottom: 1rem;
-    opacity: 0.6;
-  }
-
-  .plans-error-state h3 {
-    margin: 0 0 0.5rem 0;
-    color: var(--text);
-    font-size: 1.25rem;
-  }
-
-  .plans-error-state p {
-    margin: 0 0 1.5rem 0;
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-
-  .contact-fallback-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--brand);
-    color: white;
-    text-decoration: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 999px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-  }
-
-  .contact-fallback-btn:hover {
-    background: var(--brand-600);
-    transform: translateY(-1px);
-  }
-
-  .plans-table-wrapper {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    overflow: hidden;
-    margin-top: 2rem;
-    box-shadow: var(--shadow);
-  }
-
-  .plans-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .plans-table thead {
-    background: #f8fafc;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .plans-table th {
-    padding: 1rem;
-    text-align: left;
-    font-weight: 700;
-    color: var(--ink);
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .plans-table td {
-    padding: 1rem;
-    border-bottom: 1px solid #f1f5f9;
-    color: var(--muted);
-    vertical-align: top;
-  }
-
-  .plan-row:last-child td {
-    border-bottom: none;
-  }
-
-  .plan-row[data-popular="true"] {
-    background: #fff7f3;
-    border-left: 3px solid var(--brand);
-  }
-
-  .plan-name {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .popular-badge {
-    background: var(--brand);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.25rem 0.5rem;
-    border-radius: 999px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .price {
-    font-weight: 700;
-    font-size: 1.125rem;
-    color: var(--ink);
-  }
-
-  /* Mobile responsive styles - transform table to cards below 600px */
-  @media (max-width: 600px) {
-    .plans-table,
-    .plans-table thead,
-    .plans-table tbody,
-    .plans-table th,
-    .plans-table td,
-    .plans-table tr {
-      display: block;
-    }
-
-    .plans-table thead {
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
-    }
-
-    .plans-table tbody {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      padding: 1rem;
-    }
-
-    .plan-row {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-sm);
-      padding: 1rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-
-    .plan-row[data-popular="true"] {
-      border-color: var(--brand);
-      box-shadow: 0 2px 8px rgba(255, 106, 42, 0.15);
-    }
-
-    .plans-table td {
-      border: none;
-      padding: 0.5rem 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .plans-table td:before {
-      content: attr(data-label) ": ";
-      font-weight: 600;
-      color: var(--ink);
-      flex-shrink: 0;
-      min-width: 120px;
-    }
-
-    .plan-name {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.25rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .plans-table td:before {
-      min-width: 100px;
-      font-size: 0.875rem;
-    }
-
-    .popular-badge {
-      font-size: 0.625rem;
-      padding: 0.125rem 0.375rem;
-    }
-  }
-</style>

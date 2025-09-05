@@ -1,0 +1,194 @@
+---
+// Accept nonce as prop or get from Astro.locals
+interface Props {
+  nonce?: string;
+}
+
+const { nonce: propNonce } = Astro.props;
+const { nonce: localsNonce } = Astro.locals || {};
+const nonce = propNonce || localsNonce;
+---
+
+<button 
+  id="theme-toggle"
+  class="theme-toggle"
+  type="button"
+  aria-label="Cambiar tema"
+  aria-pressed="false"
+  title="Cambiar entre tema claro y oscuro"
+>
+  <!-- Light theme icon (sun) -->
+  <svg class="theme-icon theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="5"></circle>
+    <line x1="12" y1="1" x2="12" y2="3"></line>
+    <line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line>
+    <line x1="21" y1="12" x2="23" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+  </svg>
+  
+  <!-- Dark theme icon (moon) -->
+  <svg class="theme-icon theme-icon-dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+  
+  <span class="sr-only theme-text">Cambiar tema</span>
+</button>
+
+<script nonce={nonce}>
+  // Theme toggle functionality with accessibility
+  document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeText = themeToggle?.querySelector('.theme-text');
+    
+    if (!themeToggle || !window.pretaFitTheme) {
+      console.warn('Theme toggle component not properly initialized');
+      return;
+    }
+    
+    // Update button state based on current theme
+    const updateToggleState = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+      themeToggle.setAttribute('aria-label', isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
+      
+      // Update screen reader text
+      if (themeText) {
+        themeText.textContent = isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro';
+      }
+      
+      // Update icon visibility through CSS
+      themeToggle.setAttribute('data-theme', theme);
+    };
+    
+    // Initialize button state
+    updateToggleState(window.pretaFitTheme.getTheme());
+    
+    // Handle toggle click
+    themeToggle.addEventListener('click', () => {
+      const newTheme = window.pretaFitTheme.toggleTheme();
+      updateToggleState(newTheme);
+      
+      // Announce theme change to screen readers
+      const announcement = newTheme === 'dark' ? 'Tema oscuro activado' : 'Tema claro activado';
+      
+      // Create temporary announcement element
+      const announcer = document.createElement('div');
+      announcer.setAttribute('aria-live', 'polite');
+      announcer.setAttribute('aria-atomic', 'true');
+      announcer.className = 'sr-only';
+      announcer.textContent = announcement;
+      document.body.appendChild(announcer);
+      
+      // Remove announcer after announcement
+      setTimeout(() => {
+        document.body.removeChild(announcer);
+      }, 1000);
+    });
+    
+    // Handle keyboard interaction
+    themeToggle.addEventListener('keydown', (e) => {
+      // Activate on Enter or Space
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        themeToggle.click();
+      }
+    });
+    
+    // Listen for external theme changes (e.g., system preference changes)
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          if (currentTheme) {
+            updateToggleState(currentTheme);
+          }
+        }
+      });
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+  });
+</script>
+
+<style>
+  .theme-toggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-round);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    padding: 0;
+  }
+  
+  .theme-toggle:hover {
+    background: var(--color-surface-alt);
+    border-color: var(--color-brand);
+    transform: translateY(-1px);
+  }
+  
+  .theme-toggle:focus {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+  
+  .theme-toggle:active {
+    transform: translateY(0);
+  }
+  
+  /* Icon visibility based on theme */
+  .theme-icon {
+    position: absolute;
+    transition: all var(--transition-fast);
+    opacity: 0;
+    transform: scale(0.8) rotate(-90deg);
+  }
+  
+  /* Show light icon when in dark theme */
+  .theme-toggle[data-theme="dark"] .theme-icon-light {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  
+  /* Show dark icon when in light theme */
+  .theme-toggle[data-theme="light"] .theme-icon-dark {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .theme-toggle {
+      border: 2px solid currentColor;
+    }
+    
+    .theme-toggle:focus {
+      outline: 3px solid currentColor;
+    }
+  }
+  
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .theme-toggle,
+    .theme-icon {
+      transition: none;
+    }
+    
+    .theme-toggle:hover {
+      transform: none;
+    }
+  }
+</style>

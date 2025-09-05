@@ -1,190 +1,163 @@
-# Preta Fit Astro Project Standards
+﻿# Preta Fit Project Development Standards
 
-## Project Identity & Domain Rules
+## Project Overview
 
-### Canonical Domain
-- **ALWAYS use `pretafitcr.com` as the canonical domain**
-- **NEVER use `pretafit.cr` or any other domain variant**
-- **ALL configuration files must reference `https://pretafitcr.com`**
+- **Technology Stack**: Astro 5.13.5, TypeScript, Custom CSS (migrating to Tailwind), SEO-optimized, accessibility-focused
+- **Project Type**: Business website for CrossFit/BJJ gym in Costa Rica
+- **Core Architecture**: Component-based Astro with data-driven content and comprehensive SEO
 
-### Domain Consistency Requirements
-- `astro.config.mjs` → `site: 'https://pretafitcr.com'`
-- `robots.txt` → `Sitemap: https://pretafitcr.com/sitemap.xml`
-- All canonical URLs must use `pretafitcr.com`
-- All Open Graph URLs must use `pretafitcr.com`
+## Critical File Coordination Rules
 
-## Astro Architecture Rules
+### Data File Dependencies
 
-### Component Organization
-- **Section components must be in `src/components/sections/`**
-- **Layout components must be in `src/layouts/`**
-- **Shared utilities must be in `src/components/`**
-- **Each major page section requires its own `.astro` component**
+**MANDATORY**: When modifying any data file, update all dependent components:
 
-### Data Management
-- **Static data must be in `src/data/` as TypeScript files**
-- **Data files must export typed objects or arrays**
-- **No hardcoded content in components - use data imports**
+- **businessInfo.ts changes**  Must update BaseLayout.astro structured data
+- **reviews.ts changes**  Must update index.astro and any pages using getValidatedReviews()
+- **schedules.ts changes**  Must update Schedule.astro component
+- **plansCrossFit.ts changes**  Must update PlansCrossFit.astro component
 
-### Layout Pattern
-- **ALL pages must use `BaseLayout.astro`**
-- **BaseLayout props: `title`, `description`, `image`, `url`**
-- **Never duplicate meta tags in individual pages**
+### SEO and Security Chain
 
-## SEO Implementation Rules
+**CRITICAL**: BaseLayout.astro contains security headers and SEO - coordinate changes:
 
-### Meta Tag Management
-- **Use BaseLayout.astro for all SEO meta tags**
-- **Pass page-specific SEO via props to BaseLayout**
-- **Never hardcode meta tags in individual pages**
-- **Always provide fallback values for SEO props**
+- **CSP Headers**: Update Content-Security-Policy when adding external resources
+- **Structured Data**: Regenerated from businessInfo.ts - maintain schema validity
+- **Meta Tags**: Preserve optimized title/description length limits (60/155 chars)
+- **Font Loading**: Current Google Fonts in CSP - update if changing fonts
 
-### Sitemap Management
-- **MUST use `@astrojs/sitemap` integration**
-- **NEVER use manual `public/sitemap.xml`**
-- **Remove `public/sitemap.xml` when adding integration**
-- **Configure sitemap filter if needed to exclude drafts**
+### Component Architecture Rules
 
-### Canonical URL Pattern
-```astro
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-```
+**Page Structure Requirements**:
+- All pages MUST import BaseLayout as wrapper
+- Section components imported individually (NOT as default exports)
+- Header/Footer slots used consistently
+- SEO props passed to BaseLayout for each page
 
-## Image & Asset Rules
+## Tailwind Migration Standards
 
-### Image Optimization Strategy
-- **Hero/media images MUST be in `src/assets/` and imported**
-- **Use Astro's `<Image />` component for all optimized images**
-- **Static assets (logos, icons) can remain in `public/images/`**
-- **Always specify `width`, `height`, `alt` attributes**
+### Visual Preservation Protocol
 
-### Loading Strategy
-- **Above-the-fold images: `loading="eager" decoding="sync"`**
-- **Below-the-fold images: `loading="lazy"`**
-- **Hero images: explicit dimensions to prevent CLS**
+**ABSOLUTE REQUIREMENT**: Maintain exact pixel-perfect appearance during migration
 
-### Image Formats
-- **Primary format: WebP**
-- **Fallback format: JPEG**
-- **Quality settings: 85 for hero, 75 for content**
+**CSS Mapping Procedure**:
+1. Map each custom class in theme.css to equivalent Tailwind utilities
+2. Preserve all CSS variables (--brand, --card, --ink, etc.) in Tailwind config
+3. Maintain all responsive breakpoints exactly: 900px, 600px, 480px, 360px
+4. Preserve all animations and transitions with identical timing
+5. Keep accessibility features: focus indicators, reduced motion support, high contrast
 
-## Performance Standards
+**Security Header Updates**:
+- Remove Google Fonts from CSP when migrating to system fonts
+- Add Tailwind CDN to CSP if using CDN approach
+- Update style-src directive for Tailwind build output
 
-### Lighthouse Budgets
-- **LCP ≤ 2.5s**
-- **CLS ≤ 0.05**
-- **TBT ≤ 100ms**
-- **FCP ≤ 1.8s**
+### Accessibility Preservation Rules
 
-### Asset Loading
-- **Critical CSS must be inlined**
-- **Non-critical styles must be loaded asynchronously**
-- **Images must use responsive loading strategies**
-- **Fonts must be self-hosted and preloaded**
+**MANDATORY FEATURES TO MAINTAIN**:
+- Skip links with exact keyboard navigation
+- Focus indicators with current color/shadow specifications  
+- ARIA attributes on all interactive elements
+- Reduced motion media query support
+- High contrast mode compatibility
+- Screen reader announcements
 
-## Accessibility Requirements
+## Framework Integration Standards
 
-### ARIA Patterns
-- **Interactive elements require `aria-label` or `aria-labelledby`**
-- **Form controls must have associated labels**
-- **Skip-to-content link required in main layout**
-- **Focus indicators must be visible and accessible**
+### Astro Component Rules
 
-### Error Handling
-- **Wrap date/time calculations in try/catch blocks**
-- **Provide fallback content for failed operations**
-- **Never silently fail - always render alternative content**
-- **Support `prefers-reduced-motion` for animations**
+**Component Structure Requirements**:
+- Use TypeScript for all new components
+- Import data from /src/data/ files, never hardcode business data
+- Implement proper slot usage for layout components
+- Maintain SEO props interface for page-level components
 
-## Component Development Rules
+**Styling Integration**:
+- Apply Tailwind classes directly in component templates
+- Use component-scoped styles only for complex animations
+- Maintain responsive class patterns: mobile-first approach
+- Preserve custom CSS for unique brand elements
 
-### Component Props Pattern
-```astro
----
-interface Props {
-  title?: string;
-  description?: string;
-  className?: string;
-}
-const { title, description, className = '' } = Astro.props;
----
-```
+### TypeScript Data Management
 
-### Component Structure
-- **Frontmatter for props and logic**
-- **Single root element with semantic HTML**
-- **CSS classes from theme.css**
-- **No inline styles except dynamic values**
+**Data File Standards**:
+- Export typed interfaces for all business data structures
+- Maintain businessInfo.ts as single source of truth for company data
+- Use validation functions (like getValidatedReviews) for data integrity
+- Keep image paths relative to /public/ directory
 
-### Import Patterns
-- **Named imports for data files**
-- **Default imports for images in src/assets/**
-- **Astro components with relative paths**
+## Key File Interaction Matrix
 
-## Build & Deployment Rules
+### When Modifying BaseLayout.astro
+- **Check**: All pages using layout (index.astro, crossfit.astro, wodwarriors.astro)
+- **Update**: CSP headers if adding external resources
+- **Verify**: Structured data generation with businessInfo.ts changes
+- **Test**: SEO meta tag generation with all page variants
 
-### Integration Requirements
-- **MUST include `@astrojs/sitemap` in integrations array**
-- **Image optimization configured in astro.config.mjs**
-- **Build format must be 'directory'**
-- **Static output for hosting compatibility**
+### When Modifying Component Styles
+- **Coordinate**: All parent pages importing the component
+- **Preserve**: Responsive breakpoints and hover states
+- **Maintain**: Accessibility focus states and keyboard navigation
+- **Verify**: No layout shifts during interaction states
 
-### Asset Configuration
-```javascript
-image: {
-  domains: ['pretafitcr.com'],
-  formats: ['webp', 'avif', 'jpeg'],
-  quality: { high: 85, mid: 75 }
-}
-```
-
-## Content Management Rules
-
-### Spanish Content Standards
-- **All content must be in Costa Rican Spanish**
-- **Use formal tone for fitness/health content**
-- **Currency references in Colones (₡) when applicable**
-- **Location references to Jacó, Costa Rica**
-
-### Data File Patterns
-- **Export const arrays/objects with TypeScript types**
-- **Descriptive file names matching content purpose**
-- **No external API calls in static data files**
+### When Updating Business Data
+- **businessInfo.ts changes**: Update BaseLayout structured data
+- **Image path changes**: Verify all component references
+- **Contact info changes**: Check Header, Footer, Contact components
+- **Schedule changes**: Update both schedules.ts and Schedule.astro
 
 ## Prohibited Actions
 
-### NEVER Do These Things
-- **❌ Use domain other than pretafitcr.com**
-- **❌ Hardcode meta tags in individual pages**
-- **❌ Place optimized images directly in public/**
-- **❌ Create manual sitemap.xml files**
-- **❌ Use inline styles except for dynamic values**
-- **❌ Skip accessibility attributes on interactive elements**
-- **❌ Import components without proper error handling**
-- **❌ Deploy without running build validation**
+### NEVER DO:
+- **Break visual consistency** during Tailwind migration
+- **Remove accessibility features** for styling convenience  
+- **Hardcode business data** in components instead of importing from /src/data/
+- **Skip CSP header updates** when adding external resources
+- **Change responsive breakpoints** without checking all components
+- **Remove SEO meta tags** or structured data elements
+- **Modify TypeScript interfaces** without updating all dependent files
+- **Use inline styles** instead of Tailwind classes
+- **Remove ARIA attributes** during component refactoring
 
-### Required Validation Steps
-- **✅ Run `npm run build` before deployment**
-- **✅ Check all canonical URLs use pretafitcr.com**
-- **✅ Verify sitemap.xml generates automatically**
-- **✅ Test image loading and optimization**
-- **✅ Validate HTML semantics and ARIA**
+### Security Prohibitions:
+- **Never use unsafe-eval** in CSP headers
+- **Never remove security headers** from BaseLayout.astro
+- **Never expose sensitive data** in client-side JavaScript
+- **Never use external CDNs** without CSP whitelist updates
 
-## File Coordination Requirements
+## AI Decision-Making Standards
 
-### When Modifying BaseLayout.astro
-- **Also update all page files that use BaseLayout**
-- **Verify SEO prop interfaces match usage**
-- **Test canonical URL generation across all pages**
+### Priority Order for Conflicts:
+1. **Visual consistency** - maintain exact appearance
+2. **Accessibility compliance** - never compromise WCAG standards  
+3. **SEO preservation** - maintain search optimization
+4. **Security headers** - keep all existing protections
+5. **Performance optimization** - improve without breaking functionality
 
-### When Adding New Components
-- **Add to appropriate directory (sections/ or components/)**
-- **Follow established prop patterns**
-- **Include TypeScript interfaces for props**
-- **Add to index.astro if it's a main page section**
+### Ambiguous Situation Handling:
+- **When unsure about styling**: Reference current theme.css implementation
+- **When data structure unclear**: Check TypeScript interfaces in /src/data/
+- **When component dependencies unclear**: Trace imports from pages to components
+- **When accessibility unclear**: Maintain all existing ARIA and keyboard support
 
-### When Updating astro.config.mjs
-- **Verify site URL matches domain standard**
-- **Test build process after configuration changes**
-- **Update robots.txt if base path changes**
-- **Verify image optimization settings work**
+## Workflow Standards
+
+### Before Making Changes:
+1. **Identify dependencies** using file import chain
+2. **Document current behavior** if modifying existing functionality  
+3. **Plan coordination** for multi-file changes
+4. **Verify CSP compliance** for external resource additions
+
+### After Making Changes:
+1. **Test visual consistency** across all responsive breakpoints
+2. **Verify accessibility** with keyboard navigation and screen readers
+3. **Check SEO validity** with structured data testing
+4. **Confirm security headers** maintain protection level
+
+### Change Coordination Checklist:
+- [ ] All dependent files identified and planned for update
+- [ ] Visual consistency maintained across viewport sizes
+- [ ] Accessibility features preserved or enhanced
+- [ ] SEO metadata and structured data validated
+- [ ] Security headers updated appropriately
+- [ ] TypeScript types maintained or improved

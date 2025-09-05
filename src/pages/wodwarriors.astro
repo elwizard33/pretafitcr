@@ -5,6 +5,9 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import CountdownTimer from "../components/CountdownTimer.astro";
 
+// Get nonce from Astro.locals for CSP compliance
+const { nonce } = Astro.locals || {};
+
 // Import large images for optimization
 import logoVillaTanya from '../../public/images/logo-villa-tanya.png';
 import logoJacolife from '../../public/images/logo-jacolife.png';
@@ -25,18 +28,30 @@ import logoSurfInnHermosa from '../../public/images/logo-surf-inn-hermosa.jpg';
 import logoVistaLosSuenos from '../../public/images/logo-vista-los-suenos.png';
 import logoTropicalIceBaths from '../../public/images/logo-tropical-ice-baths.jpg';
 import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fiorella.jpeg';
+
+const seo = {
+  title: "WOD Warriors 2025 | Competencia CrossFit Jacó",
+  description: "WOD Warriors 2025: Competencia de CrossFit para principiantes e intermedios, exhibición de Brazilian Jiu-Jitsu con Vanessa Vargas, música en vivo y sponsors locales en Jacó, Costa Rica.",
+  keywords: "WOD Warriors, competencia CrossFit Jacó, CrossFit Costa Rica, evento fitness Jacó, Brazilian Jiu-Jitsu exhibición, Vanessa Vargas BJJ",
+  image: "/images/logo-wodwarriors.jpeg",
+  type: "event",
+  article: {
+    publishedTime: "2025-09-04T00:00:00Z",
+    modifiedTime: new Date().toISOString(),
+    author: "Preta Fit Jacó",
+    section: "Eventos",
+    tags: ["CrossFit", "Competencia", "BJJ", "Jacó", "Fitness"]
+  }
+};
 ---
 
-<BaseLayout
-  title="WOD Warriors | Evento"
-  description="WOD Warriors: Competencia de CrossFit (Principiante & Intermedio), exhibición BJJ, música y sponsors en Jacó."
->
-  <Fragment slot="header"><Header /></Fragment>
+<BaseLayout {seo}>
+  <Header slot="header" nonce={nonce} />
 
   <!-- ================= HERO ================= -->
   <section class="hero hero-event">
-    <div class="container hero-card">
-      <div class="hero-media card">
+    <div class="max-w-[1040px] mx-auto px-4 hero-card">
+      <div class="hero-media bg-surface border border-border rounded-[14px] shadow-[0_10px_28px_rgba(16,24,40,.08)]">
         <Image 
           src={logoWodWarriors}
           alt="Logo WOD Warriors" 
@@ -77,7 +92,7 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
           <div class="badge-ico">
             <svg width="18" height="18" viewBox="0 0 24 24"
               ><path
-                fill="#ff6a2a"
+                fill="var(--color-brand)"
                 d="M12 3a6 6 0 0 0-6 6c0 6 6 12 6 12s6-6 6-12a6 6 0 0 0-6-6z"
               ></path></svg>
           </div>
@@ -86,7 +101,7 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
         <div class="feature">
           <div class="badge-ico">
             <svg width="18" height="18" viewBox="0 0 24 24"
-              ><path fill="#ff6a2a" d="M12 6v6l4 2-1.5 2.6L9 14V6h3z"
+              ><path fill="var(--color-brand)" d="M12 6v6l4 2-1.5 2.6L9 14V6h3z"
               ></path></svg>
           </div>
           <div><b>7:00 PM</b></div>
@@ -95,7 +110,7 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
           <div class="badge-ico">
             <svg width="18" height="18" viewBox="0 0 24 24"
               ><path
-                fill="#ff6a2a"
+                fill="var(--color-brand)"
                 d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7Zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5Z"
               ></path></svg>
           </div>
@@ -337,7 +352,9 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
           </div>
         </div>
       </div>
-      
+    </div>
+  </section>
+
   <!-- ================= COMPETITORS (add full static lists) ================= -->
   <section id="competidores" class="section">
     <div class="container">
@@ -364,7 +381,6 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
             Principiante Femenino
           </h3>
           <ul class="comp-list">
-          >
             <li>
               <strong>Shirley</strong>
               <span class="small">(Parrita)</span>
@@ -384,7 +400,6 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
             Principiante Masculino
           </h3>
           <ul class="comp-list">
-          >
             <li>
               <strong>Jostin</strong>
               <span class="small">(Parrita)</span>
@@ -408,7 +423,6 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
             Intermedio Femenino
           </h3>
           <ul class="comp-list">
-          >
             <li><strong>Sol</strong> <span class="small">(Preta Fit)</span></li>
             <li>
               <strong>Sharet</strong>
@@ -441,7 +455,6 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
             Intermedio Masculino
           </h3>
           <ul class="comp-list">
-          >
             <li>
               <strong>Josue</strong>
               <span class="small">(Preta Fit)</span>
@@ -457,11 +470,6 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
   </section>
 
   <!-- ================= EXHIBITION ================= -->
-</BaseLayout>
-
-<!-- ================= FAQ ================= -->
-
-
 
 <!-- ================= SPONSORS ================= -->
 <section id="patrocinadores" class="section">
@@ -707,12 +715,12 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
 </section>
 <!-- ================= FAQ ================= -->
 <section id="faq" class="section">
-  <div class="container text-center">
+  <div class="container">
     <div class="overline">FAQ</div>
     <h2 class="h2 mb-1">
       ¿Tienes preguntas?<br />Tenemos respuestas
     </h2>
-    <div class="faq-wrap">
+    <div class="faq-wrap max-w-[800px]">
       <details class="faq">
         <summary
           >¿Puedo inscribirme si es mi primera competencia? <span class="small"
@@ -750,7 +758,8 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
   </div>
 </section>
 
-<Fragment slot="footer"><Footer /></Fragment>
+<Footer slot="footer" />
+</BaseLayout>
 
 <!-- ================= CUSTOM STYLES ================= -->
 <style>
@@ -766,7 +775,7 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
 >
   <button
     id="lbClose"
-    class="btn secondary"
+    class="inline-flex items-center gap-1.5 bg-surface text-text border border-border px-4 py-[11px] rounded-full font-bold cursor-pointer transition-all duration-200 hover:bg-surface-alt hover:border-border-alt hover:-translate-y-px"
     style="position:absolute;top:16px;right:16px">Cerrar</button
   >
   <!-- Lightbox image - kept as img tag since src is dynamically set by JavaScript -->
@@ -778,14 +787,14 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
   />
 </div>
 
-<script>
+<script nonce={nonce}>
   /* competitors filter */
   const compNav = Array.from(
     document.querySelectorAll("#competidores .cards-nav button"),
-  ) as HTMLButtonElement[];
+  );
   const compCards = Array.from(
     document.querySelectorAll("#competitorCards .comp-card"),
-  ) as HTMLElement[];
+  );
   compNav.forEach((btn) => {
     btn.addEventListener("click", () => {
       compNav.forEach((b) => b.classList.remove("active"));
@@ -805,12 +814,12 @@ import logoNutricionistaFiorella from '../../public/images/logo-nutricionista-fi
 
   /* gallery & rules lightbox */
   const lb = document.getElementById("lightbox");
-  const lbImg = document.getElementById("lbImg") as HTMLImageElement | null;
+  const lbImg = document.getElementById("lbImg");
   if (lb && lbImg) {
     document.getElementById("gallery")?.addEventListener("click", (e) => {
-      const target = e.target as HTMLElement | null;
+      const target = e.target;
       if (target && target.tagName === "IMG") {
-        lbImg.src = (target as HTMLImageElement).src;
+        lbImg.src = target.src;
         lb.style.display = "grid";
       }
     });

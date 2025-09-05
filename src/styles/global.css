@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+/* ================= UNIFIED THEME SYSTEM ================= */
+/* Consolidates light theme (public/theme.css) and dark theme (src/styles/theme.css) */
+/* Using Tailwind v4 @theme directive with semantic color naming */
+
+@theme {
+  /* ===== SEMANTIC COLOR TOKENS ===== */
+  /* Background Colors */
+  --color-bg: #f4f6f8;           /* Main page background - light theme default */
+  --color-bg-alt: #ffffff;       /* Alternative background */
+  --color-surface: #ffffff;      /* Card and component surfaces */
+  --color-surface-alt: #f9fafb;  /* Alternative surface color */
+  
+  /* Text Colors */
+  --color-text: #111827;         /* Primary text */
+  --color-text-muted: #6b7280;   /* Secondary/muted text */
+  --color-text-soft: #9aa3b2;    /* Soft text for labels */
+  
+  /* Border & Line Colors */
+  --color-border: #E6E9EF;       /* Primary border color */
+  --color-border-alt: #D1D5DB;   /* Alternative border */
+  
+  /* Brand Colors */
+  --color-brand: #ff6a2a;        /* Primary brand color */
+  --color-brand-hover: #ff5b10;  /* Brand hover state */
+  --color-brand-light: #fff3ee;  /* Light brand tint */
+  --color-brand-lighter: #ffd9c8; /* Lighter brand tint */
+  
+  /* Semantic Colors */
+  --color-secondary: #06d6a0;    /* Secondary color (teal) */
+  --color-secondary-light: #33f3c1; /* Light secondary */
+  --color-accent: #ff9d3c;       /* Accent color */
+  
+  /* Specific Component Colors */
+  --color-pill: #101828;         /* Pill component text */
+  --color-card: #ffffff;         /* Explicit card background */
+  
+  /* ===== SPACING SYSTEM ===== */
+  --spacing-xs: 0.25rem;         /* 4px */
+  --spacing-sm: 0.5rem;          /* 8px */
+  --spacing-md: 0.75rem;         /* 12px */
+  --spacing-base: 1rem;          /* 16px */
+  --spacing-lg: 1.5rem;          /* 24px */
+  --spacing-xl: 2rem;            /* 32px */
+  --spacing-2xl: 3rem;           /* 48px */
+  --spacing-3xl: 4.5rem;         /* 72px */
+  --spacing-max: 1040px;         /* Max content width */
+  
+  /* ===== BORDER RADIUS SYSTEM ===== */
+  --radius-sm: 6px;              /* Small radius */
+  --radius: 10px;                /* Default radius */
+  --radius-md: 12px;             /* Medium radius */
+  --radius-lg: 14px;             /* Large radius */
+  --radius-xl: 28px;             /* Extra large radius */
+  --radius-round: 999px;         /* Fully rounded */
+  
+  /* ===== SHADOW SYSTEM ===== */
+  --shadow-sm: 0 4px 12px -2px rgba(0,0,0,0.08);         /* Small shadow */
+  --shadow: 0 10px 28px rgba(16,24,40,.08);              /* Default shadow */
+  --shadow-md: 0 8px 28px -4px rgba(0,0,0,0.12);         /* Medium shadow */
+  --shadow-lg: 0 12px 32px -6px rgba(255,106,42,.35);    /* Large brand shadow */
+  --shadow-brand: 0 6px 18px rgba(255,106,42,.25);       /* Brand shadow */
+  
+  /* ===== TYPOGRAPHY SYSTEM ===== */
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-size-xs: 0.75rem;       /* 12px */
+  --font-size-sm: 0.875rem;      /* 14px */
+  --font-size-base: 1rem;        /* 16px */
+  --font-size-md: 1.125rem;      /* 18px */
+  --font-size-lg: 1.35rem;       /* ~21px */
+  --font-size-xl: 1.75rem;       /* 28px */
+  --font-size-2xl: clamp(2rem,4vw+1rem,3.25rem); /* Responsive large */
+  
+  /* ===== TRANSITIONS ===== */
+  --transition-fast: 0.18s cubic-bezier(0.4, 0.0, 0.2, 1);
+  --transition-normal: 0.25s ease;
+  --transition-slow: 0.35s ease;
+  --transition-slower: 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+  
+  /* ===== RESPONSIVE BREAKPOINTS ===== */
+  --breakpoint-xs: 360px;        /* Ultra small phones */
+  --breakpoint-sm: 480px;        /* Small phones */
+  --breakpoint-md: 600px;        /* Medium devices */
+  --breakpoint-lg: 900px;        /* Large devices - navigation switch */
+  --breakpoint-xl: 1100px;       /* Extra large devices */
+}
+
+/* ===== THEME-SPECIFIC COLOR VARIANTS ===== */
+/* Default (Light Theme) - Uses values defined above */
+
+/* Dark Theme Color Variants */
+:root {
+  /* Dark theme color mappings */
+  --color-bg-dark: #0e0f12;
+  --color-bg-alt-dark: #16181f;
+  --color-surface-dark: #1f222b;
+  --color-surface-alt-dark: #282c36;
+  --color-text-dark: #f5f7fa;
+  --color-text-muted-dark: #c3c7d1;
+  --color-text-soft-dark: #9aa3b2;
+  --color-border-dark: rgba(255,255,255,0.12);
+  --color-border-alt-dark: rgba(255,255,255,0.08);
+  --color-brand-dark: #ff6a00;
+  --color-brand-hover-dark: #ff9d3c;
+  --color-brand-light-dark: rgba(255, 106, 0, 0.1);
+  --color-brand-lighter-dark: rgba(255, 106, 0, 0.05);
+  --color-secondary-dark: #06d6a0;
+  --color-secondary-light-dark: #33f3c1;
+  --color-accent-dark: #ff9d3c;
+  --color-pill-dark: #f5f7fa;
+  --color-card-dark: #1f222b;
+}
+
+/* ===== THEME SWITCHING SYSTEM ===== */
+/* Light Theme (Default) */
+[data-theme="light"] {
+  --color-bg: #f4f6f8;
+  --color-bg-alt: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f9fafb;
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+  --color-text-soft: #9aa3b2;
+  --color-border: #E6E9EF;
+  --color-border-alt: #D1D5DB;
+  --color-brand-light: #fff3ee;
+  --color-brand-lighter: #ffd9c8;
+  --color-pill: #101828;
+  --color-card: #ffffff;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --color-bg: var(--color-bg-dark);
+  --color-bg-alt: var(--color-bg-alt-dark);
+  --color-surface: var(--color-surface-dark);
+  --color-surface-alt: var(--color-surface-alt-dark);
+  --color-text: var(--color-text-dark);
+  --color-text-muted: var(--color-text-muted-dark);
+  --color-text-soft: var(--color-text-soft-dark);
+  --color-border: var(--color-border-dark);
+  --color-border-alt: var(--color-border-alt-dark);
+  --color-brand: var(--color-brand-dark);
+  --color-brand-hover: var(--color-brand-hover-dark);
+  --color-brand-light: var(--color-brand-light-dark);
+  --color-brand-lighter: var(--color-brand-lighter-dark);
+  --color-secondary: var(--color-secondary-dark);
+  --color-secondary-light: var(--color-secondary-light-dark);
+  --color-accent: var(--color-accent-dark);
+  --color-pill: var(--color-pill-dark);
+  --color-card: var(--color-card-dark);
+}
+
+/* ===== SYSTEM PREFERENCE DETECTION ===== */
+/* Automatically apply dark theme based on system preference */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg: var(--color-bg-dark);
+    --color-bg-alt: var(--color-bg-alt-dark);
+    --color-surface: var(--color-surface-dark);
+    --color-surface-alt: var(--color-surface-alt-dark);
+    --color-text: var(--color-text-dark);
+    --color-text-muted: var(--color-text-muted-dark);
+    --color-text-soft: var(--color-text-soft-dark);
+    --color-border: var(--color-border-dark);
+    --color-border-alt: var(--color-border-alt-dark);
+    --color-brand: var(--color-brand-dark);
+    --color-brand-hover: var(--color-brand-hover-dark);
+    --color-brand-light: var(--color-brand-light-dark);
+    --color-brand-lighter: var(--color-brand-lighter-dark);
+    --color-secondary: var(--color-secondary-dark);
+    --color-secondary-light: var(--color-secondary-light-dark);
+    --color-accent: var(--color-accent-dark);
+    --color-pill: var(--color-pill-dark);
+    --color-card: var(--color-card-dark);
+  }
+}
+
+/* ===== LEGACY COMPATIBILITY LAYER ===== */
+/* Preserve original CSS variables for backward compatibility during migration */
+:root {
+  /* Light theme legacy variables (currently active) */
+  --page: var(--color-bg);
+  --card: var(--color-card);
+  --ink: var(--color-text);
+  --muted: var(--color-text-muted);
+  --line: var(--color-border);
+  --brand: var(--color-brand);
+  --brand-600: var(--color-brand-hover);
+  --pill: var(--color-pill);
+  --radius-sm: var(--radius);
+  --shadow: var(--shadow);
+  --max: var(--spacing-max);
+}

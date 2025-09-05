@@ -2,58 +2,66 @@
 // CrossFit Schedule component for Preta Fit Jacó
 import { schedules } from '../../data/schedules';
 
-// Validate schedules data with fallback
-let validatedSchedules;
-try {
-  validatedSchedules = schedules?.crossfit;
-  if (!validatedSchedules || !Array.isArray(validatedSchedules) || validatedSchedules.length === 0) {
-    throw new Error('Invalid or empty schedules data');
-  }
-} catch (error) {
-  console.error('Error loading schedules:', error);
-  // Provide fallback schedule data
-  validatedSchedules = [
-    {
-      dayLetter: 'L-V',
-      dayName: 'Lunes a Viernes',
-      morningTimes: ['6:00 AM', '7:00 AM'],
-      afternoonTimes: ['6:00 PM', '7:00 PM']
+// Async function to fetch schedules for streaming optimization
+async function fetchSchedules() {
+  // Simulate potential async data fetching (e.g., API calls) for streaming
+  await new Promise(resolve => setTimeout(resolve, 30));
+  
+  try {
+    const validatedSchedules = schedules?.crossfit;
+    if (!validatedSchedules || !Array.isArray(validatedSchedules) || validatedSchedules.length === 0) {
+      throw new Error('Invalid or empty schedules data');
     }
-  ];
+    return validatedSchedules;
+  } catch (error) {
+    console.error('Error loading schedules:', error);
+    // Provide fallback schedule data
+    return [
+      {
+        dayLetter: 'L-V',
+        dayName: 'Lunes a Viernes',
+        morningTimes: ['6:00 AM', '7:00 AM'],
+        afternoonTimes: ['6:00 PM', '7:00 PM']
+      }
+    ];
+  }
 }
+
+// Await schedules for streaming optimization
+const validatedSchedules = await fetchSchedules();
 ---
 
 <section id="schedule" class="section">
   <div class="container">
     <div class="overline">Horarios</div>
     <h2 class="h2">Horarios de CrossFit</h2>
-    <p class="schedule-description">
+    <p class="text-center text-muted mb-8 text-lg max-sm:text-base">
       Nuestras clases de CrossFit están diseñadas para todos los niveles. Elige el horario que mejor se adapte a tu rutina.
     </p>
     
     {validatedSchedules && validatedSchedules.length > 0 ? (
-      <div class="schedule-wrapper">
-        <div class="schedule-grid">
+      <div class="bg-card border border-line rounded-[14px] overflow-hidden shadow-custom">
+        <div class="grid grid-cols-5 border-b border-line max-md:grid-cols-2 max-sm:grid-cols-1">
           {validatedSchedules.map((day) => (
-            <div class="day-column">
-              <div class="day-header">
-                <span class="day-letter">{day.dayLetter || 'N/A'}</span>
-                <span class="day-name">{day.dayName || 'Día no disponible'}</span>
+            <div class="border-r border-line last:border-r-0 max-sm:border-r-0 max-sm:border-b max-sm:last:border-b-0">
+              <div class="bg-brand text-white p-4 text-center flex flex-col gap-1 max-md:p-3">
+                <span class="text-2xl font-bold max-md:text-xl">{day.dayLetter || 'N/A'}</span>
+                <span class="text-sm opacity-90">{day.dayName || 'Día no disponible'}</span>
               </div>
               
-              <div class="time-slots">
+              <div class="min-h-[200px] max-sm:min-h-0">
                 {day.morningTimes && day.morningTimes.length > 0 && (
-                  <div class="time-period morning">
+                  <div class="p-4 border-b border-line bg-slate-50 text-ink max-md:p-3">
                     {day.morningTimes.map((time) => (
-                      <div class="time-slot">{time || 'Hora N/A'}</div>
+                      <div class="py-2 font-medium text-ink border-b border-slate-200 text-center last:border-b-0">{time || 'Hora N/A'}</div>
                     ))}
                   </div>
                 )}
                 
                 {day.afternoonTimes && day.afternoonTimes.length > 0 && (
-                  <div class="time-period afternoon">
+                  <div class="p-4 bg-white text-ink max-md:p-3">
                     {day.afternoonTimes.map((time) => (
-                      <div class="time-slot">{time || 'Hora N/A'}</div>
+                      <div class="py-2 font-medium text-ink border-b border-slate-200 text-center last:border-b-0">{time || 'Hora N/A'}</div>
                     ))}
                   </div>
                 )}
@@ -62,318 +70,46 @@ try {
           ))}
         </div>
 
-        <div class="weekend-schedule">
-          <div class="weekend-day">
-            <div class="day-header">
-              <span class="day-letter">S</span>
-              <span class="day-name">Sábado</span>
+        <div class="grid grid-cols-2 border-t border-line max-md:grid-cols-1">
+          <div class="border-r border-line flex flex-col max-md:border-r-0 max-md:border-b max-md:last:border-b-0">
+            <div class="bg-brand text-white p-4 text-center flex flex-col gap-1 max-md:p-3">
+              <span class="text-2xl font-bold max-md:text-xl">S</span>
+              <span class="text-sm opacity-90">Sábado</span>
             </div>
-            <div class="weekend-times">
-              <span class="time">7:00 AM</span>
-              <span class="time">8:00 AM</span>
+            <div class="flex flex-col p-4 flex-grow max-md:p-3">
+              <span class="py-2 font-medium text-ink border-b border-slate-200 text-center">7:00 AM</span>
+              <span class="py-2 font-medium text-ink text-center">8:00 AM</span>
             </div>
           </div>
-          <div class="weekend-day">
-            <div class="day-header">
-              <span class="day-letter">D</span>
-              <span class="day-name">Domingo</span>
+          <div class="flex flex-col">
+            <div class="bg-brand text-white p-4 text-center flex flex-col gap-1 max-md:p-3">
+              <span class="text-2xl font-bold max-md:text-xl">D</span>
+              <span class="text-sm opacity-90">Domingo</span>
             </div>
-            <div class="weekend-status">Cerrado</div>
+            <div class="py-2 font-medium text-ink text-center flex-grow flex items-center justify-center m-4 italic">Cerrado</div>
           </div>
         </div>
       </div>
     ) : (
-      <div class="schedule-error-state">
-        <div class="error-state-icon">
+      <div class="text-center py-12 px-8 bg-card border border-line rounded-[14px] text-muted">
+        <div class="mb-4 opacity-60">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="#e5e7eb"/>
           </svg>
         </div>
-        <h3>Horarios no disponibles</h3>
-        <p>Por favor contactanos directamente para conocer nuestros horarios actualizados.</p>
-        <a href="tel:+50670092140" class="contact-fallback-btn">Llamar +506 7009-2140</a>
+        <h3 class="mb-2 text-ink text-xl font-medium">Horarios no disponibles</h3>
+        <p class="mb-6 text-sm leading-relaxed">Por favor contactanos directamente para conocer nuestros horarios actualizados.</p>
+        <a href="tel:+50670092140" class="inline-flex items-center gap-2 bg-brand text-white no-underline py-3 px-6 rounded-full font-semibold transition-all duration-200 hover:bg-brand-600 hover:-translate-y-0.5">Llamar +506 7009-2140</a>
       </div>
     )}
-          </div>
-        </div>
-        <div class="weekend-day">
-          <div class="day-header">
-            <span class="day-letter">D</span>
-            <span class="day-name">Domingo</span>
-          </div>
-          <div class="weekend-status">Cerrado</div>
-        </div>
-      </div>
-    </div>
 
-    <div class="schedule-footer">
-      <div class="schedule-note">
+    <div class="mt-8 text-center">
+      <div class="inline-flex items-center gap-2 bg-sky-50 border border-sky-200 rounded-lg py-4 px-6 text-sky-800 font-medium max-md:flex-col max-md:text-center max-md:gap-3 max-md:py-3 max-md:px-4">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="var(--brand)"/>
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="var(--color-brand)"/>
         </svg>
         <span>Reserva tu clase con anticipación para garantizar tu cupo</span>
       </div>
     </div>
   </div>
 </section>
-
-<style>
-  .schedule-description {
-    text-align: center;
-    color: var(--muted);
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-  }
-
-  .schedule-error-state {
-    text-align: center;
-    padding: 3rem 2rem;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    color: var(--text-muted);
-  }
-
-  .error-state-icon {
-    margin-bottom: 1rem;
-    opacity: 0.6;
-  }
-
-  .schedule-error-state h3 {
-    margin: 0 0 0.5rem 0;
-    color: var(--text);
-    font-size: 1.25rem;
-  }
-
-  .schedule-error-state p {
-    margin: 0 0 1.5rem 0;
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-
-  .contact-fallback-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--brand);
-    color: white;
-    text-decoration: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 999px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-  }
-
-  .contact-fallback-btn:hover {
-    background: var(--brand-600);
-    transform: translateY(-1px);
-  }
-
-  .schedule-wrapper {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-  }
-
-  .schedule-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .day-column {
-    border-right: 1px solid var(--line);
-  }
-
-  .day-column:last-child {
-    border-right: none;
-  }
-
-  .day-header {
-    background: var(--brand);
-    color: white;
-    padding: 1rem;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .day-letter {
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
-
-  .day-name {
-    font-size: 0.875rem;
-    opacity: 0.9;
-  }
-
-  .time-slots {
-    min-height: 200px;
-  }
-
-  .time-period {
-    padding: 1rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .time-period:last-child {
-    border-bottom: none;
-  }
-
-  .time-period.morning {
-    background: #f8fafc;
-    color: var(--ink);
-  }
-
-  .time-period.afternoon {
-    background: white;
-    color: var(--ink);
-  }
-
-  .time-slot {
-    padding: 0.5rem 0;
-    font-weight: 500;
-    color: var(--ink);
-    border-bottom: 1px solid #e2e8f0;
-    text-align: center;
-  }
-
-  .time-slot:last-child {
-    border-bottom: none;
-  }
-
-  .weekend-schedule {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-top: 1px solid var(--line);
-  }
-
-  .weekend-day {
-    border-right: 1px solid var(--line);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .weekend-day:last-child {
-    border-right: none;
-  }
-
-  .weekend-times {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    flex-grow: 1;
-  }
-
-  .weekend-times .time {
-    padding: 0.5rem 0;
-    font-weight: 500;
-    color: var(--ink);
-    border-bottom: 1px solid #e2e8f0;
-    text-align: center;
-  }
-
-  .weekend-times .time:last-child {
-    border-bottom: none;
-  }
-
-  .weekend-status {
-    padding: 0.5rem 0;
-    font-weight: 500;
-    color: var(--ink);
-    text-align: center;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem;
-    font-style: italic;
-  }
-
-  .schedule-footer {
-    margin-top: 2rem;
-    text-align: center;
-  }
-
-  .schedule-note {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #f0f9ff;
-    border: 1px solid #bae6fd;
-    border-radius: 8px;
-    padding: 1rem 1.5rem;
-    color: #0369a1;
-    font-weight: 500;
-  }
-
-  @media (max-width: 768px) {
-    .schedule-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-    }
-
-    .day-column:nth-child(n+3) {
-      display: none;
-    }
-
-    .day-header {
-      padding: 0.75rem;
-    }
-
-    .day-letter {
-      font-size: 1.25rem;
-    }
-
-    .time-period {
-      padding: 0.75rem;
-    }
-
-    .weekend-schedule {
-      grid-template-columns: 1fr;
-    }
-
-    .weekend-day {
-      border-right: none;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .weekend-day:last-child {
-      border-bottom: none;
-    }
-
-    .schedule-note {
-      padding: 0.75rem 1rem;
-      flex-direction: column;
-      text-align: center;
-      gap: 0.75rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .schedule-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .day-column {
-      border-right: none;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .day-column:last-child {
-      border-bottom: none;
-    }
-
-    .time-slots {
-      min-height: auto;
-    }
-
-    .schedule-description {
-      font-size: 1rem;
-    }
-  }
-</style>

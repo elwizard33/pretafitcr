@@ -1,84 +1,78 @@
 ---
+import ThemeToggle from './ThemeToggle.astro';
+
+// Accept nonce as prop or get from Astro.locals
+interface Props {
+  nonce?: string;
+  slot?: string;
+}
+
+const { nonce: propNonce } = Astro.props;
+const { nonce: localsNonce } = Astro.locals || {};
+const nonce = propNonce || localsNonce;
+
 const links = [
   { href: '/', label: 'Inicio' },
   { href: '/crossfit', label: 'CrossFit' },
   { href: '/wodwarriors', label: 'WOD Warriors' },
 ];
 ---
-<div class="topbar">
-  <div class="container nav">
-    <a class="brand" href="/" aria-label="Preta Fit - Página de inicio"><span class="logo" aria-hidden="true"></span></a>
-    <nav class="links" aria-label="Navegación principal">
-      {links.map(l => <a href={l.href}>{l.label}</a>)}
+<div class="h-[58px] bg-surface border-b border-border fixed top-0 left-0 w-full z-[999] transition-[box-shadow,background] duration-[350ms] backdrop-blur-sm supports-[backdrop-filter]:bg-surface/90" role="banner" aria-label="Encabezado principal">
+  <div class="max-w-[1040px] mx-auto px-4 h-[58px] flex items-center justify-between gap-3">
+    <a class="flex items-center gap-2 text-inherit no-underline" href="/" aria-label="Preta Fit - Página de inicio">
+      <span class="h-10 w-auto min-w-[120px] bg-[url('/images/logo-pretafit.jpeg')] bg-center bg-contain bg-no-repeat rounded flex items-center justify-center text-sm font-black text-brand text-indent-[-9999px] overflow-hidden" aria-hidden="true">PRETA FIT</span>
+    </a>
+    <nav class="flex items-center gap-6" aria-label="Navegación principal" role="navigation">
+      {links.map(l => <a class="px-[10px] py-2 rounded-[10px] hover:bg-surface-alt transition-colors" href={l.href}>{l.label}</a>)}
+      <ThemeToggle nonce={nonce} />
     </nav>
-    <button class="mnav-btn btn secondary" aria-controls="mnav" aria-expanded="false" 
-            aria-label="Abrir menú de navegación">Menu</button>
+    <button class="hidden max-lg:flex items-center justify-center w-8 h-8 relative cursor-pointer bg-transparent border-none" aria-controls="mnav" aria-expanded="false" 
+            aria-label="Abrir menú de navegación">
+      <span class="relative w-6 h-6">
+        <span class="absolute left-0 w-6 h-0.5 bg-text rounded transition-all duration-300 top-1.5"></span>
+        <span class="absolute left-0 w-6 h-0.5 bg-text rounded transition-all duration-300 top-2.5"></span>
+        <span class="absolute left-0 w-6 h-0.5 bg-text rounded transition-all duration-300 top-3.5"></span>
+      </span>
+      <span class="sr-only">Menú</span>
+    </button>
   </div>
-  <div id="mnav" class="container mobile-nav" role="dialog" aria-labelledby="mobile-menu-title">
-    <div class="card mobile-nav-card">
-      <div class="mobile-nav-content">
-        <span id="mobile-menu-title" class="sr-only">Menú de navegación móvil</span>
-        {links.map(l => <a class="btn secondary" href={l.href}>{l.label}</a>)}
+  <div id="mnav" class="fixed top-0 left-0 w-full h-full z-[1000] hidden opacity-0 transition-opacity duration-300" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+    <div class="absolute top-0 left-0 w-full h-full bg-black/50 backdrop-blur"></div>
+    <div class="relative bg-surface w-[280px] h-full ml-auto shadow-[-10px_0_30px_rgba(0,0,0,0.1)] flex flex-col transform translate-x-full transition-transform duration-300">
+      <div class="flex items-center justify-between p-5 border-b border-border">
+        <span id="mobile-menu-title" class="text-lg font-bold text-text">Navegación</span>
+        <button class="bg-transparent border-none cursor-pointer p-1 rounded hover:bg-text/5 transition-colors" aria-label="Cerrar menú">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
       </div>
+      <nav class="flex-1 p-5 flex flex-col gap-1" aria-label="Menú de navegación móvil">
+        {links.map(l => (
+          <a class="block py-3 px-4 text-text no-underline rounded-lg font-medium transition-all hover:bg-surface-alt hover:text-brand" href={l.href}>
+            {l.label}
+          </a>
+        ))}
+        <div class="flex items-center gap-3 p-3 border-t border-border mt-2">
+          <ThemeToggle nonce={nonce} />
+          <span class="text-text-muted text-sm">Cambiar tema</span>
+        </div>
+      </nav>
     </div>
   </div>
 </div>
 
-<script>
-/* mobile nav */
-const mbtn = document.querySelector('.mnav-btn');
-const mnav = document.getElementById('mnav');
-
-if (mbtn && mnav) {
-  mbtn.addEventListener('click', () => {
-    const open = mnav.style.display !== 'block';
-    mnav.style.display = open ? 'block' : 'none';
-    mbtn.setAttribute('aria-expanded', String(open));
-  });
-}
-
-/* close mobile on anchor click */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const href = a.getAttribute('href');
-    if (href && href.length > 1) {
-      e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-        if (mnav && mbtn) {
-          mnav.style.display = 'none';
-          mbtn.setAttribute('aria-expanded', 'false');
-        }
-      }
+<style>
+  /* Theme toggle visibility on different screen sizes */
+  @media (max-width: 899px) {
+    nav :global(.theme-toggle) {
+      display: none;
     }
-  });
-});
-
-/* keyboard navigation for mobile menu */
-if (mbtn) {
-  mbtn.addEventListener('keydown', (e) => {
-    const keyboardEvent = e as KeyboardEvent;
-    if (keyboardEvent.key === 'Escape' && mnav && mnav.style.display === 'block') {
-      mnav.style.display = 'none';
-      mbtn.setAttribute('aria-expanded', 'false');
-      (mbtn as HTMLElement).focus();
-    }
-  });
-}
-
-/* topbar scroll state */
-const tb = document.querySelector('.topbar');
-if (tb) {
-  const toggleScroll = () => {
-    if (window.scrollY > 4) {
-      tb.classList.add('is-scrolled');
-    } else {
-      tb.classList.remove('is-scrolled');
-    }
-  };
-  window.addEventListener('scroll', toggleScroll, { passive: true });
-  toggleScroll();
-}
-</script>
-</script>
+  }
+  
+  /* Logo background image fallback */
+  .logo-bg {
+    background-image: url('/images/logo-pretafit.jpeg');
+  }
+</style>

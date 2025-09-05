@@ -6,37 +6,48 @@ import Footer from '../components/Footer.astro';
 import PlansCrossFit from '../components/sections/PlansCrossFit.astro';
 import Schedule from '../components/sections/Schedule.astro';
 
+// Get nonce from Astro.locals for CSP compliance
+const { nonce } = Astro.locals || {};
+
 // Import images
 import levantamientoCrossfit from '../../public/images/levantamiento-crossfit.jpg';
+
+const seo = {
+  title: "CrossFit en Jacó | Preta Fit",
+  description: "Clases de CrossFit en Jacó, Costa Rica. Horarios flexibles, planes accesibles y entrenadores certificados. El box líder de la zona con metodología progresiva para todos los niveles.",
+  keywords: "CrossFit Jacó, clases CrossFit Costa Rica, entrenamiento funcional Jacó, box CrossFit Puntarenas, fitness Jacó, gimnasio CrossFit",
+  image: "/images/levantamiento-crossfit.jpg",
+  type: "website"
+};
 ---
 
-<BaseLayout title="CrossFit | Preta Fit Jacó" description="Clases de CrossFit en Jacó, Costa Rica. Horarios, planes y precios. Box líder con entrenadores certificados.">
-  <Header slot="header" />
+<BaseLayout {seo}>
+  <Header slot="header" nonce={nonce} />
   
   <!-- Hero Section -->
   <section class="hero crossfit-hero">
-    <div class="container">
+    <div class="max-w-[1040px] mx-auto px-4">
       <div class="hero-content">
         <div class="overline">CrossFit</div>
-        <h1 class="h1">Entrena CrossFit en Jacó</h1>
+        <h1 class="text-[34px] font-black leading-tight m-0 mb-2">Entrena CrossFit en Jacó</h1>
         <p class="hero-description">
           Descubre el poder del CrossFit en nuestro box líder en Jacó. Clases para todos los niveles con entrenadores certificados y una comunidad apasionada por el fitness.
         </p>
         <div class="hero-cta">
-          <a href="#plans" class="btn primary">Ver Planes</a>
-          <a href="#schedule" class="btn secondary">Horarios</a>
+          <a href="#plans" class="inline-flex items-center gap-2 bg-brand text-white border border-brand px-4 py-[10px] rounded-full font-extrabold text-sm shadow-[0_6px_18px_rgba(255,106,42,.25)] transition-transform transition-shadow duration-200 cursor-pointer hover:-translate-y-px hover:shadow-[0_10px_22px_rgba(255,106,42,.32)] primary">Ver Planes</a>
+          <a href="#schedule" class="inline-flex items-center gap-2 bg-surface text-text border border-border px-4 py-[10px] rounded-full font-extrabold text-sm cursor-pointer transition-transform transition-shadow duration-200 secondary">Horarios</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- What is CrossFit Section -->
-  <section class="section crossfit-about">
-    <div class="container">
+  <section class="py-12 crossfit-about">
+    <div class="max-w-[1040px] mx-auto px-4">
       <div class="content-grid">
         <div class="content-text">
           <div class="overline">Metodología</div>
-          <h2 class="h2">¿Qué es CrossFit?</h2>
+          <h2 class="text-2xl font-black m-0 mb-2">¿Qué es CrossFit?</h2>
           <p>
             CrossFit es un programa de acondicionamiento físico que combina movimientos funcionales constantemente variados realizados a alta intensidad. En Preta Fit, nos especializamos en hacer que cada entrenamiento sea único, desafiante y adaptable a tu nivel.
           </p>

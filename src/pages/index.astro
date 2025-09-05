@@ -9,22 +9,41 @@ import PlansCrossFit from '../components/sections/PlansCrossFit.astro';
 import Hero from '../components/sections/Hero.astro';
 import Reviews from '../components/sections/Reviews.astro';
 import FAQ from 'src/components/sections/FAQ.astro';
-import Contact from 'src/components/sections/Contact.astro';
 import Location from '../components/sections/Location.astro';
+import { getValidatedReviews } from '../data/reviews';
+
+// Get nonce from Astro.locals for CSP compliance  
+// @ts-ignore
+const nonce = Astro.locals?.nonce;
+
+// Get reviews for structured data
+const reviews = getValidatedReviews();
+
+const seo = {
+  title: "Preta Fit Jacó | CrossFit · BJJ · Wellness",
+  description: "Entrenamientos de CrossFit, Brazilian Jiu-Jitsu, fuerza y bienestar en Jacó. Únete a nuestra comunidad con metodología progresiva y entrenadores certificados. Clases para todos los niveles.",
+  keywords: "CrossFit Jacó, gimnasio Jacó, BJJ Jacó, Brazilian Jiu-Jitsu Costa Rica, fitness Jacó, entrenamiento funcional, box CrossFit Puntarenas, gym comunidad",
+  type: "website",
+  image: "/images/logo-pretafit.jpeg"
+};
 ---
-<BaseLayout title="Preta Fit Jacó | CrossFit · BJJ · Wellness" description="Entrenamientos de CrossFit, Brazilian Jiu-Jitsu, fuerza y bienestar en Jacó. Comunidad y metodología progresiva.">
-  <Fragment slot="header"><Header /></Fragment>
+<BaseLayout 
+  {seo}
+  includeFAQSchema={true}
+  reviews={reviews}
+>
+  <Header nonce={nonce} slot="header" />
 
   <!-- Use Hero component -->
   <Hero />
 
   <!-- ================= WOD WARRIORS PROMO FUNNEL ================= -->
-  <section class="section event-promo-section">
-    <div class="container">
+  <section class="py-12 event-promo-section">
+    <div class="max-w-[1040px] mx-auto px-4">
       <div class="event-header">
         <div class="overline event-overline">EVENTO ESPECIAL</div>
-        <h2 class="h2 event-title">WOD WARRIORS 2025</h2>
-        <p class="small event-description">
+        <h2 class="text-2xl font-black m-0 mb-2 event-title">WOD WARRIORS 2025</h2>
+        <p class="text-xs text-text-muted event-description">
           <strong>Competencia de CrossFit</strong> • Exhibición de BJJ • Música en vivo<br>
           <span class="event-date">5 de Septiembre, 7:00 PM • Preta Fit Jacó</span>
         </p>
@@ -42,10 +61,10 @@ import Location from '../components/sections/Location.astro';
       
       <!-- CTA Button -->
       <div class="event-cta-wrapper">
-        <a href="/wodwarriors" class="btn event-cta-btn">
+        <a href="/wodwarriors" class="inline-flex items-center gap-2 bg-brand text-white border border-brand px-4 py-[10px] rounded-full font-extrabold text-sm shadow-[0_6px_18px_rgba(255,106,42,.25)] transition-transform duration-200 cursor-pointer hover:-translate-y-px hover:shadow-[0_10px_22px_rgba(255,106,42,.32)] event-cta-btn">
           ✨ Ver Detalles del Evento ✨
         </a>
-        <p class="small event-cta-note">
+        <p class="text-xs text-text-muted event-cta-note">
           Categorías Principiante e Intermedio
         </p>
       </div>
@@ -70,17 +89,17 @@ import Location from '../components/sections/Location.astro';
   <!-- ================= FAQ ================= -->
   <FAQ />
 
-  <Fragment slot="footer"><Footer /></Fragment>
+  <Footer slot="footer" />
 </BaseLayout>
 
 <!-- ================= LIGHTBOX ================= -->
 <div id="lightbox" class="lightbox">
-  <button id="lbClose" class="btn secondary lightbox-close">Cerrar</button>
+  <button id="lbClose" class="inline-flex items-center gap-2 bg-surface text-text border border-border px-4 py-[10px] rounded-full font-extrabold text-sm cursor-pointer transition-transform duration-200 lightbox-close">Cerrar</button>
   <!-- Lightbox image - kept as img tag since src is dynamically set by JavaScript -->
   <img id="lbImg" src="" alt="" class="lightbox-image">
 </div>
 
-<script>
+<script nonce={nonce}>
 
 
 </script>

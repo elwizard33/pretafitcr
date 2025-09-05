@@ -1,3 +1,21 @@
 User-agent: *
 Allow: /
-Sitemap: https://pretafitcr.com/sitemap.xml
+
+# Important pages
+Allow: /crossfit/
+Allow: /wodwarriors/
+
+# Sitemaps
+Sitemap: https://pretafitcr.com/sitemap-index.xml
+
+# Block unnecessary pages
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /admin/
+Disallow: /private/
+
+# Crawl-delay for politeness
+Crawl-delay: 1
+
+# Host directive
+Host: https://pretafitcr.com

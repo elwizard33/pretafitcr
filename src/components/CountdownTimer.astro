@@ -8,57 +8,49 @@ export interface Props {
   eventMessage?: string;
 }
 
+// Get nonce from Astro.locals for CSP compliance
+const { nonce } = Astro.locals || {};
+
 const { 
   title = "Tiempo restante para el evento",
-  subtitle = "⚡ NO TE LO PIERDAS ⚡",
   targetDay = 'friday',
   targetHour = 19, // 7 PM
   timezone = 'America/Costa_Rica',
   eventMessage = "¡El evento ya comenzó! 🎉"
 } = Astro.props;
-
-const dayMap = {
-  'sunday': 0,
-  'monday': 1,
-  'tuesday': 2,
-  'wednesday': 3,
-  'thursday': 4,
-  'friday': 5,
-  'saturday': 6
-};
 ---
 
-<div class="countdown-container">
-  <div class="countdown-card">
-    <div class="countdown-title">{title}</div>
-    <div id="countdown" class="countdown-display">
-      <div class="time-unit">
-        <span id="days" aria-label="días restantes">--</span>
-        <label>Días</label>
+<div class="flex justify-center items-center py-8 relative">
+  <div class="countdown-card bg-white rounded-3xl p-8 text-center text-gray-900 max-w-[700px] w-full relative overflow-hidden shadow-xl border border-gray-200">
+    <div class="countdown-title text-2xl font-extrabold mb-2 uppercase tracking-wider text-gray-900 lg:text-2xl md:text-xl">{title}</div>
+    <div id="countdown" class="grid grid-cols-4 gap-5 my-6 md:gap-4 sm:grid-cols-2 sm:gap-4">
+      <div class="time-unit flex flex-col items-center bg-gradient-to-b from-white to-gray-50 rounded-2xl p-5 border-2 border-gray-200 relative transition-all duration-300 hover:scale-105 shadow-lg md:p-4 sm:p-3">
+        <span id="days" aria-label="días restantes" class="time-number text-4xl font-black leading-none mb-2 text-orange-500 lg:text-4xl md:text-3xl sm:text-2xl">--</span>
+        <label class="text-xs font-bold uppercase tracking-wide text-gray-500 bg-orange-50 px-2 py-1 rounded-full border border-orange-200">Días</label>
       </div>
-      <div class="time-unit">
-        <span id="hours" aria-label="horas restantes">--</span>
-        <label>Horas</label>
+      <div class="time-unit flex flex-col items-center bg-gradient-to-b from-white to-gray-50 rounded-2xl p-5 border-2 border-gray-200 relative transition-all duration-300 hover:scale-105 shadow-lg md:p-4 sm:p-3">
+        <span id="hours" aria-label="horas restantes" class="time-number text-4xl font-black leading-none mb-2 text-orange-500 lg:text-4xl md:text-3xl sm:text-2xl">--</span>
+        <label class="text-xs font-bold uppercase tracking-wide text-gray-500 bg-orange-50 px-2 py-1 rounded-full border border-orange-200">Horas</label>
       </div>
-      <div class="time-unit">
-        <span id="minutes" aria-label="minutos restantes">--</span>
-        <label>Minutos</label>
+      <div class="time-unit flex flex-col items-center bg-gradient-to-b from-white to-gray-50 rounded-2xl p-5 border-2 border-gray-200 relative transition-all duration-300 hover:scale-105 shadow-lg md:p-4 sm:p-3">
+        <span id="minutes" aria-label="minutos restantes" class="time-number text-4xl font-black leading-none mb-2 text-orange-500 lg:text-4xl md:text-3xl sm:text-2xl">--</span>
+        <label class="text-xs font-bold uppercase tracking-wide text-gray-500 bg-orange-50 px-2 py-1 rounded-full border border-orange-200">Minutos</label>
       </div>
-      <div class="time-unit">
-        <span id="seconds" aria-label="segundos restantes">--</span>
-        <label>Segundos</label>
+      <div class="time-unit flex flex-col items-center bg-gradient-to-b from-white to-gray-50 rounded-2xl p-5 border-2 border-gray-200 relative transition-all duration-300 hover:scale-105 shadow-lg md:p-4 sm:p-3">
+        <span id="seconds" aria-label="segundos restantes" class="time-number text-4xl font-black leading-none mb-2 text-orange-500 lg:text-4xl md:text-3xl sm:text-2xl">--</span>
+        <label class="text-xs font-bold uppercase tracking-wide text-gray-500 bg-orange-50 px-2 py-1 rounded-full border border-orange-200">Segundos</label>
       </div>
     </div>
-    <div id="error-message" class="error-message" style="display:none">
+    <div id="error-message" class="hidden text-lg font-semibold text-center text-gray-700 bg-red-50 p-4 rounded-lg border border-red-200">
       No se pudo cargar el tiempo restante. El evento se realizará según lo programado.
     </div>
-    <div id="event-message" class="event-message" style="display:none">
+    <div id="event-message" class="event-message hidden text-3xl font-black text-center bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent p-6 rounded-2xl bg-white border-2 border-gray-200 shadow-lg lg:text-3xl md:text-2xl sm:text-xl">
       {eventMessage}
     </div>
   </div>
 </div>
 
-<script define:vars={{ targetDay, targetHour, timezone, eventMessage }}>
+<script is:inline define:vars={{ targetDay, targetHour, timezone, eventMessage }} nonce={nonce}>
   function initCountdown() {
     const dayMap = {
       'sunday': 0,
@@ -126,8 +118,8 @@ const dayMap = {
       const countdownEl = document.getElementById('countdown');
       const errorMessageEl = document.getElementById('error-message');
       
-      if (countdownEl) countdownEl.style.display = 'none';
-      if (errorMessageEl) errorMessageEl.style.display = 'block';
+      if (countdownEl) countdownEl.classList.add('hidden');
+      if (errorMessageEl) errorMessageEl.classList.remove('hidden');
     }
 
     function updateCountdown() {
@@ -141,8 +133,8 @@ const dayMap = {
 
         if (timeDiff <= 0) {
           // Event has started or passed
-          if (countdownEl) countdownEl.style.display = 'none';
-          if (eventMessageEl) eventMessageEl.style.display = 'block';
+          if (countdownEl) countdownEl.classList.add('hidden');
+          if (eventMessageEl) eventMessageEl.classList.remove('hidden');
           return;
         }
 
@@ -191,7 +183,7 @@ const dayMap = {
     } catch (error) {
       console.error('Failed to initialize countdown:', error);
       const errorMessageEl = document.getElementById('error-message');
-      if (errorMessageEl) errorMessageEl.style.display = 'block';
+      if (errorMessageEl) errorMessageEl.classList.remove('hidden');
     }
   }
 
@@ -204,3 +196,156 @@ const dayMap = {
     safeInitCountdown();
   }
 </script>
+
+<style>
+/* Complex animations preserved as component-scoped CSS */
+.countdown-card {
+  animation: pulse-glow 3s ease-in-out infinite alternate;
+}
+
+.countdown-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, rgba(255, 106, 42, 0.08), transparent);
+  animation: rotate-border 4s linear infinite;
+  z-index: -1;
+}
+
+.countdown-card::after {
+  content: 'EVENTO EXCLUSIVO';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #ff6a2a, #e55a1d);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(255, 106, 42, 0.4);
+  animation: bounce-badge 2s ease-in-out infinite;
+}
+
+.countdown-title {
+  animation: text-glow 2s ease-in-out infinite alternate;
+}
+
+.countdown-title::after {
+  content: '⚡ NO TE LO PIERDAS ⚡';
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 5px;
+  color: #6b7280;
+  letter-spacing: 1px;
+}
+
+.time-unit {
+  transform: perspective(500px) rotateX(10deg);
+}
+
+.time-unit:hover {
+  transform: perspective(500px) rotateX(0deg) scale(1.05);
+}
+
+.time-unit::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ff6a2a, #e55a1d, #ff6a2a, #e55a1d);
+  border-radius: 17px;
+  z-index: -1;
+  opacity: 0;
+  animation: border-rotate 3s linear infinite;
+  transition: opacity 0.3s ease;
+}
+
+.time-unit:hover::before {
+  opacity: 0;
+}
+
+.time-number {
+  text-shadow: 
+    0 2px 4px rgba(255, 106, 42, 0.2),
+    0 0 20px rgba(255, 106, 42, 0.1);
+  animation: number-pulse 1s ease-in-out infinite;
+}
+
+.event-message {
+  animation: rainbow-text 2s linear infinite, scale-pulse 1.5s ease-in-out infinite;
+}
+
+/* Keyframe animations preserved exactly */
+@keyframes pulse-glow {
+  0% { 
+    box-shadow: 
+      0 20px 60px rgba(16, 24, 40, 0.15),
+      0 0 0 1px #e5e7eb,
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+  100% { 
+    box-shadow: 
+      0 25px 80px rgba(16, 24, 40, 0.2),
+      0 0 0 1px rgba(255, 106, 42, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+}
+
+@keyframes rotate-border {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes bounce-badge {
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-5px); }
+  60% { transform: translateX(-50%) translateY(-3px); }
+}
+
+@keyframes text-glow {
+  0% { text-shadow: 0 2px 4px rgba(17, 24, 39, 0.1); }
+  100% { text-shadow: 0 2px 4px rgba(17, 24, 39, 0.2), 0 0 15px rgba(255, 106, 42, 0.1); }
+}
+
+@keyframes border-rotate {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 400% 0%; }
+}
+
+@keyframes number-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes rainbow-text {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes scale-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 600px) {
+  .countdown-card::after {
+    font-size: 10px;
+    padding: 6px 15px;
+  }
+  
+  .countdown-title::after {
+    font-size: 12px;
+  }
+}
+</style>

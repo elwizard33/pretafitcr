@@ -1,4 +1,5 @@
 ---
+// Enhanced Hero component with Cumulative Layout Shift (CLS) prevention
 import { Image } from 'astro:assets';
 
 // Import the hero image for optimization
@@ -6,9 +7,9 @@ import pretafitPared from '../../../public/images/pretafit-pared.jpeg';
 ---
 
   <!-- ================= HERO ================= -->
-  <section class="hero" role="banner">
-    <div class="container hero-card">
-      <div class="hero-media card">
+  <section class="py-3" role="banner">
+    <div class="max-w-[1040px] mx-auto px-4 grid grid-cols-1 overflow-hidden gap-5">
+      <div class="relative rounded-[14px] overflow-hidden bg-surface border border-border shadow-[0_10px_28px_rgba(16,24,40,.08)]">
         <Image 
           src={pretafitPared}
           alt="Interior del gimnasio Preta Fit mostrando el área de entrenamiento de CrossFit y Brazilian Jiu-Jitsu con equipamiento profesional en Jacó, Costa Rica"
@@ -18,30 +19,57 @@ import pretafitPared from '../../../public/images/pretafit-pared.jpeg';
           quality={85}
           loading="eager"
           decoding="sync"
-          onerror="this.style.backgroundColor='#f3f4f6';this.style.display='flex';this.style.alignItems='center';this.style.justifyContent='center';this.innerHTML='<span style=color:#6b7280;font-size:14px>Imagen no disponible</span>'"
+          fetchpriority="high"
+          sizes="(max-width: 768px) 100vw, 800px"
+          widths={[400, 800, 1200]}
+          style="aspect-ratio: 4/3; object-fit: cover;"
+          class="h-[400px] sm:h-[400px] md:h-[440px] lg:h-[500px] xl:h-[520px] w-full object-cover"
         />
-        <div class="hero-overlay">
-          <div class="hero-bubble">
-            <h1 class="h1">PRETA FIT<br>FUERZA · TÉCNICA · COMUNIDAD</h1>
-            <p class="subtle">Box líder en Jacó con CrossFit, Brazilian Jiu-Jitsu, fuerza y coaching integral para progreso real.</p>
+        <div class="absolute inset-0 flex items-end p-5">
+          <div class="w-full max-w-[520px] bg-gray-900/88 backdrop-blur backdrop-saturate-[1.2] text-white rounded-xl p-[18px] border border-white/[0.18]">
+            <h1 class="text-[28px] font-black leading-tight m-0 mb-[6px]">PRETA FIT<br>FUERZA · TÉCNICA · COMUNIDAD</h1>
+            <p class="text-text-muted m-0">Box líder en Jacó con CrossFit, Brazilian Jiu-Jitsu, fuerza y coaching integral para progreso real.</p>
           </div>
         </div>
       </div>
 
-      <!-- mini features -->
-      <div class="feature-row" role="complementary" aria-label="Características principales">
-        <div class="feature">
-          <div class="badge-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ff6a2a" d="M12 2 2 7l10 5 10-5-10-5Z"/></svg></div>
+      <!-- Enhanced feature row with better performance -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-[10px] max-w-[800px] mx-auto" role="complementary" aria-label="Características principales">
+        <div class="flex items-center gap-2 bg-surface border border-border rounded-xl p-[10px] transition-all duration-[250ms] hover:bg-brand-light hover:shadow-[0_6px_16px_-4px_rgba(255,106,42,.18)]">
+          <div class="w-[34px] h-[34px] rounded-lg bg-brand-light border border-brand-lighter grid place-items-center" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="var(--color-brand)" d="M12 2 2 7l10 5 10-5-10-5Z"/>
+            </svg>
+          </div>
           <div><strong>Coaches Expertos</strong></div>
         </div>
-        <div class="feature">
-          <div class="badge-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ff6a2a" d="M7 6h2v12H7V6zm4 3h2v9h-2V9zm4-5h2v14h-2V4z"/></svg></div>
+        <div class="flex items-center gap-2 bg-surface border border-border rounded-xl p-[10px] transition-all duration-[250ms] hover:bg-brand-light hover:shadow-[0_6px_16px_-4px_rgba(255,106,42,.18)]">
+          <div class="w-[34px] h-[34px] rounded-lg bg-brand-light border border-brand-lighter grid place-items-center" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="var(--color-brand)" d="M7 6h2v12H7V6zm4 3h2v9h-2V9zm4-5h2v14h-2V4z"/>
+            </svg>
+          </div>
           <div><strong>CrossFit & BJJ Únicos</strong></div>
         </div>
-        <div class="feature">
-          <div class="badge-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ff6a2a" d="M12 3a6 6 0 0 0-6 6c0 6 6 12 6 12s6-6 6-12a6 6 0 0 0-6-6z"/></svg></div>
+        <div class="flex items-center gap-2 bg-surface border border-border rounded-xl p-[10px] transition-all duration-[250ms] hover:bg-brand-light hover:shadow-[0_6px_16px_-4px_rgba(255,106,42,.18)]">
+          <div class="w-[34px] h-[34px] rounded-lg bg-brand-light border border-brand-lighter grid place-items-center" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="var(--color-brand)" d="M12 3a6 6 0 0 0-6 6c0 6 6 12 6 12s6-6 6-12a6 6 0 0 0-6-6z"/>
+            </svg>
+          </div>
           <div><strong>Ambiente Inclusivo</strong></div>
         </div>
       </div>
     </div>
   </section>
+
+<style>
+  /* Performance optimizations for contained elements */
+  .grid {
+    contain: layout style paint;
+  }
+  
+  svg {
+    contain: strict;
+  }
+</style>

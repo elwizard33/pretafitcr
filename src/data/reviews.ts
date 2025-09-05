@@ -23,7 +23,21 @@ export function validateReview(review: any): review is Review {
   );
 }
 
-// Function to get validated reviews with fallbacks
+// Async function to get validated reviews for streaming optimization
+export async function getValidatedReviewsAsync(): Promise<Review[]> {
+  // Simulate potential API call delay for streaming optimization
+  await new Promise(resolve => setTimeout(resolve, 100));
+  
+  return reviews.filter(review => {
+    const isValid = validateReview(review);
+    if (!isValid) {
+      console.warn('Invalid review data detected:', review);
+    }
+    return isValid;
+  });
+}
+
+// Function to get validated reviews with fallbacks (sync version)
 export function getValidatedReviews(): Review[] {
   return reviews.filter(review => {
     const isValid = validateReview(review);

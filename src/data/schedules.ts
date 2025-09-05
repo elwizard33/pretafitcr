@@ -12,6 +12,14 @@ export interface ScheduleData {
   jiujitsu?: DaySchedule[]; // Will add later
 }
 
+// Async function to get schedules for streaming optimization
+export async function getSchedulesAsync(): Promise<ScheduleData> {
+  // Simulate potential API call delay for streaming optimization
+  await new Promise(resolve => setTimeout(resolve, 50));
+  
+  return schedules;
+}
+
 // CrossFit schedule based on the image provided
 export const schedules: ScheduleData = {
   crossfit: [

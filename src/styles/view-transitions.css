@@ -1,0 +1,71 @@
+/* Native Browser View Transitions */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+/* Replicate Astro's faster fade animation (180ms vs 250ms default) */
+::view-transition-old(.fade),
+::view-transition-new(.fade) {
+  animation-duration: 180ms;
+  animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  /* do not redefine animation-name - use browser defaults */
+}
+
+/* Replicate Astro's slide animations with view-transition-class */
+::view-transition-old(.slide) {
+  animation-duration: 90ms, 220ms;
+  animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  animation-name: -ua-view-transition-fade-out, astroSlideToLeft;
+}
+
+::view-transition-new(.slide) {
+  animation-duration: 210ms, 220ms;
+  animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  animation-delay: 30ms;
+  animation-name: -ua-view-transition-fade-in, astroSlideFromRight;
+}
+
+/* Backward animations when direction is detected */
+[data-astro-transition='back']::view-transition-old(.slide) {
+  animation-name: -ua-view-transition-fade-out, astroSlideToRight;
+}
+
+[data-astro-transition='back']::view-transition-new(.slide) {
+  animation-name: -ua-view-transition-fade-in, astroSlideFromLeft;
+}
+
+/* View transition names for morph animations */
+.hero-section {
+  view-transition-name: hero-section;
+}
+
+.hero-image {
+  view-transition-name: hero-image;
+}
+
+.hero-title {
+  view-transition-name: hero-title;
+}
+
+.main-content {
+  view-transition-name: main-content;
+}
+
+/* Define slide keyframes exactly as in Astro */
+@keyframes astroSlideFromRight {
+  0% { transform: translate(100%); }
+}
+
+@keyframes astroSlideFromLeft {
+  0% { transform: translate(-100%); }
+}
+
+@keyframes astroSlideToRight {
+  to { transform: translate(100%); }
+}
+
+@keyframes astroSlideToLeft {
+  to { transform: translate(-100%); }
+}

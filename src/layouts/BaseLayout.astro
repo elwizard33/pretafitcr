@@ -1,91 +1,246 @@
 ---
-import { generateStructuredData } from '../data/businessInfo';
+import { generateStructuredData, generateBreadcrumbSchema, generateFAQSchema } from '../data/businessInfo';
+import '../styles/view-transitions.css';
+import '../styles/global.css';
+
+interface SEOProps {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  keywords?: string;
+  type?: string;
+  article?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    author?: string;
+    section?: string;
+    tags?: string[];
+  };
+}
 
 interface Props { 
-  title?: string; 
-  description?: string; 
-  image?: string;
-  url?: string;
-  type?: string;
+  seo?: SEOProps;
+  includeFAQSchema?: boolean;
+  reviews?: any[];
 }
-const { 
-  title = 'Preta Fit | CrossFit · BJJ · Comunidad', 
-  description = 'Box líder en Jacó con programas de CrossFit, Brazilian Jiu-Jitsu y Wellness.',
-  image = '/images/logo-pretafit.jpeg',
-  url = Astro.url.href,
-  type = 'website'
+
+const {
+  seo = {},
+  includeFAQSchema = false,
+  reviews
 } = Astro.props;
 
+// SEO defaults with proper fallbacks
+const {
+  title = 'Preta Fit | CrossFit · BJJ · Comunidad',
+  description = 'Box líder en Jacó con programas de CrossFit, Brazilian Jiu-Jitsu y Wellness. Entrena con nosotros y únete a nuestra comunidad comprometida con el fitness y el crecimiento personal.',
+  image = '/images/logo-pretafit.jpeg',
+  canonical = Astro.url.href,
+  keywords = 'CrossFit Jacó, gimnasio Jacó, Brazilian Jiu-Jitsu Costa Rica, fitness Jacó, box CrossFit Puntarenas, entrenamiento funcional Jacó, gym comunidad Jacó',
+  type = 'website',
+  article
+} = seo;
+
 const baseUrl = Astro.site?.href || 'https://pretafitcr.com';
-const canonicalURL = new URL(Astro.url.pathname, baseUrl);
+const canonicalURL = new URL(canonical, baseUrl);
 const fullImageURL = new URL(image, baseUrl).href;
-const structuredData = generateStructuredData(baseUrl);
+const structuredData = generateStructuredData(baseUrl, reviews);
+const breadcrumbSchema = generateBreadcrumbSchema(title, canonicalURL.href);
+const faqSchema = includeFAQSchema ? generateFAQSchema() : null;
+
+// Generate cryptographically secure nonce for inline scripts
+const nonce = Array.from(crypto.getRandomValues(new Uint8Array(16)), b => b.toString(16).padStart(2, '0')).join('');
+
+// Make nonce available to all components
+Astro.locals.nonce = nonce;
+
+// Generate optimized meta description with CTR optimization
+const optimizedDescription = description.length > 155 
+  ? description.substring(0, 152) + '...' 
+  : description;
+
+// Enhanced title with length optimization for SERP display
+const optimizedTitle = title.length > 60 
+  ? title.substring(0, 57) + '...' 
+  : title;
 ---
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" itemscope itemtype="https://schema.org/WebPage">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     
-    <!-- Basic SEO -->
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <!-- Preload critical resources for Core Web Vitals -->
+    <link rel="preload" href={fullImageURL} as="image">
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    
+    <!-- Enhanced Security Headers with strict nonce-based CSP -->
+    <meta http-equiv="Content-Security-Policy" content={`default-src 'self'; script-src 'self' 'nonce-${nonce}' https://www.googletagmanager.com; style-src 'self' 'nonce-${nonce}' data:; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content;`} />
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), autoplay=(), encrypted-media=(), fullscreen=(self), picture-in-picture=(), web-share=()" />
+    <meta http-equiv="Cross-Origin-Embedder-Policy" content="credentialless" />
+    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
+    <meta http-equiv="Cross-Origin-Resource-Policy" content="same-origin" />
+    
+    <!-- View Transition: Wait for page load to start transition  -->
+    <link rel="expect" href="#main-content" blocking="render" />
+    
+    <!-- Basic SEO with length optimization -->
+    <title>{optimizedTitle}</title>
+    <meta name="description" content={optimizedDescription} />
     <link rel="canonical" href={canonicalURL} />
     
-    <!-- Geo Location for Local SEO -->
+    <!-- Enhanced Keywords for Local SEO -->
+    <meta name="keywords" content={keywords} />
+    
+    <!-- Geo Location for Enhanced Local SEO -->
     <meta name="geo.region" content="CR-P" />
     <meta name="geo.placename" content="Jacó, Puntarenas, Costa Rica" />
     <meta name="geo.position" content="9.6139;-84.6286" />
     <meta name="ICBM" content="9.6139, -84.6286" />
+    <meta name="geo.country" content="Costa Rica" />
+    <meta name="geo.a1" content="Puntarenas" />
+    <meta name="geo.a2" content="Jacó" />
     
-    <!-- Open Graph / Facebook -->
+    <!-- Enhanced Open Graph / Facebook -->
     <meta property="og:type" content={type} />
-    <meta property="og:url" content={url} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:title" content={optimizedTitle} />
+    <meta property="og:description" content={optimizedDescription} />
     <meta property="og:image" content={fullImageURL} />
+    <meta property="og:image:secure_url" content={fullImageURL} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={title} />
+    <meta property="og:image:alt" content={optimizedTitle} />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:locale" content="es_CR" />
+    <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:site_name" content="Preta Fit Jacó" />
+    <meta property="fb:admins" content="100000000000000" />
     
-    <!-- Twitter Card -->
+    <!-- Enhanced Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content={url} />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:url" content={canonicalURL.href} />
+    <meta name="twitter:title" content={optimizedTitle} />
+    <meta name="twitter:description" content={optimizedDescription} />
     <meta name="twitter:image" content={fullImageURL} />
-    <meta name="twitter:image:alt" content={title} />
+    <meta name="twitter:image:alt" content={optimizedTitle} />
     <meta name="twitter:site" content="@pretafitjaco" />
     <meta name="twitter:creator" content="@pretafitjaco" />
+    <meta name="twitter:domain" content="pretafitcr.com" />
     
-    <!-- Additional SEO -->
-    <meta name="robots" content="index, follow" />
+    <!-- Article-specific meta tags -->
+    {article && (
+      <>
+        <meta property="article:published_time" content={article.publishedTime} />
+        <meta property="article:modified_time" content={article.modifiedTime} />
+        <meta property="article:author" content={article.author} />
+        <meta property="article:section" content={article.section} />
+        {article.tags?.map(tag => (
+          <meta property="article:tag" content={tag} />
+        ))}
+      </>
+    )}
+    
+    <!-- Enhanced SEO and Technical -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow" />
     <meta name="author" content="Preta Fit Jacó" />
     <meta name="language" content="Spanish" />
     <meta name="theme-color" content="#000000" />
+    <meta name="msapplication-TileColor" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="320" />
     
-    <!-- Local Business Keywords -->
-    <meta name="keywords" content="CrossFit Jacó, gimnasio Jacó, Brazilian Jiu-Jitsu Costa Rica, fitness Jacó, box CrossFit Puntarenas, entrenamiento funcional Jacó" />
+    <!-- Sitemap Reference -->
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
     
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <script type="application/ld+json" nonce={nonce} set:html={JSON.stringify(structuredData)} />
+    <script type="application/ld+json" nonce={nonce} set:html={JSON.stringify(breadcrumbSchema)} />
+    {faqSchema && (
+      <script type="application/ld+json" nonce={nonce} set:html={JSON.stringify(faqSchema)} />
+    )}
     
+    <!-- Favicons and Icons -->
     <link rel="icon" type="image/jpeg" href="/images/logo-pretafit.jpeg" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/theme.css" />
+    <link rel="apple-touch-icon" href="/images/logo-pretafit.jpeg" />
+    <link rel="shortcut icon" href="/images/logo-pretafit.jpeg" />
+    
+    <!-- Theme Detection Script -->
+    <script nonce={nonce}>
+      // Theme detection and initialization script
+      // Execute immediately to prevent flash of incorrect theme
+      (function() {
+        // Theme detection with localStorage persistence and system preference fallback
+        const getPreferredTheme = () => {
+          const storedTheme = localStorage.getItem('preta-fit-theme');
+          if (storedTheme) {
+            return storedTheme;
+          }
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+        
+        // Apply theme to document
+        const setTheme = (theme) => {
+          document.documentElement.setAttribute('data-theme', theme);
+          localStorage.setItem('preta-fit-theme', theme);
+        };
+        
+        // Initialize theme on page load
+        setTheme(getPreferredTheme());
+        
+        // Listen for system preference changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+          // Only auto-switch if user hasn't manually set a preference
+          const storedTheme = localStorage.getItem('preta-fit-theme');
+          if (!storedTheme) {
+            setTheme(e.matches ? 'dark' : 'light');
+          }
+        });
+        
+        // Make theme functions globally available for toggle component
+        window.pretaFitTheme = {
+          getTheme: () => document.documentElement.getAttribute('data-theme'),
+          setTheme: setTheme,
+          toggleTheme: () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+            return newTheme;
+          }
+        };
+      })();
+    </script>
   </head>
   <body>
     <!-- Skip to content link for keyboard navigation -->
-    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-    
-    <slot name="header" />
-    <main id="main-content" tabindex="-1">
+    <a href="#main-content" class="skip-link" aria-label="Saltar al contenido principal">Saltar al contenido principal</a>
+
+    <header role="banner" aria-label="Encabezado principal">
+      <slot name="header" />
+    </header>
+    <nav role="navigation" aria-label="Navegación principal" tabindex="0"></nav>
+    <main id="main-content" class="main-content" role="main" aria-label="Contenido principal" tabindex="-1">
+      <h1 class="sr-only">Preta Fit Jacó: CrossFit, BJJ y Comunidad</h1>
       <slot />
+      <div aria-live="polite" aria-atomic="true" class="sr-announcer" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Contenido actualizado</div>
     </main>
-    <slot name="footer" />
-    <script>
+    <footer role="contentinfo" aria-label="Pie de página principal">
+      <slot name="footer" />
+    </footer>
+    <script nonce={nonce}>
       // Respect reduced motion preferences
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       
@@ -117,20 +272,117 @@ const structuredData = generateStructuredData(baseUrl);
         
         // Update ARIA on toggle
         btn.parentElement?.addEventListener('toggle', (e) => {
-          const target = e.target as HTMLDetailsElement;
-          if (target) {
+          const target = e.target;
+          if (target && target.tagName === 'DETAILS') {
             btn.setAttribute('aria-expanded', target.open ? 'true' : 'false');
           }
         });
       });
       
-      // Improve focus management for mobile menu
-      const mobileMenuToggle = document.querySelector('.mnav-btn');
-      if (mobileMenuToggle) {
-        mobileMenuToggle.addEventListener('click', () => {
-          const expanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-          mobileMenuToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      // Header mobile navigation functionality
+      const mbtn = document.querySelector('button[aria-controls="mnav"]');
+      const mnav = document.getElementById('mnav');
+      const mnavClose = document.querySelector('button[aria-label="Cerrar menú"]');
+      const mnavOverlay = mnav?.querySelector('div:first-child');
+
+      function toggleMobileNav(open) {
+        if (mnav && mbtn) {
+          if (open) {
+            mnav.classList.remove('hidden');
+            mnav.classList.remove('opacity-0');
+            mnav.classList.add('opacity-100');
+            const mnavCard = mnav.querySelector('div:last-child');
+            if (mnavCard) {
+              mnavCard.classList.remove('translate-x-full');
+              mnavCard.classList.add('translate-x-0');
+            }
+            mbtn.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+          } else {
+            mnav.classList.add('opacity-0');
+            const mnavCard = mnav.querySelector('div:last-child');
+            if (mnavCard) {
+              mnavCard.classList.add('translate-x-full');
+              mnavCard.classList.remove('translate-x-0');
+            }
+            setTimeout(() => {
+              mnav.classList.add('hidden');
+            }, 300);
+            mbtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+          }
+        }
+      }
+
+      if (mbtn && mnav) {
+        mbtn.addEventListener('click', () => {
+          const isOpen = !mnav.classList.contains('hidden');
+          toggleMobileNav(!isOpen);
         });
+      }
+
+      if (mnavClose) {
+        mnavClose.addEventListener('click', () => {
+          toggleMobileNav(false);
+        });
+      }
+
+      if (mnavOverlay) {
+        mnavOverlay.addEventListener('click', () => {
+          toggleMobileNav(false);
+        });
+      }
+
+      // Close mobile nav on anchor click
+      document.querySelectorAll('#mnav nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          toggleMobileNav(false);
+        });
+      });
+
+      // Close mobile nav with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mnav && !mnav.classList.contains('hidden')) {
+          toggleMobileNav(false);
+          mbtn?.focus();
+        }
+      });
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (href && href.length > 1) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              target.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              });
+              // Close mobile nav if open
+              if (mnav && !mnav.classList.contains('hidden')) {
+                toggleMobileNav(false);
+              }
+            }
+          }
+        });
+      });
+
+      // Topbar scroll state - updated for new structure
+      const tb = document.querySelector('div[role="banner"]');
+      if (tb) {
+        const toggleScroll = () => {
+          if (window.scrollY > 4) {
+            tb.classList.add('shadow-[0_4px_18px_rgba(16,24,40,.08)]');
+            tb.classList.add('bg-surface/90');
+          } else {
+            tb.classList.remove('shadow-[0_4px_18px_rgba(16,24,40,.08)]');
+            tb.classList.remove('bg-surface/90');
+          }
+        };
+        window.addEventListener('scroll', toggleScroll, { passive: true });
+        toggleScroll(); // Initial call
       }
     </script>
   </body>
