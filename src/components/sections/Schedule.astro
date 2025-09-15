@@ -1,104 +1,139 @@
 ---
+import { Debug } from 'astro:components';
+import { formatDebugData } from '../../utils/debug';
 // CrossFit Schedule component for Preta Fit Jacó
 import { schedules } from '../../data/schedules';
 
 // Validate schedules data with fallback
 let validatedSchedules;
+let debugData = null;
+
 try {
   validatedSchedules = schedules?.crossfit;
-  if (!validatedSchedules || !Array.isArray(validatedSchedules) || validatedSchedules.length === 0) {
+  if (
+    !validatedSchedules ||
+    !Array.isArray(validatedSchedules) ||
+    validatedSchedules.length === 0
+  ) {
     throw new Error('Invalid or empty schedules data');
   }
 } catch (error) {
-  console.error('Error loading schedules:', error);
+  debugData = formatDebugData({
+    component: 'Schedule',
+    operation: 'data_loading_error',
+    context: {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      originalData: schedules ? 'Available' : 'Missing',
+      crossfitScheduleExists: !!schedules?.crossfit,
+      fallbackAction: 'Using default schedule',
+      fallbackScheduleCount: 1,
+    },
+    severity: 'error',
+  });
   // Provide fallback schedule data
   validatedSchedules = [
     {
       dayLetter: 'L-V',
       dayName: 'Lunes a Viernes',
       morningTimes: ['6:00 AM', '7:00 AM'],
-      afternoonTimes: ['6:00 PM', '7:00 PM']
-    }
+      afternoonTimes: ['6:00 PM', '7:00 PM'],
+    },
   ];
 }
 ---
 
 <section id="schedule" class="section">
   <div class="container">
+    {import.meta.env.DEV && debugData && <Debug data={debugData} />}
     <div class="overline">Horarios</div>
     <h2 class="h2">Horarios de CrossFit</h2>
     <p class="schedule-description">
-      Nuestras clases de CrossFit están diseñadas para todos los niveles. Elige el horario que mejor se adapte a tu rutina.
+      Nuestras clases de CrossFit están diseñadas para todos los niveles. Elige
+      el horario que mejor se adapte a tu rutina.
     </p>
-    
-    {validatedSchedules && validatedSchedules.length > 0 ? (
-      <div class="schedule-wrapper">
-        <div class="schedule-grid">
-          {validatedSchedules.map((day) => (
-            <div class="day-column">
-              <div class="day-header">
-                <span class="day-letter">{day.dayLetter || 'N/A'}</span>
-                <span class="day-name">{day.dayName || 'Día no disponible'}</span>
-              </div>
-              
-              <div class="time-slots">
-                {day.morningTimes && day.morningTimes.length > 0 && (
-                  <div class="time-period morning">
-                    {day.morningTimes.map((time) => (
-                      <div class="time-slot">{time || 'Hora N/A'}</div>
-                    ))}
-                  </div>
-                )}
-                
-                {day.afternoonTimes && day.afternoonTimes.length > 0 && (
-                  <div class="time-period afternoon">
-                    {day.afternoonTimes.map((time) => (
-                      <div class="time-slot">{time || 'Hora N/A'}</div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
 
-        <div class="weekend-schedule">
-          <div class="weekend-day">
-            <div class="day-header">
-              <span class="day-letter">S</span>
-              <span class="day-name">Sábado</span>
+    {
+      validatedSchedules && validatedSchedules.length > 0 ? (
+        <div class="schedule-wrapper">
+          <div class="schedule-grid">
+            {validatedSchedules.map(day => (
+              <div class="day-column">
+                <div class="day-header">
+                  <span class="day-letter">{day.dayLetter || 'N/A'}</span>
+                  <span class="day-name">
+                    {day.dayName || 'Día no disponible'}
+                  </span>
+                </div>
+
+                <div class="time-slots">
+                  {day.morningTimes && day.morningTimes.length > 0 && (
+                    <div class="time-period morning">
+                      {day.morningTimes.map(time => (
+                        <div class="time-slot">{time || 'Hora N/A'}</div>
+                      ))}
+                    </div>
+                  )}
+
+                  {day.afternoonTimes && day.afternoonTimes.length > 0 && (
+                    <div class="time-period afternoon">
+                      {day.afternoonTimes.map(time => (
+                        <div class="time-slot">{time || 'Hora N/A'}</div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="weekend-schedule">
+            <div class="weekend-day">
+              <div class="day-header">
+                <span class="day-letter">S</span>
+                <span class="day-name">Sábado</span>
+              </div>
+              <div class="weekend-times">
+                <span class="time">7:00 AM</span>
+                <span class="time">8:00 AM</span>
+              </div>
             </div>
-            <div class="weekend-times">
-              <span class="time">7:00 AM</span>
-              <span class="time">8:00 AM</span>
+            <div class="weekend-day">
+              <div class="day-header">
+                <span class="day-letter">D</span>
+                <span class="day-name">Domingo</span>
+              </div>
+              <div class="weekend-status">Cerrado</div>
             </div>
           </div>
-          <div class="weekend-day">
-            <div class="day-header">
-              <span class="day-letter">D</span>
-              <span class="day-name">Domingo</span>
-            </div>
-            <div class="weekend-status">Cerrado</div>
+        </div>
+      ) : (
+        <div class="schedule-error-state">
+          <div class="error-state-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+                fill="#e5e7eb"
+              />
+            </svg>
           </div>
+          <h3>Horarios no disponibles</h3>
+          <p>
+            Por favor contactanos directamente para conocer nuestros horarios
+            actualizados.
+          </p>
+          <a href="tel:+50670092140" class="contact-fallback-btn">
+            Llamar +506 7009-2140
+          </a>
         </div>
-      </div>
-    ) : (
-      <div class="schedule-error-state">
-        <div class="error-state-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="#e5e7eb"/>
-          </svg>
-        </div>
-        <h3>Horarios no disponibles</h3>
-        <p>Por favor contactanos directamente para conocer nuestros horarios actualizados.</p>
-        <a href="tel:+50670092140" class="contact-fallback-btn">Llamar +506 7009-2140</a>
-      </div>
-    )}
+      )
+    }
 
     <div class="schedule-footer">
       <div class="schedule-note">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="var(--brand)"/>
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+            fill="var(--brand)"></path>
         </svg>
         <span>Reserva tu clase con anticipación para garantizar tu cupo</span>
       </div>
@@ -306,7 +341,7 @@ try {
       gap: 1px;
     }
 
-    .day-column:nth-child(n+3) {
+    .day-column:nth-child(n + 3) {
       display: none;
     }
 

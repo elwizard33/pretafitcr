@@ -1,126 +1,125 @@
 export const businessInfo = {
   // Basic Business Information
-  name: "Preta Fit",
-  alternateName: "Preta Fit Jacó",
-  description: "Box líder en Jacó con programas de CrossFit, Brazilian Jiu-Jitsu y Wellness. Comunidad comprometida con el fitness y el crecimiento personal.",
-  slogan: "Más que un gimnasio, una comunidad",
-  
+  name: 'Preta Fit',
+  alternateName: 'Preta Fit Jacó',
+  description:
+    'Box líder en Jacó con programas de CrossFit, Brazilian Jiu-Jitsu y Wellness. Comunidad comprometida con el fitness y el crecimiento personal.',
+  slogan: 'Más que un gimnasio, una comunidad',
+
   // Business Types
-  "@type": ["LocalBusiness", "GymAndFitnessClub", "SportsClub"],
-  
+  '@type': ['LocalBusiness', 'GymAndFitnessClub', 'SportsClub'],
+
   // Location Information
   address: {
-    "@type": "PostalAddress",
-    streetAddress: "Jacó Centro",
-    addressLocality: "Jacó",
-    addressRegion: "Puntarenas",
-    postalCode: "61101",
-    addressCountry: "CR"
+    '@type': 'PostalAddress',
+    streetAddress: 'Jacó Centro',
+    addressLocality: 'Jacó',
+    addressRegion: 'Puntarenas',
+    postalCode: '61101',
+    addressCountry: 'CR',
   },
-  
+
   // Geo Coordinates for Jacó, Costa Rica (approximate center)
   geo: {
-    "@type": "GeoCoordinates",
+    '@type': 'GeoCoordinates',
     latitude: 9.6139,
-    longitude: -84.6286
+    longitude: -84.6286,
   },
-  
+
   // Contact Information
-  telephone: "+506-7009-2140",
-  email: "info@pretafitcr.com",
-  url: "https://pretafitcr.com",
-  
+  telephone: '+506-7009-2140',
+  email: 'info@pretafitcr.com',
+  url: 'https://pretafitcr.com',
+
   // Business Hours (example schedule - update as needed)
-  openingHours: [
-    "Mo-Fr 05:30-21:00",
-    "Sa 07:00-17:00", 
-    "Su 08:00-16:00"
-  ],
-  
+  openingHours: ['Mo-Fr 05:30-21:00', 'Sa 07:00-17:00', 'Su 08:00-16:00'],
+
   // Services Offered
   hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Servicios de Fitness",
+    '@type': 'OfferCatalog',
+    name: 'Servicios de Fitness',
     itemListElement: [
       {
-        "@type": "Offer",
+        '@type': 'Offer',
         itemOffered: {
-          "@type": "Service",
-          name: "CrossFit",
-          description: "Entrenamiento funcional de alta intensidad"
-        }
+          '@type': 'Service',
+          name: 'CrossFit',
+          description: 'Entrenamiento funcional de alta intensidad',
+        },
       },
       {
-        "@type": "Offer", 
+        '@type': 'Offer',
         itemOffered: {
-          "@type": "Service",
-          name: "Brazilian Jiu-Jitsu",
-          description: "Arte marcial y deporte de combate"
-        }
+          '@type': 'Service',
+          name: 'Brazilian Jiu-Jitsu',
+          description: 'Arte marcial y deporte de combate',
+        },
       },
       {
-        "@type": "Offer",
+        '@type': 'Offer',
         itemOffered: {
-          "@type": "Service", 
-          name: "Entrenamientos Funcionales",
-          description: "Programas de bienestar integral"
-        }
-      }
-    ]
+          '@type': 'Service',
+          name: 'Entrenamientos Funcionales',
+          description: 'Programas de bienestar integral',
+        },
+      },
+    ],
   },
-  
+
   // Social Media Profiles
   sameAs: [
-    "https://www.instagram.com/pretafitjaco",
-    "https://www.facebook.com/pretafitjaco",
-    "https://wa.me/50670092140"
+    'https://www.instagram.com/pretafitjaco',
+    'https://www.facebook.com/pretafitjaco',
+    'https://wa.me/50670092140',
   ],
-  
+
   // Business Features
   amenityFeature: [
     {
-      "@type": "LocationFeatureSpecification",
-      name: "Equipamiento CrossFit completo",
-      value: true
+      '@type': 'LocationFeatureSpecification',
+      name: 'Equipamiento CrossFit completo',
+      value: true,
     },
     {
-      "@type": "LocationFeatureSpecification", 
-      name: "Tatami para BJJ",
-      value: true
+      '@type': 'LocationFeatureSpecification',
+      name: 'Tatami para BJJ',
+      value: true,
     },
     {
-      "@type": "LocationFeatureSpecification",
-      name: "Entrenadores certificados",
-      value: true
+      '@type': 'LocationFeatureSpecification',
+      name: 'Entrenadores certificados',
+      value: true,
     },
     {
-      "@type": "LocationFeatureSpecification",
-      name: "Clases grupales",
-      value: true
+      '@type': 'LocationFeatureSpecification',
+      name: 'Clases grupales',
+      value: true,
     },
     {
-      "@type": "LocationFeatureSpecification",
-      name: "Estacionamiento",
-      value: true
-    }
+      '@type': 'LocationFeatureSpecification',
+      name: 'Estacionamiento',
+      value: true,
+    },
   ],
-  
+
   // Price Range
-  priceRange: "$$",
-  
+  priceRange: '$$',
+
   // Languages Spoken
-  availableLanguage: ["Spanish", "English"],
-  
+  availableLanguage: ['Spanish', 'English'],
+
   // Image
-  image: "/images/logo-pretafit.jpeg",
-  logo: "/images/logo-pretafit.jpeg"
+  image: '/images/logo-pretafit.jpeg',
+  logo: '/images/logo-pretafit.jpeg',
 };
 
 // Helper function to generate JSON-LD structured data
-export function generateStructuredData(baseUrl: string = "https://pretafitcr.com") {
+export function generateStructuredData(
+  baseUrl: string = 'https://pretafitcr.com'
+) {
   return {
-    "@context": "https://schema.org",
-    "@type": businessInfo["@type"],
+    '@context': 'https://schema.org',
+    '@type': businessInfo['@type'],
     name: businessInfo.name,
     alternateName: businessInfo.alternateName,
     description: businessInfo.description,
@@ -136,6 +135,6 @@ export function generateStructuredData(baseUrl: string = "https://pretafitcr.com
     priceRange: businessInfo.priceRange,
     availableLanguage: businessInfo.availableLanguage,
     image: new URL(businessInfo.image, baseUrl).href,
-    logo: new URL(businessInfo.logo, baseUrl).href
+    logo: new URL(businessInfo.logo, baseUrl).href,
   };
 }

@@ -1,75 +1,156 @@
 ---
+import { Debug } from 'astro:components';
+import { formatDebugData } from '../../utils/debug';
 // Import reviews data from data source with error handling
-import { reviews, googleMapsUrl, getValidatedReviews, getDefaultReview } from '../../data/reviews';
+import {
+  reviews,
+  googleMapsUrl,
+  getValidatedReviews,
+  getDefaultReview,
+} from '../../data/reviews';
 
-// Get validated reviews with fallback handling
+// Get validated reviews with detailed validation results
 let validatedReviews;
+let debugData = null;
+
 try {
-  validatedReviews = getValidatedReviews();
-  
+  const validationResult = getValidatedReviews();
+  validatedReviews = validationResult.reviews;
+
+  // Create debug data for validation issues using Astro's Debug component
+  if (validationResult.invalidReviews.length > 0) {
+    debugData = formatDebugData({
+      component: 'Reviews',
+      operation: 'validation_issues',
+      context: {
+        totalReviews: reviews?.length || 0,
+        validReviews: validatedReviews.length,
+        invalidReviews: validationResult.invalidReviews.length,
+        invalidReviewDetails: validationResult.invalidReviews,
+      },
+      severity: 'warn',
+    });
+  }
+
   // If no valid reviews found, provide default review
   if (!validatedReviews || validatedReviews.length === 0) {
-    console.warn('No valid reviews found, using default review');
+    const fallbackDebugData = formatDebugData({
+      component: 'Reviews',
+      operation: 'validation_fallback',
+      context: {
+        originalReviewsCount: reviews?.length || 0,
+        validReviewsFound: 0,
+        usingDefaultReview: true,
+        reviewsStructure: reviews ? Object.keys(reviews[0] || {}) : [],
+      },
+      severity: 'warn',
+    });
+
+    // Combine debug data if we have both validation issues and fallback
+    if (debugData && debugData.context) {
+      debugData.context.fallbackUsed = true;
+    } else {
+      debugData = fallbackDebugData;
+    }
+
     validatedReviews = [getDefaultReview()];
   }
 } catch (error) {
-  console.error('Error loading reviews:', error);
+  debugData = formatDebugData({
+    component: 'Reviews',
+    operation: 'loading_error',
+    context: {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      errorType: typeof error,
+      fallbackAction: 'Using default review',
+      originalReviewsAvailable: !!reviews,
+    },
+    severity: 'error',
+  });
   validatedReviews = [getDefaultReview()];
 }
 ---
 
 <section id="reviews" class="section" aria-labelledby="reviews-heading">
   <div class="container">
+    {import.meta.env.DEV && debugData && <Debug data={debugData} />}
     <div class="overline">Opiniones</div>
     <h2 id="reviews-heading" class="h2">Lo que dicen nuestros clientes</h2>
-    
-    {validatedReviews && validatedReviews.length > 0 ? (
-      <div class="reviews-grid" role="region" aria-labelledby="reviews-heading">
-        {validatedReviews.map((review, index) => (
-          <article class="review-card" aria-labelledby={`review-author-${index}`}>
-            <div class="review-header">
-              <div class="stars" role="img" 
-                   aria-label={`Calificación: ${review.rating || 5} de 5 estrellas`}>
-                {Array.from({ length: Math.min(Math.max(review.rating || 5, 1), 5) }, (_, i) => (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffd700" 
-                       aria-hidden="true">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                  </svg>
-                ))}
+
+    {
+      validatedReviews && validatedReviews.length > 0 ? (
+        <div
+          class="reviews-grid"
+          role="region"
+          aria-labelledby="reviews-heading"
+        >
+          {validatedReviews.map((review, index) => (
+            <article
+              class="review-card"
+              aria-labelledby={`review-author-${index}`}
+            >
+              <div class="review-header">
+                <div
+                  class="stars"
+                  role="img"
+                  aria-label={`Calificación: ${review.rating || 5} de 5 estrellas`}
+                >
+                  {Array.from(
+                    { length: Math.min(Math.max(review.rating || 5, 1), 5) },
+                    (_, i) => (
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="#ffd700"
+                        aria-hidden="true"
+                      >
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                      </svg>
+                    )
+                  )}
+                </div>
+                <time
+                  class="review-date"
+                  datetime={
+                    review.date || new Date().toISOString().split('T')[0]
+                  }
+                >
+                  {review.date || 'Fecha no disponible'}
+                </time>
               </div>
-              <time class="review-date" 
-                    datetime={review.date || new Date().toISOString().split('T')[0]}>
-                {review.date || 'Fecha no disponible'}
-              </time>
-            </div>
-            <blockquote class="review-text">
-              <p>"{review.text || 'Excelente experiencia en Preta Fit.'}"</p>
-            </blockquote>
-            <div class="review-author">
-              <div class="author-avatar" aria-hidden="true">
-                {(review.name || 'Cliente').charAt(0).toUpperCase()}
+              <blockquote class="review-text">
+                <p>"{review.text || 'Excelente experiencia en Preta Fit.'}"</p>
+              </blockquote>
+              <div class="review-author">
+                <div class="author-avatar" aria-hidden="true">
+                  {(review.name || 'Cliente').charAt(0).toUpperCase()}
+                </div>
+                <cite id={`review-author-${index}`} class="author-name">
+                  {review.name || 'Cliente Anónimo'}
+                </cite>
               </div>
-              <cite id={`review-author-${index}`} class="author-name">
-                {review.name || 'Cliente Anónimo'}
-              </cite>
-            </div>
-          </article>
-        ))}
-      </div>
-    ) : (
-      <div class="reviews-empty-state">
-        <div class="empty-state-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#e5e7eb"/>
-          </svg>
+            </article>
+          ))}
         </div>
-        <h3>No hay reseñas disponibles</h3>
-        <p>Sé el primero en compartir tu experiencia en Preta Fit.</p>
-      </div>
-    )}
+      ) : (
+        <div class="reviews-empty-state">
+          <div class="empty-state-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                fill="#e5e7eb"
+              />
+            </svg>
+          </div>
+          <h3>No hay reseñas disponibles</h3>
+          <p>Sé el primero en compartir tu experiencia en Preta Fit.</p>
+        </div>
+      )
+    }
 
     <div class="reviews-footer">
-      <a 
+      <a
         href={googleMapsUrl}
         target="_blank"
         rel="noopener noreferrer"
@@ -77,7 +158,12 @@ try {
       >
         Ver más reseñas en Google
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path
+            d="M7 17L17 7M17 7H7M17 7V17"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
         </svg>
       </a>
     </div>
@@ -124,7 +210,9 @@ try {
     border-radius: var(--radius);
     padding: 1.5rem;
     box-shadow: var(--shadow);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .review-card:hover {
@@ -219,7 +307,7 @@ try {
       grid-template-columns: 1fr;
       gap: 1.5rem;
     }
-    
+
     .review-card {
       padding: 1.25rem;
     }

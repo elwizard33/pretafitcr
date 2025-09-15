@@ -12,9 +12,9 @@ export default defineConfig({
   base: '/',
   output: 'static',
   integrations: [sitemap()],
-  build: { 
-    format: 'directory', 
-    assets: 'astro'
+  build: {
+    format: 'directory',
+    assets: 'astro',
   },
   image: {
     domains: ['pretafitcr.com'],
@@ -23,16 +23,16 @@ export default defineConfig({
       low: 25,
       mid: 50,
       high: 80,
-      max: 100
-    }
+      max: 100,
+    },
   },
   vite: {
     build: {
       rollupOptions: {
         output: {
-          manualChunks: undefined
-        }
-      }
-    }
-  }
+          manualChunks: undefined,
+        },
+      },
+    },
+  },
 });

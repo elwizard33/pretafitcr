@@ -12,7 +12,11 @@ import FAQ from 'src/components/sections/FAQ.astro';
 import Contact from 'src/components/sections/Contact.astro';
 import Location from '../components/sections/Location.astro';
 ---
-<BaseLayout title="Preta Fit Jacó | CrossFit · BJJ · Wellness" description="Entrenamientos de CrossFit, Brazilian Jiu-Jitsu, fuerza y bienestar en Jacó. Comunidad y metodología progresiva.">
+
+<BaseLayout
+  title="Preta Fit Jacó | CrossFit · BJJ · Wellness"
+  description="Entrenamientos de CrossFit, Brazilian Jiu-Jitsu, fuerza y bienestar en Jacó. Comunidad y metodología progresiva."
+>
   <Fragment slot="header"><Header /></Fragment>
 
   <!-- Use Hero component -->
@@ -25,19 +29,20 @@ import Location from '../components/sections/Location.astro';
         <div class="overline event-overline">EVENTO ESPECIAL</div>
         <h2 class="h2 event-title">WOD WARRIORS 2025</h2>
         <p class="small event-description">
-          <strong>Competencia de CrossFit</strong> • Exhibición de BJJ • Música en vivo<br>
-          <span class="event-date">5 de Septiembre, 7:00 PM • Preta Fit Jacó</span>
+          <strong>Competencia de CrossFit</strong> • Exhibición de BJJ • Música en
+          vivo<br />
+          <span class="event-date"
+            >5 de Septiembre, 7:00 PM • Preta Fit Jacó</span
+          >
         </p>
       </div>
-      
+
       <!-- CTA Button -->
       <div class="event-cta-wrapper">
         <a href="/wodwarriors" class="btn event-cta-btn">
           ✨ Ver Detalles del Evento ✨
         </a>
-        <p class="small event-cta-note">
-          Categorías Principiante e Intermedio
-        </p>
+        <p class="small event-cta-note">Categorías Principiante e Intermedio</p>
       </div>
     </div>
   </section>
@@ -67,10 +72,7 @@ import Location from '../components/sections/Location.astro';
 <div id="lightbox" class="lightbox">
   <button id="lbClose" class="btn secondary lightbox-close">Cerrar</button>
   <!-- Lightbox image - kept as img tag since src is dynamically set by JavaScript -->
-  <img id="lbImg" src="" alt="" class="lightbox-image">
+  <img id="lbImg" src="" alt="" class="lightbox-image" />
 </div>
 
-<script>
-
-
-</script>
+<script></script>

@@ -1,0 +1,24 @@
+# Build outputs
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Test coverage
+coverage/
+
+# Test results and reports
+test-results/
+playwright-report/
+
+# Hidden directories
+.shrimp-data/
+.github/
+
+# Configuration files that should maintain specific formatting
+package.json
+package-lock.json
+
+# Generated files
+*.generated.*

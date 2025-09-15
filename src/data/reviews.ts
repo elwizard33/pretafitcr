@@ -13,25 +13,75 @@ export function validateReview(review: any): review is Review {
   if (!review || typeof review !== 'object') {
     return false;
   }
-  
+
   return (
-    typeof review.id === 'string' && review.id.trim().length > 0 &&
-    typeof review.name === 'string' && review.name.trim().length > 0 &&
-    typeof review.rating === 'number' && review.rating >= 1 && review.rating <= 5 &&
-    typeof review.text === 'string' && review.text.trim().length > 0 &&
-    typeof review.date === 'string' && review.date.trim().length > 0
+    typeof review.id === 'string' &&
+    review.id.trim().length > 0 &&
+    typeof review.name === 'string' &&
+    review.name.trim().length > 0 &&
+    typeof review.rating === 'number' &&
+    review.rating >= 1 &&
+    review.rating <= 5 &&
+    typeof review.text === 'string' &&
+    review.text.trim().length > 0 &&
+    typeof review.date === 'string' &&
+    review.date.trim().length > 0
   );
 }
 
-// Function to get validated reviews with fallbacks
-export function getValidatedReviews(): Review[] {
-  return reviews.filter(review => {
+// Function to get validated reviews with detailed validation results
+export function getValidatedReviews(): {
+  reviews: Review[];
+  invalidReviews: any[];
+} {
+  const validReviews: Review[] = [];
+  const invalidReviews: any[] = [];
+
+  reviews.forEach(review => {
     const isValid = validateReview(review);
-    if (!isValid) {
-      console.warn('Invalid review data detected:', review);
+    if (isValid) {
+      validReviews.push(review);
+    } else {
+      invalidReviews.push({
+        review,
+        issues: getValidationIssues(review),
+      });
     }
-    return isValid;
   });
+
+  return { reviews: validReviews, invalidReviews };
+}
+
+// Helper function to identify specific validation issues
+function getValidationIssues(review: any): string[] {
+  const issues: string[] = [];
+
+  if (!review || typeof review !== 'object') {
+    issues.push('Review is not an object');
+    return issues;
+  }
+
+  if (typeof review.id !== 'string' || !review.id.trim()) {
+    issues.push('Invalid or empty id');
+  }
+  if (typeof review.name !== 'string' || !review.name.trim()) {
+    issues.push('Invalid or empty name');
+  }
+  if (
+    typeof review.rating !== 'number' ||
+    review.rating < 1 ||
+    review.rating > 5
+  ) {
+    issues.push('Invalid rating (must be 1-5)');
+  }
+  if (typeof review.text !== 'string' || !review.text.trim()) {
+    issues.push('Invalid or empty text');
+  }
+  if (typeof review.date !== 'string' || !review.date.trim()) {
+    issues.push('Invalid or empty date');
+  }
+
+  return issues;
 }
 
 // Function to provide default review in case of missing data
@@ -41,7 +91,7 @@ export function getDefaultReview(): Review {
     name: 'Cliente Satisfecho',
     rating: 5,
     text: 'Excelente experiencia en Preta Fit. Recomendado para todos los niveles.',
-    date: 'Recientemente'
+    date: 'Recientemente',
   };
 }
 
@@ -52,30 +102,31 @@ export const reviews: Review[] = [
     name: 'Nayzeth Garcia',
     rating: 5,
     text: 'Excelente lugar, con un ambiente muy bonito. Las clases de jiu jitsu son increíbles, la profesora tiene mucho conocimiento. Disfrutar y aprender con otras mujeres a defendernos y a gestionar situaciones difíciles es muy bonito.',
-    date: 'Hace 6 meses'
+    date: 'Hace 6 meses',
   },
   {
     id: 'delmy-herrera',
     name: 'Delmy Herrera',
     rating: 5,
     text: 'Muy bonito gym, las clases son muy eficientes y la comunidad muy acogedora todos son muy amigables desde el primer día. Sin duda un gym 100% recomendado. Vanesa siempre está ahí para asistirte durante la clase muy buena coach, siempre te hace sentir segura de lo que estás haciendo.',
-    date: 'Hace 8 meses'
+    date: 'Hace 8 meses',
   },
   {
     id: 'adriana-roldan',
     name: 'Adriana Roldan',
     rating: 5,
     text: 'El BJJ para chicas es espectacular, es un lujo poder aprender de una cinta negra. El ambiente te empoderada y las compañeras te ayudan a sentir confianza y avanzar juntas.',
-    date: 'Hace 6 meses'
+    date: 'Hace 6 meses',
   },
   {
     id: 'carlos-mendez',
     name: 'Carlos Méndez',
     rating: 5,
     text: 'Increíble experiencia en Preta Fit. El ambiente es súper profesional y motivador. Los entrenamientos son intensos pero muy bien planificados. Definitivamente el mejor gym de Jacó.',
-    date: 'Hace 4 meses'
-  }
+    date: 'Hace 4 meses',
+  },
 ];
 
 // Google Maps URL for PRETA FIT JACO
-export const googleMapsUrl = 'https://www.google.com/maps/place/PRETA+FIT+JACO/@9.6221874,-84.6392922,398m/data=!3m1!1e3!4m6!3m5!1s0x8fa1c7fbc323b277:0x7c9d1d164ef378b5!8m2!3d9.6230174!4d-84.6392181!16s%2Fg%2F11sm_5s103?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D';
+export const googleMapsUrl =
+  'https://www.google.com/maps/place/PRETA+FIT+JACO/@9.6221874,-84.6392922,398m/data=!3m1!1e3!4m6!3m5!1s0x8fa1c7fbc323b277:0x7c9d1d164ef378b5!8m2!3d9.6230174!4d-84.6392181!16s%2Fg%2F11sm_5s103?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D';

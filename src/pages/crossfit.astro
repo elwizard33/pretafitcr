@@ -10,9 +10,12 @@ import Schedule from '../components/sections/Schedule.astro';
 import levantamientoCrossfit from '../../public/images/levantamiento-crossfit.jpg';
 ---
 
-<BaseLayout title="CrossFit | Preta Fit Jacó" description="Clases de CrossFit en Jacó, Costa Rica. Horarios, planes y precios. Box líder con entrenadores certificados.">
+<BaseLayout
+  title="CrossFit | Preta Fit Jacó"
+  description="Clases de CrossFit en Jacó, Costa Rica. Horarios, planes y precios. Box líder con entrenadores certificados."
+>
   <Header slot="header" />
-  
+
   <!-- Hero Section -->
   <section class="hero crossfit-hero">
     <div class="container">
@@ -20,7 +23,9 @@ import levantamientoCrossfit from '../../public/images/levantamiento-crossfit.jp
         <div class="overline">CrossFit</div>
         <h1 class="h1">Entrena CrossFit en Jacó</h1>
         <p class="hero-description">
-          Descubre el poder del CrossFit en nuestro box líder en Jacó. Clases para todos los niveles con entrenadores certificados y una comunidad apasionada por el fitness.
+          Descubre el poder del CrossFit en nuestro box líder en Jacó. Clases
+          para todos los niveles con entrenadores certificados y una comunidad
+          apasionada por el fitness.
         </p>
         <div class="hero-cta">
           <a href="#plans" class="btn primary">Ver Planes</a>
@@ -38,14 +43,19 @@ import levantamientoCrossfit from '../../public/images/levantamiento-crossfit.jp
           <div class="overline">Metodología</div>
           <h2 class="h2">¿Qué es CrossFit?</h2>
           <p>
-            CrossFit es un programa de acondicionamiento físico que combina movimientos funcionales constantemente variados realizados a alta intensidad. En Preta Fit, nos especializamos en hacer que cada entrenamiento sea único, desafiante y adaptable a tu nivel.
+            CrossFit es un programa de acondicionamiento físico que combina
+            movimientos funcionales constantemente variados realizados a alta
+            intensidad. En Preta Fit, nos especializamos en hacer que cada
+            entrenamiento sea único, desafiante y adaptable a tu nivel.
           </p>
           <div class="benefits-list">
             <div class="benefit-item">
-              <strong>Fuerza Funcional:</strong> Movimientos que usas en la vida diaria
+              <strong>Fuerza Funcional:</strong> Movimientos que usas en la vida
+              diaria
             </div>
             <div class="benefit-item">
-              <strong>Comunidad:</strong> Entrena junto a personas que comparten tus objetivos
+              <strong>Comunidad:</strong> Entrena junto a personas que comparten
+              tus objetivos
             </div>
             <div class="benefit-item">
               <strong>Resultados Rápidos:</strong> Ve cambios en tu cuerpo y resistencia
@@ -56,8 +66,8 @@ import levantamientoCrossfit from '../../public/images/levantamiento-crossfit.jp
           </div>
         </div>
         <div class="content-image">
-          <Image 
-            src={levantamientoCrossfit} 
+          <Image
+            src={levantamientoCrossfit}
             alt="Entrenamiento de fuerza CrossFit - Levantamiento de pesas en Preta Fit Jacó"
             width={600}
             height={400}
@@ -69,8 +79,6 @@ import levantamientoCrossfit from '../../public/images/levantamiento-crossfit.jp
       </div>
     </div>
   </section>
-
-
 
   <!-- Schedule Section -->
   <Schedule />
@@ -160,8 +168,6 @@ import levantamientoCrossfit from '../../public/images/levantamiento-crossfit.jp
     height: auto;
     display: block;
   }
-
-
 
   .cta-section {
     background: var(--card);

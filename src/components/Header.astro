@@ -5,80 +5,103 @@ const links = [
   { href: '/wodwarriors', label: 'WOD Warriors' },
 ];
 ---
+
 <div class="topbar">
   <div class="container nav">
-    <a class="brand" href="/" aria-label="Preta Fit - Página de inicio"><span class="logo" aria-hidden="true"></span></a>
+    <a class="brand" href="/" aria-label="Preta Fit - Página de inicio"
+      ><span class="logo" aria-hidden="true"></span></a
+    >
     <nav class="links" aria-label="Navegación principal">
       {links.map(l => <a href={l.href}>{l.label}</a>)}
     </nav>
-    <button class="mnav-btn btn secondary" aria-controls="mnav" aria-expanded="false" 
-            aria-label="Abrir menú de navegación">Menu</button>
+    <button
+      class="mnav-btn btn secondary"
+      aria-controls="mnav"
+      aria-expanded="false"
+      aria-label="Abrir menú de navegación">Menu</button
+    >
   </div>
-  <div id="mnav" class="container mobile-nav" role="dialog" aria-labelledby="mobile-menu-title">
+  <div
+    id="mnav"
+    class="container mobile-nav"
+    role="dialog"
+    aria-labelledby="mobile-menu-title"
+  >
     <div class="card mobile-nav-card">
       <div class="mobile-nav-content">
-        <span id="mobile-menu-title" class="sr-only">Menú de navegación móvil</span>
-        {links.map(l => <a class="btn secondary" href={l.href}>{l.label}</a>)}
+        <span id="mobile-menu-title" class="sr-only"
+          >Menú de navegación móvil</span
+        >
+        {
+          links.map(l => (
+            <a class="btn secondary" href={l.href}>
+              {l.label}
+            </a>
+          ))
+        }
       </div>
     </div>
   </div>
 </div>
 
 <script>
-/* mobile nav */
-const mbtn = document.querySelector('.mnav-btn');
-const mnav = document.getElementById('mnav');
+  /* mobile nav */
+  const mbtn = document.querySelector('.mnav-btn');
+  const mnav = document.getElementById('mnav');
 
-if (mbtn && mnav) {
-  mbtn.addEventListener('click', () => {
-    const open = mnav.style.display !== 'block';
-    mnav.style.display = open ? 'block' : 'none';
-    mbtn.setAttribute('aria-expanded', String(open));
-  });
-}
+  if (mbtn && mnav) {
+    mbtn.addEventListener('click', () => {
+      const open = mnav.style.display !== 'block';
+      mnav.style.display = open ? 'block' : 'none';
+      mbtn.setAttribute('aria-expanded', String(open));
+    });
+  }
 
-/* close mobile on anchor click */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const href = a.getAttribute('href');
-    if (href && href.length > 1) {
-      e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-        if (mnav && mbtn) {
-          mnav.style.display = 'none';
-          mbtn.setAttribute('aria-expanded', 'false');
+  /* close mobile on anchor click */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href && href.length > 1) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+          if (mnav && mbtn) {
+            mnav.style.display = 'none';
+            mbtn.setAttribute('aria-expanded', 'false');
+          }
         }
       }
-    }
+    });
   });
-});
 
-/* keyboard navigation for mobile menu */
-if (mbtn) {
-  mbtn.addEventListener('keydown', (e) => {
-    const keyboardEvent = e as KeyboardEvent;
-    if (keyboardEvent.key === 'Escape' && mnav && mnav.style.display === 'block') {
-      mnav.style.display = 'none';
-      mbtn.setAttribute('aria-expanded', 'false');
-      (mbtn as HTMLElement).focus();
-    }
-  });
-}
+  /* keyboard navigation for mobile menu */
+  if (mbtn) {
+    mbtn.addEventListener('keydown', e => {
+      const keyboardEvent = e as KeyboardEvent;
+      if (
+        keyboardEvent.key === 'Escape' &&
+        mnav &&
+        mnav.style.display === 'block'
+      ) {
+        mnav.style.display = 'none';
+        mbtn.setAttribute('aria-expanded', 'false');
+        (mbtn as HTMLElement).focus();
+      }
+    });
+  }
 
-/* topbar scroll state */
-const tb = document.querySelector('.topbar');
-if (tb) {
-  const toggleScroll = () => {
-    if (window.scrollY > 4) {
-      tb.classList.add('is-scrolled');
-    } else {
-      tb.classList.remove('is-scrolled');
-    }
-  };
-  window.addEventListener('scroll', toggleScroll, { passive: true });
-  toggleScroll();
-}
-</script>
+  /* topbar scroll state */
+  const tb = document.querySelector('.topbar');
+  if (tb) {
+    const toggleScroll = () => {
+      if (window.scrollY > 4) {
+        tb.classList.add('is-scrolled');
+      } else {
+        tb.classList.remove('is-scrolled');
+      }
+    };
+    window.addEventListener('scroll', toggleScroll, { passive: true });
+    toggleScroll();
+  }
 </script>

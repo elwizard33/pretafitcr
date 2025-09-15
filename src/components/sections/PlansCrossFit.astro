@@ -1,15 +1,34 @@
 ---
+import { Debug } from 'astro:components';
+import { formatDebugData } from '../../utils/debug';
 import { plans } from '../../data/plansCrossFit';
 
 // Validate plans data with fallback
 let validatedPlans;
+let debugData = null;
+
 try {
   validatedPlans = plans;
-  if (!validatedPlans || !Array.isArray(validatedPlans) || validatedPlans.length === 0) {
+  if (
+    !validatedPlans ||
+    !Array.isArray(validatedPlans) ||
+    validatedPlans.length === 0
+  ) {
     throw new Error('Invalid or empty plans data');
   }
 } catch (error) {
-  console.error('Error loading plans:', error);
+  debugData = formatDebugData({
+    component: 'PlansCrossFit',
+    operation: 'plans_loading_error',
+    context: {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      originalPlansExists: !!plans,
+      originalPlansLength: Array.isArray(plans) ? plans.length : 0,
+      fallbackAction: 'Using default plan',
+      fallbackPlanId: 'fallback-plan',
+    },
+    severity: 'error',
+  });
   // Provide fallback plan data
   validatedPlans = [
     {
@@ -18,75 +37,106 @@ try {
       price: 'Consultar',
       sessionsPerWeek: 'Flexible',
       validity: 'A convenir',
-      popular: false
-    }
+      popular: false,
+    },
   ];
 }
 ---
 
 <section id="plans" class="section" aria-labelledby="plans-heading">
   <div class="container">
+    {import.meta.env.DEV && debugData && <Debug data={debugData} />}
     <div class="overline">Membresías</div>
     <h2 id="plans-heading" class="h2">Planes y Precios</h2>
-    
-    {validatedPlans && validatedPlans.length > 0 ? (
-      <div class="plans-table-wrapper">
-        <table class="plans-table" role="table" aria-labelledby="plans-heading" 
-               aria-describedby="plans-description">
-          <caption class="sr-only" id="plans-description">
-            Tabla de planes de membresía de CrossFit con precios, número de reservaciones por semana y validez
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col">Plan</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Reservaciones</th>
-              <th scope="col">Validez</th>
-            </tr>
-          </thead>
-          <tbody>
-            {validatedPlans.map((plan, index) => (
-              <tr class="plan-row" data-popular={plan.popular} 
-                  aria-describedby={plan.popular ? `popular-${index}` : undefined}>
-                <td data-label="Plan">
-                  <div class="plan-name">
-                    {plan.name || 'Plan no disponible'}
-                    {plan.popular && (
-                      <span class="popular-badge" id={`popular-${index}`} 
-                            aria-label="Plan más popular">Popular</span>
-                    )}
-                  </div>
-                </td>
-                <td data-label="Precio">
-                  <span class="price">${plan.price || 'Consultar'}</span>
-                </td>
-                <td data-label="Reservaciones">
-                  {plan.sessionsPerWeek || 'Flexible'} por semana
-                </td>
-                <td data-label="Validez">
-                  {plan.validity || 'A convenir'}
-                </td>
+
+    {
+      validatedPlans && validatedPlans.length > 0 ? (
+        <div class="plans-table-wrapper">
+          <table
+            class="plans-table"
+            role="table"
+            aria-labelledby="plans-heading"
+            aria-describedby="plans-description"
+          >
+            <caption class="sr-only" id="plans-description">
+              Tabla de planes de membresía de CrossFit con precios, número de
+              reservaciones por semana y validez
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Plan</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Reservaciones</th>
+                <th scope="col">Validez</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    ) : (
-      <div class="plans-error-state" role="alert" aria-live="polite">
-        <div class="error-state-icon" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" role="img" 
-               aria-label="Icono de información">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="#e5e7eb"/>
-          </svg>
+            </thead>
+            <tbody>
+              {validatedPlans.map((plan, index) => (
+                <tr
+                  class="plan-row"
+                  data-popular={plan.popular}
+                  aria-describedby={
+                    plan.popular ? `popular-${index}` : undefined
+                  }
+                >
+                  <td data-label="Plan">
+                    <div class="plan-name">
+                      {plan.name || 'Plan no disponible'}
+                      {plan.popular && (
+                        <span
+                          class="popular-badge"
+                          id={`popular-${index}`}
+                          aria-label="Plan más popular"
+                        >
+                          Popular
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                  <td data-label="Precio">
+                    <span class="price">${plan.price || 'Consultar'}</span>
+                  </td>
+                  <td data-label="Reservaciones">
+                    {plan.sessionsPerWeek || 'Flexible'} por semana
+                  </td>
+                  <td data-label="Validez">{plan.validity || 'A convenir'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-        <h3>Planes no disponibles</h3>
-        <p>Por favor contactanos para conocer nuestros planes y precios actualizados.</p>
-        <a href="tel:+50670092140" class="contact-fallback-btn" 
-           aria-label="Llamar al teléfono +506 7009-2140 para consultar planes">
-          Llamar +506 7009-2140
-        </a>
-      </div>
-    )}
+      ) : (
+        <div class="plans-error-state" role="alert" aria-live="polite">
+          <div class="error-state-icon" aria-hidden="true">
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              role="img"
+              aria-label="Icono de información"
+            >
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+                fill="#e5e7eb"
+              />
+            </svg>
+          </div>
+          <h3>Planes no disponibles</h3>
+          <p>
+            Por favor contactanos para conocer nuestros planes y precios
+            actualizados.
+          </p>
+          <a
+            href="tel:+50670092140"
+            class="contact-fallback-btn"
+            aria-label="Llamar al teléfono +506 7009-2140 para consultar planes"
+          >
+            Llamar +506 7009-2140
+          </a>
+        </div>
+      )
+    }
   </div>
 </section>
 
@@ -175,7 +225,7 @@ try {
     border-bottom: none;
   }
 
-  .plan-row[data-popular="true"] {
+  .plan-row[data-popular='true'] {
     background: #fff7f3;
     border-left: 3px solid var(--brand);
   }
@@ -237,7 +287,7 @@ try {
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
-    .plan-row[data-popular="true"] {
+    .plan-row[data-popular='true'] {
       border-color: var(--brand);
       box-shadow: 0 2px 8px rgba(255, 106, 42, 0.15);
     }
@@ -251,7 +301,7 @@ try {
     }
 
     .plans-table td:before {
-      content: attr(data-label) ": ";
+      content: attr(data-label) ': ';
       font-weight: 600;
       color: var(--ink);
       flex-shrink: 0;

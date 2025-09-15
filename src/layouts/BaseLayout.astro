@@ -1,19 +1,19 @@
 ---
 import { generateStructuredData } from '../data/businessInfo';
 
-interface Props { 
-  title?: string; 
-  description?: string; 
+interface Props {
+  title?: string;
+  description?: string;
   image?: string;
   url?: string;
   type?: string;
 }
-const { 
-  title = 'Preta Fit | CrossFit · BJJ · Comunidad', 
+const {
+  title = 'Preta Fit | CrossFit · BJJ · Comunidad',
   description = 'Box líder en Jacó con programas de CrossFit, Brazilian Jiu-Jitsu y Wellness.',
   image = '/images/logo-pretafit.jpeg',
   url = Astro.url.href,
-  type = 'website'
+  type = 'website',
 } = Astro.props;
 
 const baseUrl = Astro.site?.href || 'https://pretafitcr.com';
@@ -21,23 +21,24 @@ const canonicalURL = new URL(Astro.url.pathname, baseUrl);
 const fullImageURL = new URL(image, baseUrl).href;
 const structuredData = generateStructuredData(baseUrl);
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    
+
     <!-- Basic SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    
+
     <!-- Geo Location for Local SEO -->
     <meta name="geo.region" content="CR-P" />
     <meta name="geo.placename" content="Jacó, Puntarenas, Costa Rica" />
     <meta name="geo.position" content="9.6139;-84.6286" />
     <meta name="ICBM" content="9.6139, -84.6286" />
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={type} />
     <meta property="og:url" content={url} />
@@ -49,7 +50,7 @@ const structuredData = generateStructuredData(baseUrl);
     <meta property="og:image:alt" content={title} />
     <meta property="og:locale" content="es_CR" />
     <meta property="og:site_name" content="Preta Fit Jacó" />
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={url} />
@@ -59,27 +60,36 @@ const structuredData = generateStructuredData(baseUrl);
     <meta name="twitter:image:alt" content={title} />
     <meta name="twitter:site" content="@pretafitjaco" />
     <meta name="twitter:creator" content="@pretafitjaco" />
-    
+
     <!-- Additional SEO -->
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Preta Fit Jacó" />
     <meta name="language" content="Spanish" />
     <meta name="theme-color" content="#000000" />
-    
+
     <!-- Local Business Keywords -->
-    <meta name="keywords" content="CrossFit Jacó, gimnasio Jacó, Brazilian Jiu-Jitsu Costa Rica, fitness Jacó, box CrossFit Puntarenas, entrenamiento funcional Jacó" />
-    
+    <meta
+      name="keywords"
+      content="CrossFit Jacó, gimnasio Jacó, Brazilian Jiu-Jitsu Costa Rica, fitness Jacó, box CrossFit Puntarenas, entrenamiento funcional Jacó"
+    />
+
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-    
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
+    />
+
     <link rel="icon" type="image/jpeg" href="/images/logo-pretafit.jpeg" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/theme.css" />
   </head>
   <body>
     <!-- Skip to content link for keyboard navigation -->
     <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-    
+
     <slot name="header" />
     <main id="main-content" tabindex="-1">
       <slot />
@@ -87,23 +97,26 @@ const structuredData = generateStructuredData(baseUrl);
     <slot name="footer" />
     <script>
       // Respect reduced motion preferences
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
       // Scroll reveal - only if motion is not reduced
       const animated = document.querySelectorAll('[data-animate]');
       if (animated.length > 0 && !prefersReducedMotion) {
         const io = new IntersectionObserver(
-          entries => entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('in-view');
-              io.unobserve(entry.target);
-            }
-          }),
+          entries =>
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+              }
+            }),
           { threshold: 0.15 }
         );
         animated.forEach(el => io.observe(el));
       }
-      
+
       // FAQ with keyboard accessibility
       document.querySelectorAll('.faq summary').forEach(btn => {
         // Add keyboard support
@@ -111,25 +124,32 @@ const structuredData = generateStructuredData(baseUrl);
           const details = btn.parentElement;
           details?.classList.toggle('open');
         });
-        
+
         // Add ARIA attributes
-        btn.setAttribute('aria-expanded', btn.parentElement?.hasAttribute('open') ? 'true' : 'false');
-        
+        btn.setAttribute(
+          'aria-expanded',
+          btn.parentElement?.hasAttribute('open') ? 'true' : 'false'
+        );
+
         // Update ARIA on toggle
-        btn.parentElement?.addEventListener('toggle', (e) => {
+        btn.parentElement?.addEventListener('toggle', e => {
           const target = e.target as HTMLDetailsElement;
           if (target) {
             btn.setAttribute('aria-expanded', target.open ? 'true' : 'false');
           }
         });
       });
-      
+
       // Improve focus management for mobile menu
       const mobileMenuToggle = document.querySelector('.mnav-btn');
       if (mobileMenuToggle) {
         mobileMenuToggle.addEventListener('click', () => {
-          const expanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-          mobileMenuToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+          const expanded =
+            mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+          mobileMenuToggle.setAttribute(
+            'aria-expanded',
+            expanded ? 'false' : 'true'
+          );
         });
       }
     </script>
